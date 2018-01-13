@@ -1,5 +1,6 @@
 const fetch = require('isomorphic-fetch')
 const Table = require('cli-table')
+const moment = require('moment')
 
 const { formatPercentage } = require('./util')
 const Binance = require('./exchange/binance')
@@ -43,5 +44,8 @@ compare([Binance, Bithumb], ['etc/btc', 'xrp/btc', 'btg/btc', 'dash/btc']).then(
         table.push({ [coinName]: prices[i] })
     })
 
+    console.log('====================================================\n')
     console.log(table.toString())
+    console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+    console.log('\n====================================================')
 })
