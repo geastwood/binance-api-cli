@@ -1,6 +1,10 @@
-# crypto Arbitrage
-
-![](images/demo.png)
+# Auto trading wrapping around Binance
 
 * run the script
-`node src/index.js`
+`node src/index.js exchange|version|help`
+
+
+# Todos
+
+* [ ] parse symbels
+
