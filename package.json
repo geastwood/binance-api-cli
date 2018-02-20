@@ -17,11 +17,13 @@
     "clui": "^0.3.6",
     "configstore": "^3.1.1",
     "figlet": "^1.2.0",
+    "immutable": "^3.8.2",
     "inquirer": "^5.1.0",
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "nodeunit": "^0.11.2",
+    "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
     "ramda": "^0.25.0"
   },

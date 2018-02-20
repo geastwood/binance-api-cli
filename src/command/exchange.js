@@ -1,8 +1,10 @@
-const fetch = require('isomorphic-fetch')
 const api = require('../api')
+const { log } = require('../util')
+const SymbolCollection = require('../model/symbolCollection')
 
 module.exports.run = async () => {
     const rst = await api.exchangeInfo()
+    const symbolCollection = SymbolCollection.create(rst)
 
-    console.log('rst: ', rst.symbols.map(({ symbol }) => symbol).join(', '))
+    log(symbolCollection.getSupportedBaseAssets())
 }

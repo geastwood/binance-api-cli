@@ -8,6 +8,7 @@ module.exports.formatPrice = v => numeral(v).format('0.0000000000')
 module.exports.log = msg => {
     const format = chalk.yellow
 
+    console.log(format(`[${pkg.name.toUpperCase()}/LOG]:`))
     if (R.is(Object, msg)) {
         console.log(format(JSON.stringify(msg, null, 4)))
     } else {
