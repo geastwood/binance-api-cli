@@ -1,6 +1,8 @@
 const { normalize, schema } = require('normalizr')
 const SymbolModel = require('../model/symbol')
 const { Map } = require('immutable')
+const R = require('ramda')
+const { info } = require('../util')
 
 const generateSymbolKey = ({ baseAsset, quoteAsset }) => `${baseAsset}/${quoteAsset}`
 
@@ -25,6 +27,14 @@ const SymbolCollection = class {
 
     getSupportedBaseAssetsCount() {
         return this.data.count()
+    }
+
+    findByBaseAsset(value) {
+        return R.path(['data'], this.data.find(sm => sm.getBaseAsset() === value))
+    }
+
+    printSummary() {
+        info('Supported Assets counts:', this.getSupportedBaseAssetsCount())
     }
 }
 

@@ -19,3 +19,7 @@ module.exports.log = msg => {
 module.exports.err = msg => {
     console.log(chalk.red(`[${pkg.name.toUpperCase()}/ERROR]:`), msg)
 }
+
+module.exports.info = (msg, ...rest) => {
+    console.log(chalk.blue(`[${pkg.name.toUpperCase()}/INFO]:`), msg, ...rest)
+}

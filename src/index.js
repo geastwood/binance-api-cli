@@ -16,4 +16,4 @@ if (!commandWhiteList.includes(command)) {
 }
 
 // Pass down to individual commands
-commands[command](args)
+commands[command](R.omit(['_'], args))
