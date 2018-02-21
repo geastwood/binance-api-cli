@@ -79,7 +79,7 @@ rules:
   max-statements: 'off'
   max-statements-per-line: error
   multiline-comment-style: error
-  multiline-ternary: error
+  multiline-ternary: 'off'
   new-cap: error
   new-parens: error
   newline-after-var:
@@ -94,7 +94,7 @@ rules:
   no-buffer-constructor: error
   no-caller: error
   no-catch-shadow: error
-  no-confusing-arrow: error
+  no-confusing-arrow: 'off'
   no-continue: error
   no-div-regex: error
   no-duplicate-imports: error
@@ -105,7 +105,7 @@ rules:
   no-extend-native: error
   no-extra-bind: error
   no-extra-label: error
-  no-extra-parens: error
+  no-extra-parens: 'off'
   no-floating-decimal: error
   no-implicit-coercion: error
   no-implicit-globals: error
@@ -158,7 +158,7 @@ rules:
   no-sync: 'off'
   no-tabs: error
   no-template-curly-in-string: error
-  no-ternary: error
+  no-ternary: 'off'
   no-throw-literal: error
   no-trailing-spaces: error
   no-undef-init: error

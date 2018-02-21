@@ -1,6 +1,0 @@
----
-# api key setion, apiKey and secret must be used in pair
-apiKey:
-    read: some api key
-secret:
-    read: secret which aquired from binance

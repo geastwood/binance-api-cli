@@ -25,6 +25,7 @@
     "nodeunit": "^0.11.2",
     "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
+    "query-string": "^5.1.0",
     "ramda": "^0.25.0"
   },
   "devDependencies": {

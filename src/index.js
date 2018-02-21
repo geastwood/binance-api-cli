@@ -1,5 +1,5 @@
 const minimist = require('minimist')
-const commandWhiteList = ['exchange', 'version', 'help']
+const commandWhiteList = ['exchange', 'version', 'help', 'account']
 const { log, err } = require('./util')
 const R = require('ramda')
 const commands = require('./command')
