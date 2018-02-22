@@ -18,6 +18,9 @@
 * `node src/index.js account --hideSmall --smallThreshold` => filtering balances
     --threshold[=0]
 
+### Price
+* `node src/index.js price --symbol=ETHBTC` => get current price of a symbol
+
 
 ## TODOs
 * [ ] add account info

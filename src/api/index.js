@@ -14,7 +14,10 @@ const account = (q, opts = {}) =>
         }),
     ).then(toJson)
 
+const price = q => fetch(urls.price(q)).then(toJson)
+
 module.exports = {
     exchangeInfo,
     account,
+    price,
 }
