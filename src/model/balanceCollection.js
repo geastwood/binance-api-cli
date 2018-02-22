@@ -1,6 +1,5 @@
 const { normalize, schema } = require('normalizr')
 const { Map } = require('immutable')
-const R = require('ramda')
 const BalanceModel = require('../model/balance')
 
 const balanceSchema = new schema.Entity(
@@ -14,9 +13,8 @@ const balanceSchema = new schema.Entity(
 
 const balancesSchema = [balanceSchema]
 
-const AccountBalances = class {
-    constructor(accountMeta, balances) {
-        this.accountMeta = accountMeta
+const BalanceCollection = class {
+    constructor(balances) {
         this.balances = new Map(balances)
     }
 
@@ -31,11 +29,10 @@ const AccountBalances = class {
     }
 }
 
-AccountBalances.create = accountBalance => {
+BalanceCollection.create = accountBalance => {
     const { entities } = normalize(accountBalance.balances, balancesSchema)
-    const rest = R.omit(['balances'], accountBalance)
 
-    return new AccountBalances(rest, entities.balances)
+    return new BalanceCollection(entities.balances)
 }
 
-module.exports = AccountBalances
+module.exports = BalanceCollection

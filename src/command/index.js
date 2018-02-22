@@ -1,10 +1,10 @@
-const { run: exchange } = require('./exchange')
+const { run: symbol } = require('./symbol')
 const { run: help } = require('./help')
-const { run: account } = require('./account')
+const { run: balance } = require('./balance')
 
 module.exports = {
-    exchange,
+    symbol,
     help,
     version: help,
-    account,
+    balance,
 }

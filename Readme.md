@@ -2,9 +2,9 @@
 
 # Commands
 
-* symbol -> provide exchange infos [GET] // TODO
+* symbol -> provide exchange infos [GET]
 * account -> provide account info [GET] // TODO
-* balance -> provide your current balance [GET] // TODO
+* balance -> provide your current balance [GET]
 
 ## excamples
 * `node src/index.js exchange|version|help`
@@ -18,3 +18,7 @@
 * `node src/index.js account --hideSmall --smallThreshold` => filtering balances
     --threshold[=0]
 
+
+## TODOs
+* [ ] add account info
+* [ ] estimate balance in BTC
