@@ -21,8 +21,16 @@ const Symbol = class {
         return `${id} is ${status}`
     }
 
+    isBaseAsset(symbol) {
+        return this.getBaseAsset() === symbol
+    }
+
     getBaseAsset() {
         return this.data.get('baseAsset')
+    }
+
+    getQuoteAsset() {
+        return this.data.get('quoteAsset')
     }
 
     print() {

@@ -11,6 +11,7 @@ module.exports.run = async ({ base }) => {
 
         if (asset) {
             info(`Found "${base}"`)
+            asset.map((data, symbol) => info(`${symbol} (${data.isBaseAsset(base) ? 'base' : 'quote'})`))
         }
     } else {
         symbolCollection.printSummary()

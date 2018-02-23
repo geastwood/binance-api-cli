@@ -30,7 +30,7 @@ const SymbolCollection = class {
     }
 
     findByBaseAsset(value) {
-        return R.path(['data'], this.data.find(sm => sm.getBaseAsset() === value))
+        return this.data.filter(sm => sm.getBaseAsset() === value || sm.getQuoteAsset() === value)
     }
 
     printSummary() {
