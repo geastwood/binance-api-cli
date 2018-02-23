@@ -9,7 +9,9 @@ module.exports.run = async ({ base }) => {
     if (base) {
         const asset = symbolCollection.findByBaseAsset(base)
 
-        if (asset) {
+        if (asset.isEmpty()) {
+            info(`no support for ${base}`)
+        } else {
             info(`Found "${base}"`)
             asset.map((data, symbol) => info(`${symbol} (${data.isBaseAsset(base) ? 'base' : 'quote'})`))
         }
