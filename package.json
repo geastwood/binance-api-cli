@@ -7,8 +7,8 @@
     "test": "jasmine",
     "lint": "eslint ."
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["binance", "cryptocurrency", "BTC", "ETH", "BNB", "bot"],
+  "author": "Fei Liu liu.fewood@gmail.com",
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.3.0",
@@ -16,7 +16,6 @@
     "cli-table": "^0.3.1",
     "clui": "^0.3.6",
     "configstore": "^3.1.1",
-    "figlet": "^1.2.0",
     "immutable": "^3.8.2",
     "inquirer": "^5.1.0",
     "isomorphic-fetch": "^2.2.1",

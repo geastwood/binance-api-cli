@@ -23,6 +23,9 @@
 
 
 ## TODOs
+* [ ] handle error in api module
 * [ ] add account info
 * [ ] estimate balance in BTC
 * [ ] filter symbol list with one symbol
+
+

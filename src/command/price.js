@@ -1,6 +1,7 @@
 const api = require('../api')
 const { err, info } = require('../util')
 const qs = require('query-string')
+const SimplePrice = require('../model/simplePrice')
 
 module.exports.run = async ({ symbol }) => {
     if (!symbol) {
@@ -15,5 +16,7 @@ module.exports.run = async ({ symbol }) => {
         process.exit(1)
     }
 
-    info(`${rst.symbol} is currently at ${rst.price}`)
+    const model = SimplePrice.create(rst)
+
+    info(`${model.getId()} is currently at ${model.getPrice()}`)
 }
