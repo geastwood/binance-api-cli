@@ -17,7 +17,7 @@ const BalanceCollection = class {
     }
 
     filterBalanceBySymbol(symbol) {
-        return this.data.filter((_, key) => key.includes(symbol))
+        return this.balances.filter((_, key) => key.includes(symbol))
     }
 }
 

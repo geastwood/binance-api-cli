@@ -4,7 +4,7 @@
   "description": "Auto trading bot wrapping bianace Api",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit ./test",
+    "test": "jasmine",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -22,7 +22,6 @@
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
-    "nodeunit": "^0.11.2",
     "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
     "query-string": "^5.1.0",
@@ -35,6 +34,7 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "jasmine": "^3.0.0"
   }
 }
