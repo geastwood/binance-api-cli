@@ -1,6 +1,6 @@
 const api = require('../api')
 const { info } = require('../util')
-const SymbolCollection = require('../model/symbolCollection')
+const { collection: SymbolCollection } = require('../model/symbol')
 
 module.exports.run = async ({ base }) => {
     const rst = await api.exchangeInfo()

@@ -1,20 +1,6 @@
-const { normalize, schema } = require('normalizr')
-const SymbolModel = require('../model/symbol')
+const { normalize } = require('./schema')
 const { Map } = require('immutable')
-const R = require('ramda')
-const { info } = require('../util')
-
-const generateSymbolKey = ({ baseAsset, quoteAsset }) => `${baseAsset}/${quoteAsset}`
-
-const symbolSchema = new schema.Entity(
-    'symbols',
-    {},
-    {
-        idAttribute: generateSymbolKey,
-        processStrategy: value => SymbolModel.create(Object.assign({}, value, { id: generateSymbolKey(value) })),
-    },
-)
-const symbolsSchema = [symbolSchema]
+const { info } = require('../../util')
 
 const SymbolCollection = class {
     constructor(data) {
@@ -39,9 +25,9 @@ const SymbolCollection = class {
 }
 
 SymbolCollection.create = ({ symbols }) => {
-    const { entities } = normalize(symbols, symbolsSchema)
+    const entities = normalize(symbols)
 
-    return new SymbolCollection(entities.symbols)
+    return new SymbolCollection(entities)
 }
 
 module.exports = SymbolCollection

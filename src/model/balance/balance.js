@@ -10,11 +10,11 @@ const Balance = class {
     }
 
     getFree() {
-        return this.data.get('free')
+        return Number(this.data.get('free'))
     }
 
     getLocked() {
-        return this.data.get('locked')
+        return Number(this.data.get('locked'))
     }
 }
 

@@ -1,4 +1,4 @@
-const { log } = require('../util')
+const { log } = require('../../util')
 const { Map } = require('immutable')
 
 const Symbol = class {
