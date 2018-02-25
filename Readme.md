@@ -1,10 +1,15 @@
 # Auto trading wrapping around Binance
 
+# Setup
+run `fat config` to specify the *apiKey* and *secret* for accessing the full
+feature
+
 # Commands
 
 * symbol -> provide exchange infos [GET]
 * account -> provide account info [GET] // TODO
 * balance -> provide your current balance [GET]
+* config -> setup secret and apiKey
 
 ## excamples
 * `node src/index.js exchange|version|help`

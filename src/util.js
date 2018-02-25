@@ -22,6 +22,14 @@ module.exports.err = (msg: string) => {
     console.log(chalk.red(`[${pkg.name.toUpperCase()}/ERROR]:`), msg)
 }
 
+module.exports.warn = (msg: string) => {
+    console.log(chalk.yellow(`[${pkg.name.toUpperCase()}/WARN]:`), msg)
+}
+
+module.exports.success = (msg: string) => {
+    console.log(chalk.green(`[${pkg.name.toUpperCase()}/WARN]:`), msg)
+}
+
 module.exports.info = (msg: string, ...rest: string[]) => {
     console.log(chalk.blue(`[${pkg.name.toUpperCase()}/INFO]:`), msg, ...rest)
 }

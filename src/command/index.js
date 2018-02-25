@@ -5,7 +5,7 @@ const { run: help } = require('./help')
 const { run: balance } = require('./balance')
 const { run: price } = require('./price')
 const { run: trade } = require('./trade')
-const { run: health } = require('./health')
+const { run: config } = require('./config')
 
 const commands = {
     symbol,
@@ -14,7 +14,7 @@ const commands = {
     balance,
     price,
     trade,
-    health,
+    config,
 }
 
 module.exports = commands

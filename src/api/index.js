@@ -1,6 +1,6 @@
 const fetch = require('isomorphic-fetch')
 const urls = require('./url')
-const config = require('../../config/config.json')
+const { getConfigstore } = require('../config')
 
 const toJson = a => a.json()
 const exchangeInfo = () => fetch(urls.exchangeInfo()).then(toJson)
@@ -9,7 +9,7 @@ const account = (q, opts = {}) =>
         urls.account(q),
         Object.assign(opts, {
             headers: Object.assign(opts.headers || {}, {
-                'X-MBX-APIKEY': config.apiKey,
+                'X-MBX-APIKEY': getConfigstore().get('apiKey'),
             }),
         }),
     ).then(toJson)
@@ -20,7 +20,7 @@ const trade = (q, opts = {}) =>
         urls.trade(q),
         Object.assign(opts, {
             headers: Object.assign(opts.headers || {}, {
-                'X-MBX-APIKEY': config.apiKey,
+                'X-MBX-APIKEY': getConfigstore().get('apiKey'),
             }),
         }),
     ).then(toJson)

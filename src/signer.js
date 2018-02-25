@@ -1,7 +1,7 @@
 /* @flow */
 
 const crypto = require('crypto')
-const { secret } = require('../config/config.json')
+const { getConfigstore } = require('./config')
 const qs = require('query-string')
 
 const sign = (s: string, payload: string) =>
@@ -12,6 +12,7 @@ const sign = (s: string, payload: string) =>
 
 exports.withSignature = (raw: {}) => {
     const payload = qs.stringify(raw)
+    const secret = getConfigstore().get('secret')
 
     return `${payload}&signature=${sign(secret, payload)}`
 }

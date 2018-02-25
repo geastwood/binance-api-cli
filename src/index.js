@@ -2,16 +2,22 @@
 
 const minimist = require('minimist')
 const clear = require('clear')
-const commandWhiteList: TCommandSupported = ['symbol', 'balance', 'price', 'trade', 'help', 'version', 'health']
+const commandWhiteList: TCommandSupported = ['symbol', 'balance', 'price', 'trade', 'help', 'version', 'config']
 const { log, err } = require('./util')
+const pkg = require('../package.json')
 const R = require('ramda')
 const commands = require('./command')
+const { hasConfig } = require('./config')
 const args = minimist(process.argv.slice(2))
+const command: TCommand = R.head(args._)
+
+if (!hasConfig && command !== 'config') {
+    err(`config file is not found, please run \`${pkg.name} config\` first to setup`)
+    process.exit(1)
+}
 
 clear()
 log(args)
-
-const command = R.head(args._)
 
 // Checking top level commands
 if (!commandWhiteList.includes(command)) {

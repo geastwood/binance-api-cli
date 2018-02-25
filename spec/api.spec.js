@@ -1,4 +1,4 @@
-const urls = require('../src/api/url')
+const urls = require('../dist/api/url')
 
 describe('api', () => {
     it('urls', () => {
