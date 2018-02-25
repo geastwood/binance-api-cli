@@ -29,6 +29,7 @@
     "isomorphic-fetch": "^2.2.1",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
+    "node-binance-api": "^0.4.21",
     "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
     "query-string": "^5.1.0",
