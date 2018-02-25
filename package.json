@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jasmine",
     "lint": "eslint .",
-    "flow": "flow ."
+    "flow": "flow .",
+    "flow-typed": " flow-typed install"
   },
   "keywords": [
     "binance",
@@ -51,6 +52,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "flow-bin": "^0.66.0",
+    "flow-typed": "^2.3.0",
     "jasmine": "^3.0.0"
   }
 }

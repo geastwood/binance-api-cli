@@ -28,4 +28,10 @@
 * [ ] estimate balance in BTC
 * [ ] filter symbol list with one symbol
 
+## Calculation
 
+Given you bought C1/BTC with price P1 for quantity of Q1
+
+the total cost is the sum of V1 and transaction cost T1
+
+* V1 = (P1 * Q1) - T1 * PBNB
