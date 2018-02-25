@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    ["transform-flow-strip-types"],
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ],
+  "env": {
+    "production": {
+      "comments": false,
+      "minified": true
+    }
+  }
+}

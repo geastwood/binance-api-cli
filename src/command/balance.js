@@ -1,9 +1,16 @@
+/* @flow */
 const { log } = require('../util')
 const api = require('../api')
 const { withSignature } = require('../signer')
 const { collection: BalanceCollection } = require('../model/balance')
 
-exports.run = async ({ hideSmall, smallThreshold, symbol }) => {
+type CommandOptions = {
+    hideSmall?: boolean,
+    smallThreshold?: number,
+    symbol?: string,
+}
+
+exports.run = async ({ hideSmall, smallThreshold, symbol }: CommandOptions) => {
     const signedPayload = withSignature({
         timestamp: Date.now(),
     })

@@ -1,3 +1,5 @@
+/* @flow */
+
 const pkg = require('../../package.json')
 const chalk = require('chalk')
 

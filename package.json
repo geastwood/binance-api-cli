@@ -5,9 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "flow": "flow ."
   },
-  "keywords": ["binance", "cryptocurrency", "BTC", "ETH", "BNB", "bot"],
+  "keywords": [
+    "binance",
+    "cryptocurrency",
+    "BTC",
+    "ETH",
+    "BNB",
+    "bot"
+  ],
   "author": "Fei Liu liu.fewood@gmail.com",
   "license": "MIT",
   "dependencies": {
@@ -27,13 +35,21 @@
     "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-stage-3": "^6.24.1",
     "eslint": "^4.18.0",
     "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-flowtype": "^2.46.1",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "flow-bin": "^0.66.0",
     "jasmine": "^3.0.0"
   }
 }

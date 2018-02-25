@@ -1,3 +1,5 @@
+/* @flow */
+
 const minimist = require('minimist')
 const clear = require('clear')
 const commandWhiteList = ['symbol', 'balance', 'price', 'trade', 'help', 'version']

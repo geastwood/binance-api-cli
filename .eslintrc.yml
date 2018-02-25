@@ -1,12 +1,15 @@
 plugins: [prettier]
+parser: 'babel-eslint'
+parserOptions:
+  sourceType: module
+  allowImportExportEverywhere: false
+  codeFrame: false
 env:
   browser: false
   es6: true
   node: true
   jasmine: true
 extends: 'eslint:recommended'
-parserOptions:
-  ecmaVersion: 2017
 rules:
   no-console: 'off'
   accessor-pairs: error
@@ -163,7 +166,8 @@ rules:
   no-throw-literal: error
   no-trailing-spaces: error
   no-undef-init: error
-  no-undefined: error
+  no-undef: 'off'
+  no-undefined: 'off'
   no-underscore-dangle: error
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
