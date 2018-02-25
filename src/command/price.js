@@ -1,22 +1,28 @@
+/* @flow */
+
 const api = require('../api')
 const { err, info } = require('../util')
 const qs = require('query-string')
 const SimplePrice = require('../model/simplePrice')
 
-module.exports.run = async ({ symbol }) => {
-    if (!symbol) {
-        err('--symbol is required')
-        process.exit(1)
-    }
+const Price: TCommandRunable = {
+    async run({ symbol }) {
+        if (!symbol) {
+            err('--symbol is required')
+            process.exit(1)
+        }
 
-    const rst = await api.price(qs.stringify({ symbol }))
+        const rst = await api.price(qs.stringify({ symbol }))
 
-    if (rst.code) {
-        err(rst.msg)
-        process.exit(1)
-    }
+        if (rst.code) {
+            err(rst.msg)
+            process.exit(1)
+        }
 
-    const model = SimplePrice.create(rst)
+        const model = SimplePrice.create(rst)
 
-    info(`${model.getId()} is currently at ${model.getPrice()}`)
+        info(`${model.getId()} is currently at ${model.getPrice()}`)
+    },
 }
+
+module.exports = Price

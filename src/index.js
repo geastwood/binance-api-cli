@@ -2,7 +2,7 @@
 
 const minimist = require('minimist')
 const clear = require('clear')
-const commandWhiteList = ['symbol', 'balance', 'price', 'trade', 'help', 'version']
+const commandWhiteList: TCommandSupported = ['symbol', 'balance', 'price', 'trade', 'help', 'version', 'health']
 const { log, err } = require('./util')
 const R = require('ramda')
 const commands = require('./command')

@@ -1,11 +1,13 @@
+/* @flow */
+
 const pkg = require('../package.json')
 const numeral = require('numeral')
 const chalk = require('chalk')
 const R = require('ramda')
 
-module.exports.formatPercentage = v => numeral(v).format('0.000%')
-module.exports.formatPrice = v => numeral(v).format('0.0000000000')
-module.exports.log = msg => {
+module.exports.formatPercentage = (v: number) => numeral(v).format('0.000%')
+module.exports.formatPrice = (v: number) => numeral(v).format('0.0000000000')
+module.exports.log = (msg: string) => {
     const format = chalk.yellow
 
     console.log(format(`[${pkg.name.toUpperCase()}/LOG]:`))
@@ -16,10 +18,10 @@ module.exports.log = msg => {
     }
 }
 
-module.exports.err = msg => {
+module.exports.err = (msg: string) => {
     console.log(chalk.red(`[${pkg.name.toUpperCase()}/ERROR]:`), msg)
 }
 
-module.exports.info = (msg, ...rest) => {
+module.exports.info = (msg: string, ...rest: string[]) => {
     console.log(chalk.blue(`[${pkg.name.toUpperCase()}/INFO]:`), msg, ...rest)
 }

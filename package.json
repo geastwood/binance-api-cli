@@ -4,10 +4,11 @@
   "description": "Auto trading bot wrapping bianace Api",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "jasmine .",
     "lint": "eslint .",
     "flow": "flow .",
-    "flow-typed": " flow-typed install"
+    "flow-typed": " flow-typed install",
+    "watch": "babel --watch src -d dist"
   },
   "keywords": [
     "binance",

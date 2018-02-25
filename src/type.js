@@ -1,10 +1,10 @@
 /* @flow */
 /* eslint-disable */
-declare type TCommandSupported = {|
-    symbol: Function,
-    help: Function,
-    version: Function,
-    balance: Function,
-    price: Function,
-    trade: Function,
+
+declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'health'
+
+declare type TCommandSupported = Array<TCommand>
+
+declare type TCommandRunable = {|
+    run: (args: any) => mixed,
 |}

@@ -1,9 +1,15 @@
+/* @flow */
+
 const api = require('../api')
 const { log } = require('../util')
 const { withSignature } = require('../signer')
 
-module.exports.run = async ({ symbol }) => {
-    const rst = await api.trade(withSignature({ symbol, timestamp: Date.now() }))
+const Trade: TCommandRunable = {
+    async run({ symbol }) {
+        const rst = await api.trade(withSignature({ symbol, timestamp: Date.now() }))
 
-    log(rst)
+        log(rst)
+    },
 }
+
+module.exports = Trade

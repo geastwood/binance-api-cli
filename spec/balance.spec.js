@@ -1,7 +1,7 @@
 const { balances, account } = require('./fixture')
-const BalanceModel = require('../src/model/balance/balance')
-const Schema = require('../src/model/balance/schema')
-const Collection = require('../src/model/balance/collection')
+const BalanceModel = require('../dist/model/balance/balance')
+const Schema = require('../dist/model/balance/schema')
+const Collection = require('../dist/model/balance/collection')
 
 describe('model/balance', () => {
     it('model', () => {

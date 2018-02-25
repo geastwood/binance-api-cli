@@ -1,4 +1,4 @@
-const { sign, withSignature } = require('../src/signer')
+const { sign, withSignature } = require('../dist/signer')
 
 describe('signer', () => {
     it('sign', () => {

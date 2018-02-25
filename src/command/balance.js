@@ -10,18 +10,22 @@ type CommandOptions = {
     symbol?: string,
 }
 
-exports.run = async ({ hideSmall, smallThreshold, symbol }: CommandOptions) => {
-    const signedPayload = withSignature({
-        timestamp: Date.now(),
-    })
-    const rst = await api.account(signedPayload)
-    const accountBalance = BalanceCollection.create(rst)
+const Balance: TCommandRunable = {
+    async run({ hideSmall, smallThreshold, symbol }: CommandOptions) {
+        const signedPayload = withSignature({
+            timestamp: Date.now(),
+        })
+        const rst = await api.account(signedPayload)
+        const accountBalance = BalanceCollection.create(rst)
 
-    let data = accountBalance.getAllBalancesSummary(hideSmall, smallThreshold)
+        let data = accountBalance.getAllBalancesSummary(hideSmall, smallThreshold)
 
-    if (symbol) {
-        data = data.filter((_, asset) => asset === symbol)
-    }
+        if (symbol) {
+            data = data.filter((_, asset) => asset === symbol)
+        }
 
-    data.map((v, asset) => log(`${asset}: ${v}`))
+        data.map((v, asset) => log(`${asset}: ${v}`))
+    },
 }
+
+module.exports = Balance
