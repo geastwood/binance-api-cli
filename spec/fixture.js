@@ -1,3 +1,18 @@
+exports.trades = [
+    {
+        id: 565812,
+        orderId: 3314345,
+        price: '0.00008153',
+        qty: '491.00000000',
+        commission: '0.02056470',
+        commissionAsset: 'BNB',
+        time: 1519632197492,
+        isBuyer: true,
+        isMaker: true,
+        isBestMatch: true,
+    },
+]
+
 exports.balances = [
     {
         asset: 'BTC',

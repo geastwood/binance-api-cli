@@ -8,8 +8,9 @@ const R = require('ramda')
 const commands = require('./command')
 const { hasConfig, getConfigstore } = require('./config')
 const args = minimist(process.argv.slice(2))
-const command: TCommand = R.head(args._)
 const binance = require('node-binance-api')
+// $FlowFixMe
+const command: TCommand = R.head(args._)
 
 if (!hasConfig && command !== 'config') {
     err(`config file is not found, please run \`${pkg.name} config\` first to setup`)

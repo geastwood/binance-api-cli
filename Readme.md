@@ -12,26 +12,33 @@ feature
 * config -> setup secret and apiKey
 
 ## excamples
-* `node src/index.js exchange|version|help`
+* `node dist/index.js exchange|version|help`
 
 ### Exchange
-* `node src/index.js exchange --base=ADA` => find asset ADA
-* `node src/index.js exchange` => print summary of exchange
+* `node dist/index.js exchange --base=ADA` => find asset ADA
+* `node dist/index.js exchange` => print summary of exchange
 
 ### Account
-* `node src/index.js account` => get account meta and balances
-* `node src/index.js account --hideSmall --smallThreshold` => filtering balances
+* `node dist/index.js account` => get account meta and balances
+* `node dist/index.js account --hideSmall --smallThreshold` => filtering balances
     --threshold[=0]
 
 ### Price
-* `node src/index.js price --symbol=ETHBTC` => get current price of a symbol
+* `node dist/index.js price --symbol=ETHBTC` => get current price of a symbol
+
+### Trade
+
+* node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389
+* --symbol
+* --format => specify format summary* | short
+* --orderId => filter by orderId
 
 
 ## TODOs
 * [ ] handle error in api module
 * [ ] add account info
 * [ ] estimate balance in BTC
-* [ ] filter symbol list with one symbol
+* [x] filter symbol list with one symbol
 
 ## Calculation
 

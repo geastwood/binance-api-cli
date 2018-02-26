@@ -1,9 +1,10 @@
 /* @flow */
 const SimplePrice = require('./model/simplePrice')
-const { head } = require('ramda')
+const { head, path } = require('ramda')
 const binanceApi = require('node-binance-api')
 const { collection: SymbolCollection } = require('./model/symbol')
 const { collection: BalanceCollection } = require('./model/balance')
+const { collection: TradeCollection } = require('./model/trade')
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
 
@@ -18,16 +19,22 @@ const binance = (fnName, ...rest): Promise<any> => {
     })
 }
 
-exports.prices = async (symbol: string) => {
-    const data = await binance('prices', symbol)
+type TSimplePriceShape = {
+    [string]: number,
+}
 
-    return new SimplePrice(symbol, head(data)[symbol])
+exports.prices = async (symbol: string) => {
+    const data: TSimplePriceShape[] = await binance('prices', symbol)
+
+    // $FlowFixMe
+    return new SimplePrice(symbol, path([symbol], head(data)))
 }
 
 exports.trades = async (symbol: string) => {
     const data = await binance('trades', symbol)
 
-    return head(data)
+    // $FlowFixMe
+    return TradeCollection.create(head(data))
 }
 
 exports.symbols = async () => {

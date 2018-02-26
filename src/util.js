@@ -7,7 +7,7 @@ const R = require('ramda')
 
 module.exports.formatPercentage = (v: number) => numeral(v).format('0.000%')
 module.exports.formatPrice = (v: number) => numeral(v).format('0.0000000000')
-module.exports.log = (msg: string) => {
+module.exports.log = (msg: string | {}) => {
     const format = chalk.yellow
 
     console.log(format(`[${pkg.name.toUpperCase()}/LOG]:`))

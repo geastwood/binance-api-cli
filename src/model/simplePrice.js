@@ -1,5 +1,10 @@
+/* @flow */
+
 class SimplePrice {
-    constructor(symbol, price) {
+    symbol: string
+    price: string
+
+    constructor(symbol: string, price: string) {
         this.symbol = symbol
         this.price = price
     }
