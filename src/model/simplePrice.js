@@ -13,6 +13,4 @@ class SimplePrice {
     }
 }
 
-SimplePrice.create = data => new SimplePrice(data.symbol, data.price)
-
 module.exports = SimplePrice

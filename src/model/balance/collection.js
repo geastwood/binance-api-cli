@@ -1,5 +1,5 @@
 const { Map } = require('immutable')
-const { normalize } = require('./schema')
+const BalanceModel = require('./balance')
 
 const BalanceCollection = class {
     constructor(balances) {
@@ -21,10 +21,16 @@ const BalanceCollection = class {
     }
 }
 
-BalanceCollection.create = accountBalance => {
-    const { balances } = normalize(accountBalance.balances)
+BalanceCollection.create = balances => {
+    const modelCollection = Object.keys(balances).reduce(
+        (carry, symbol) =>
+            Object.assign(carry, {
+                [symbol]: BalanceModel.create(symbol, balances[symbol]),
+            }),
+        {},
+    )
 
-    return new BalanceCollection(balances)
+    return new BalanceCollection(modelCollection)
 }
 
 module.exports = BalanceCollection

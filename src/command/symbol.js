@@ -1,13 +1,11 @@
 /* @flow */
 
-const api = require('../api')
+const exchange = require('../exchange')
 const { info } = require('../util')
-const { collection: SymbolCollection } = require('../model/symbol')
 
 const Symbol: TCommandRunable = {
     async run({ base }: { base: string }) {
-        const rst = await api.exchangeInfo()
-        const symbolCollection = SymbolCollection.create(rst)
+        const symbolCollection = await exchange.symbols()
 
         if (base) {
             const asset = symbolCollection.findByBaseAsset(base)

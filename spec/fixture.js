@@ -1,15 +1,25 @@
 exports.balances = [
     {
         asset: 'BTC',
-        free: '0.13925451',
-        locked: '1.00000000',
+        available: '0.13925451',
+        onOrder: '1.00000000',
     },
     {
         asset: 'LTC',
-        free: '0.00000628',
-        locked: '0.00000000',
+        available: '0.00000628',
+        onOrder: '0.00000000',
     },
 ]
+exports.apiBalances = {
+    BTC: {
+        available: '0.13925451',
+        onOrder: '1.00000000',
+    },
+    LTC: {
+        available: '0.00000628',
+        onOrder: '0.00000000',
+    },
+}
 exports.account = {
     makerCommission: 10,
     takerCommission: 10,

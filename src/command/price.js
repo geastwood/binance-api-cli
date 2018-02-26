@@ -1,9 +1,7 @@
 /* @flow */
 
-const api = require('../api')
+const exchange = require('../exchange')
 const { err, info } = require('../util')
-const qs = require('query-string')
-const SimplePrice = require('../model/simplePrice')
 
 const Price: TCommandRunable = {
     async run({ symbol }) {
@@ -12,16 +10,14 @@ const Price: TCommandRunable = {
             process.exit(1)
         }
 
-        const rst = await api.price(qs.stringify({ symbol }))
+        try {
+            const model = await exchange.prices(symbol)
 
-        if (rst.code) {
-            err(rst.msg)
+            info(`${model.getId()} is currently at ${model.getPrice()}`)
+        } catch (e) {
+            err(`Can't get price for ${symbol}`)
             process.exit(1)
         }
-
-        const model = SimplePrice.create(rst)
-
-        info(`${model.getId()} is currently at ${model.getPrice()}`)
     },
 }
 

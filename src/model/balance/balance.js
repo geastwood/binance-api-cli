@@ -1,23 +1,24 @@
 const { Map } = require('immutable')
 
 const Balance = class {
-    constructor(data) {
+    constructor(id, data) {
+        this.id = id
         this.data = new Map(data)
     }
 
     getId() {
-        return this.data.get('asset')
+        return this.id
     }
 
     getFree() {
-        return Number(this.data.get('free'))
+        return Number(this.data.get('available'))
     }
 
     getLocked() {
-        return Number(this.data.get('locked'))
+        return Number(this.data.get('onOrder'))
     }
 }
 
-Balance.create = data => new Balance(data)
+Balance.create = (id, data) => new Balance(id, data)
 
 module.exports = Balance

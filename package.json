@@ -16,7 +16,8 @@
     "BTC",
     "ETH",
     "BNB",
-    "bot"
+    "bot",
+    "trading"
   ],
   "author": "Fei Liu liu.fewood@gmail.com",
   "license": "MIT",

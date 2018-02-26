@@ -1,8 +1,6 @@
 /* @flow */
 const { log } = require('../util')
-const api = require('../api')
-const { withSignature } = require('../signer')
-const { collection: BalanceCollection } = require('../model/balance')
+const exchange = require('../exchange')
 
 type CommandOptions = {
     hideSmall?: boolean,
@@ -12,11 +10,7 @@ type CommandOptions = {
 
 const Balance: TCommandRunable = {
     async run({ hideSmall, smallThreshold, symbol }: CommandOptions) {
-        const signedPayload = withSignature({
-            timestamp: Date.now(),
-        })
-        const rst = await api.account(signedPayload)
-        const accountBalance = BalanceCollection.create(rst)
+        const accountBalance = await exchange.balance()
 
         let data = accountBalance.getAllBalancesSummary(hideSmall, smallThreshold)
 
