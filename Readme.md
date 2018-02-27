@@ -28,7 +28,7 @@ feature
 
 ### Trade
 
-* node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389
+* `node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389`
 * --symbol
 * --format => specify format summary* | short
 * --orderId => filter by orderId
