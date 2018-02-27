@@ -10,8 +10,9 @@ class Collection {
     }
 
     findByOrderId(orderId: number) {
-        return this.data.find(model => model.getOrderId() === orderId)
+        return this.data.filter(model => model.getOrderId() === orderId)
     }
+
     all() {
         return this.data
     }
