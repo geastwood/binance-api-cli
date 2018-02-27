@@ -35,9 +35,11 @@ feature
 
 
 ## TODOs
+* [ ] interactively choose order id and display win/loose
+* [ ] expose `help` in command interface, run command without args will show help section
 * [ ] handle error in api module
-* [ ] add account info
 * [ ] estimate balance in BTC
+* [ ] add account info ↡
 * [x] filter symbol list with one symbol
 
 ## Calculation

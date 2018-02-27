@@ -7,6 +7,7 @@ declare type TCommandSupported = Array<TCommand>
 
 declare type TCommandRunable = {|
     run: (args: any) => mixed,
+    help: (args: any) => void,
 |}
 
 declare type TConfigtore = {|

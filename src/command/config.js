@@ -33,6 +33,9 @@ const Config: TCommandRunable = {
         config.set('secret', String(secret || '').trim())
         success(`successfully store apiKey and secret to ${config.path}`)
     },
+    help() {
+        console.log('help of config')
+    },
 }
 
 exports.getConfigstore = getConfigstore

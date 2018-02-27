@@ -35,8 +35,14 @@ if (!commandWhiteList.includes(command)) {
 }
 
 const run = async () => {
-    // Pass down to individual commands
-    await commands[command](R.omit(['_'], args))
+    const passDownArgs = R.omit(['_'], args)
+
+    if (passDownArgs.help) {
+        commands[command].help()
+        process.exit(0)
+    }
+
+    await commands[command].run(R.omit(['help'], passDownArgs))
     process.exit(0)
 }
 

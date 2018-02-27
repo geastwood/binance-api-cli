@@ -8,6 +8,10 @@ type CommandOptions = {
     symbol?: string,
 }
 
+const renderHelp = () => {
+    console.log('help for balace is coming soon')
+}
+
 const Balance: TCommandRunable = {
     async run({ hideSmall, smallThreshold, symbol }: CommandOptions) {
         const accountBalance = await exchange.balance()
@@ -19,6 +23,9 @@ const Balance: TCommandRunable = {
         }
 
         data.map((v, asset) => log(`${asset}: ${v}`))
+    },
+    help() {
+        renderHelp()
     },
 }
 

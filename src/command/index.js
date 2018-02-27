@@ -1,11 +1,11 @@
 /* @flow */
 
-const { run: symbol } = require('./symbol')
-const { run: help } = require('./help')
-const { run: balance } = require('./balance')
-const { run: price } = require('./price')
-const { run: trade } = require('./trade')
-const { run: config } = require('./config')
+const symbol = require('./symbol')
+const help = require('./help')
+const balance = require('./balance')
+const price = require('./price')
+const trade = require('./trade')
+const config = require('./config')
 
 const commands = {
     symbol,
