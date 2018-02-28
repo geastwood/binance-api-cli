@@ -2,7 +2,7 @@
 
 const minimist = require('minimist')
 const commandWhiteList: TCommandSupported = ['symbol', 'balance', 'price', 'trade', 'help', 'version', 'config']
-const { log, err } = require('./util')
+const { err } = require('./util')
 const pkg = require('../package.json')
 const R = require('ramda')
 const commands = require('./command')
@@ -26,7 +26,7 @@ binance.options({
     test: true, // If you want to use sandbox mode where orders are simulated
 })
 
-log(args)
+// log(args)
 
 // Checking top level commands
 if (!commandWhiteList.includes(command)) {

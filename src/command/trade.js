@@ -12,35 +12,29 @@ const renderHelp = () => {
 const tryEstimateProfit = async (symbol: string, orderId: number) => {
     const { price, meta } = await tradeButter.getOrdersWithPrice(symbol, orderId)
     const percent = (price.getPrice() - meta.averagePrice) / meta.averagePrice
-    const indicator = percent > 0 ? chalk.green : chalk.red
+    const indicator = p => `${(p > 0 ? chalk.green : chalk.red)(formatPercentage(p))} ${p > 0 ? '↑' : '↓'}`
 
     return `[${chalk.blue.bold(symbol)}-${meta.orderId}] (x${meta.count}): Qty ${chalk.cyan(
         meta.qty,
-    )} with price ${chalk.cyan(meta.averagePrice)}/${chalk.cyan(price.getPrice())} ==> ${indicator(
-        formatPercentage(percent),
+    )} with price ${chalk.cyan(meta.averagePrice)} and now at 💹 ${chalk.cyan(price.getPrice())} ==> ${indicator(
+        percent,
     )}`
 }
-
 const Trade: TCommandRunable = {
     async run({ symbol, orderId, format = 'summary', estimateProfit }) {
         if (!symbol) {
             err('--symbol is required')
             process.exit(1)
         }
-
         if (estimateProfit) {
             const rst = await tryEstimateProfit(symbol, orderId)
-
             info(rst)
             process.exit(0)
         }
-
         // $FlowFixMe
         const data = await exchange.trades(symbol)
-
         if (orderId) {
             const orders = data.findByOrderId(orderId)
-
             if (orders.length > 0) {
                 orders.forEach(order => {
                     console.log(chalk.blue.bold(symbol), order.renderer[format]())
@@ -58,5 +52,4 @@ const Trade: TCommandRunable = {
         renderHelp()
     },
 }
-
 module.exports = Trade
