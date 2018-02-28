@@ -6,6 +6,7 @@ const binanceApi = require('node-binance-api')
 const { collection: SymbolCollection } = require('./model/symbol')
 const { collection: BalanceCollection } = require('./model/balance')
 const { collection: TradeCollection } = require('./model/trade')
+const Ticker24 = require('./model/ticker/ticker24')
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
 
@@ -56,4 +57,11 @@ exports.balance = async () => {
     spinner.stop()
 
     return BalanceCollection.create(data)
+}
+
+exports.ticker = async (interval: string, symbol: string) => {
+    spinner.start('Loading ticker price...')
+    const data = await binance('prevDay', symbol)
+    spinner.stop()
+    return Ticker24.create(data)
 }

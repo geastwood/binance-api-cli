@@ -1,7 +1,16 @@
 /* @flow */
 
 const minimist = require('minimist')
-const commandWhiteList: TCommandSupported = ['symbol', 'balance', 'price', 'trade', 'help', 'version', 'config']
+const commandWhiteList: TCommandSupported = [
+    'symbol',
+    'balance',
+    'price',
+    'trade',
+    'help',
+    'version',
+    'config',
+    'ticker',
+]
 const { err } = require('./util')
 const pkg = require('../package.json')
 const R = require('ramda')

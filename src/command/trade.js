@@ -1,7 +1,7 @@
 /* @flow */
 
 const chalk = require('chalk')
-const { err, info, formatPercentage } = require('../util')
+const { err, info, formatIndicativePercentage } = require('../util')
 const exchange = require('../exchange')
 const tradeButter = require('../butter/trade')
 const { getOrderId } = require('../userInput')
@@ -20,13 +20,12 @@ const renderHelp = () => {
 const tryEstimateProfit = async (symbol: string, orderId: number) => {
     const { price, meta } = await tradeButter.getOrdersWithPrice(symbol, orderId)
     const percent = (price.getPrice() - meta.averagePrice) / meta.averagePrice
-    const indicator = p => `${(p > 0 ? chalk.green : chalk.red)(formatPercentage(p))} ${p > 0 ? '↑' : '↓'}`
 
     return `[${chalk.blue.bold(symbol)}-${orderId}] (x${meta.count}): Qty ${chalk.cyan(
         meta.qty,
-    )} with price ${chalk.cyan(meta.averagePrice)} and now at 💹 ${chalk.cyan(price.getPrice())} ==> ${indicator(
-        percent,
-    )}`
+    )} with price ${chalk.cyan(meta.averagePrice)} and now at 💹 ${chalk.cyan(
+        price.getPrice(),
+    )} ==> ${formatIndicativePercentage(percent)}`
 }
 const Trade: TCommandRunable = {
     async run({ symbol, orderId, format = 'summary', estimateProfit }: CommandProps) {

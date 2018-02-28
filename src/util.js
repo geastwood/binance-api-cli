@@ -5,8 +5,15 @@ const numeral = require('numeral')
 const chalk = require('chalk')
 const R = require('ramda')
 
-module.exports.formatPercentage = (v: number) => numeral(v).format('0.000%')
-module.exports.formatPrice = (v: number) => numeral(v).format('0.0000000000')
+const formatPercentage = (v: number) => numeral(v).format('0.000%')
+const formatPrice = (v: number) => numeral(v).format('0.0000000000')
+const formatIndicativePercentage = (p: number) =>
+    `${(p > 0 ? chalk.green : chalk.red)(formatPercentage(p))} ${p > 0 ? '↑' : '↓'}`
+
+module.exports.formatPercentage = formatPercentage
+module.exports.formatPrice = formatPrice
+module.exports.formatIndicativePercentage = formatIndicativePercentage
+
 module.exports.log = (msg: string | {}) => {
     const format = chalk.yellow
 
@@ -33,3 +40,5 @@ module.exports.success = (msg: string) => {
 module.exports.info = (msg: string, ...rest: string[]) => {
     console.log(chalk.blue(`[${pkg.name.toUpperCase()}/INFO]:`), msg, ...rest)
 }
+
+module.exports.formatInt = (v: number) => numeral(v).format('0,0')

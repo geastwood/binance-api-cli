@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable */
 
-declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config'
+declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config' | 'ticker'
 
 declare type TCommandSupported = Array<TCommand>
 
@@ -30,4 +30,26 @@ type TTradeShape = {|
     isBuyer: boolean,
     isMaker: boolean,
     isBestMatch: boolean,
+|}
+
+type TTicker24 = {|
+    symbol: string,
+    priceChange: string,
+    priceChangePercent: string,
+    weightedAvgPrice: string,
+    prevClosePrice: string,
+    lastPrice: string,
+    lastQty: string,
+    bidPrice: string,
+    askPrice: string,
+    openPrice: string,
+    highPrice: string,
+    lowPrice: string,
+    volume: string,
+    quoteVolume: string,
+    openTime: number,
+    closeTime: number,
+    fristId: number,
+    lastId: number,
+    count: number,
 |}
