@@ -14,9 +14,11 @@ const tryEstimateProfit = async (symbol: string, orderId: number) => {
     const percent = (price.getPrice() - meta.averagePrice) / meta.averagePrice
     const indicator = percent > 0 ? chalk.green : chalk.red
 
-    return `[${meta.orderId}] (x${meta.count}): Qty ${chalk.cyan(meta.qty)} with price ${chalk.cyan(
-        meta.averagePrice,
-    )}/${chalk.cyan(price.getPrice())} ==> ${indicator(formatPercentage(percent))}`
+    return `[${chalk.blue.bold(symbol)}-${meta.orderId}] (x${meta.count}): Qty ${chalk.cyan(
+        meta.qty,
+    )} with price ${chalk.cyan(meta.averagePrice)}/${chalk.cyan(price.getPrice())} ==> ${indicator(
+        formatPercentage(percent),
+    )}`
 }
 
 const Trade: TCommandRunable = {
