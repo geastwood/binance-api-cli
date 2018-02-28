@@ -8,14 +8,14 @@ class Renderer {
         this.model = model
     }
     summary() {
-        const side = this.model.isBuyer() ? 'Bought' : 'Sold'
-
-        return `[${this.model.getOrderId()}]: ${side} with price ${this.model.getPrice()} for ${this.model.getQty()} at ${this.model.getTime()} (${this.model.getReadableTime()})`
+        return `[${this.model.getOrderId()}]: ${this.model
+            .getSide()
+            .toUpperCase()} with price ${this.model.getPrice()} for ${this.model.getQty()} at ${this.model.getTime()} (${this.model.getReadableTime()})`
     }
     short() {
-        const side = this.model.isBuyer() ? 'Bought' : 'Sold'
-
-        return `[${side}]: ${chalk.yellow(this.model.getPrice())}`
+        return `[${this.model.getOrderId()}-${this.model.getSide().toUpperCase()}]: ${chalk.yellow(
+            this.model.getPrice(),
+        )} @ ${this.model.getReadableTime()}`
     }
 }
 

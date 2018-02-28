@@ -35,6 +35,9 @@ class Trade {
     isMaker() {
         return this.data.isMaker
     }
+    getSide() {
+        return this.isBuyer() ? 'Bought' : 'Sold'
+    }
 }
 
 Trade.create = (data: TTradeShape): Trade => new Trade(data)

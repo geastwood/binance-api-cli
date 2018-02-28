@@ -24,7 +24,7 @@ describe('model/trade', () => {
         const renderer = new Renderer(model)
 
         expect(renderer.summary()).toBe(
-            '[3314345]: Bought with price 0.00008153 for 491 at 2018-02-26T09:03:17+01:00 (a few seconds ago)',
+            '[3314345]: BOUGHT with price 0.00008153 for 491 at 2018-02-26T09:03:17+01:00 (a few seconds ago)',
         )
     })
 })

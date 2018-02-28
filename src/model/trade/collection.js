@@ -1,5 +1,6 @@
 /* @flow */
 const TradeModel = require('./trade')
+const orderBy = require('lodash.orderby')
 
 class Collection {
     data: TradeModel[]
@@ -15,6 +16,10 @@ class Collection {
 
     all() {
         return this.data
+    }
+
+    orderBy(pred: (m: TradeModel) => Array<string | number>, direction: string[] = ['asc']) {
+        return orderBy(this.data, pred, direction)
     }
 }
 

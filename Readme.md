@@ -35,12 +35,12 @@ feature
 
 
 ## TODOs
-* [ ] ⌐ interactively choose order id via multiselect
+* [x] ⌐ interactively choose order id via multiselect
 * [x]   display win/loose on order/trade
 * [ ] ⌙ handle exception not finding the order
 * [ ] ⌐ estimate balance in BTC
 * [ ] ⌙ nicely layout it's contribution
-* [ ] expose `help` in command interface, run command without args will show help section
+* [-] expose `help` in command interface, run command without args will show help section
 * [ ] handle error in api module
 * [ ] add account info ↡
 * [x] filter symbol list with one symbol
