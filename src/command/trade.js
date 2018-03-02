@@ -3,6 +3,7 @@
 const chalk = require('chalk')
 const { err, info, formatIndicativePercentage } = require('../util')
 const exchange = require('../exchange')
+const { addTrade } = require('../db')
 const { push } = require('../notification')
 const tradeButter = require('../butter/trade')
 const { getOrderId } = require('../userInput')
@@ -14,6 +15,7 @@ type CommandProps = {
     format: 'summary',
     estimateProfit: boolean,
     notify: boolean,
+    watch: boolean,
 }
 
 const renderHelp = () => {
@@ -31,7 +33,7 @@ const tryEstimateProfit = async (symbol: string, orderId: number) => {
     )} ==> ${formatIndicativePercentage(percent)}`
 }
 const Trade: TCommandRunable = {
-    async run({ symbol, orderId, format = 'summary', estimateProfit, notify }: CommandProps) {
+    async run({ symbol, orderId, format = 'summary', estimateProfit, notify, watch }: CommandProps) {
         if (!symbol) {
             err('--symbol is required')
             process.exit(1)
@@ -52,6 +54,10 @@ const Trade: TCommandRunable = {
         if (orderId) {
             const orders = data.findByOrderId(orderId)
             if (orders.length > 0) {
+                if (watch) {
+                    orders.forEach(order => addTrade(order.serialize()))
+                    info('Successfully saved to watcher file.')
+                }
                 orders.forEach(order => {
                     console.log(chalk.blue.bold(symbol), order.renderer[format]())
                 })

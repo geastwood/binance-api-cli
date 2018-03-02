@@ -38,6 +38,9 @@ class Trade {
     getSide() {
         return this.isBuyer() ? 'Bought' : 'Sold'
     }
+    serialize() {
+        return this.data
+    }
 }
 
 Trade.create = (data: TTradeShape): Trade => new Trade(data)
