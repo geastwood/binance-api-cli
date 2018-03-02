@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* @flow */
 
 const minimist = require('minimist')
@@ -11,7 +12,7 @@ const commandWhiteList: TCommandSupported = [
     'config',
     'ticker',
 ]
-const { err } = require('./util')
+const { err, warn } = require('./util')
 const pkg = require('../package.json')
 const R = require('ramda')
 const commands = require('./command')
@@ -28,12 +29,20 @@ if (!hasConfig && command !== 'config') {
 
 const config = getConfigstore()
 
-binance.options({
-    APIKEY: config.get('apiKey'),
-    APISECRET: config.get('secret'),
-    useServerTime: true, // If you get timestamp errors, synchronize to server time at startup
-    test: true, // If you want to use sandbox mode where orders are simulated
-})
+try {
+    binance.options({
+        APIKEY: config.get('apiKey'),
+        APISECRET: config.get('secret'),
+        useServerTime: true, // If you get timestamp errors, synchronize to server time at startup
+        test: true, // If you want to use sandbox mode where orders are simulated
+    })
+} catch (e) {
+    warn('binance api fail to initiate')
+}
+
+// binance.websockets.prevDay('BNBBTC', (error, response) => {
+//     console.log(response)
+// })
 
 // log(args)
 

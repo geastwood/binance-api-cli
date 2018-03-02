@@ -53,3 +53,11 @@ type TTicker24 = {|
     lastId: number,
     count: number,
 |}
+
+type TAppConfig = {|
+    apiKey: string,
+    secret: string,
+    notificationApiToken: string,
+    notificationUserKey: string,
+    notificationDevice: string,
+|}

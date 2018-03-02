@@ -8,8 +8,9 @@ const path = require('path')
 
 const configPath = path.join(os.homedir(), '.config', pkg.name, 'config.json')
 const hasConfig = fs.existsSync(configPath)
+
 const getConfigstore = () => {
-    let config = { apiKey: '', secret: '' }
+    let config = { apiKey: '', secret: '', notificationApiToken: '', notificationUserKey: '', notificationDevice: '' }
 
     if (hasConfig) {
         config = JSON.parse(fs.readFileSync(configPath, 'utf8'))

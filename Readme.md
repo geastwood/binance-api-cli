@@ -35,6 +35,10 @@ feature
 
 
 ## TODOs
+* [ ] add monitor command, let use repeatly add order Id to moniter, use
+    websocker if possible
+* [ ] design a plugin/event system, websocket emit data, mutiple listners
+    receive events
 * [x] ⌐ interactively choose order id via multiselect
 * [x]   display win/loose on order/trade
 * [ ] ⌙ handle exception not finding the order

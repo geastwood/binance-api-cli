@@ -1,9 +1,10 @@
 {
   "name": "fat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Auto trading bot wrapping bianace Api",
   "main": "index.js",
   "scripts": {
+    "preinstall": "babel -q src -d dist",
     "test": "jasmine",
     "lint": "eslint .",
     "flow": "flow .",
@@ -19,6 +20,9 @@
     "bot",
     "trading"
   ],
+  "bin": {
+    "fat": "./dist/index.js"
+  },
   "author": "Fei Liu liu.fewood@gmail.com",
   "license": "MIT",
   "dependencies": {
@@ -30,19 +34,21 @@
     "clui": "^0.3.6",
     "configstore": "^3.1.1",
     "figures": "^2.0.0",
+    "form-data": "^2.3.2",
     "immutable": "^3.8.2",
     "inquirer": "^5.1.0",
-    "isomorphic-fetch": "^2.2.1",
     "lodash.orderby": "^4.6.0",
     "log-symbols": "^2.2.0",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "node-binance-api": "^0.4.21",
+    "node-fetch": "^2.0.0",
     "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
     "ora": "^2.0.0",
     "query-string": "^5.1.0",
-    "ramda": "^0.25.0"
+    "ramda": "^0.25.0",
+    "strip-ansi": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

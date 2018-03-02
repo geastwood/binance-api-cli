@@ -3,14 +3,17 @@
 const chalk = require('chalk')
 const { err, info, formatIndicativePercentage } = require('../util')
 const exchange = require('../exchange')
+const { push } = require('../notification')
 const tradeButter = require('../butter/trade')
 const { getOrderId } = require('../userInput')
+const stripAnsi = require('strip-ansi')
 
 type CommandProps = {
     symbol: string,
     orderId: number,
     format: 'summary',
     estimateProfit: boolean,
+    notify: boolean,
 }
 
 const renderHelp = () => {
@@ -28,7 +31,7 @@ const tryEstimateProfit = async (symbol: string, orderId: number) => {
     )} ==> ${formatIndicativePercentage(percent)}`
 }
 const Trade: TCommandRunable = {
-    async run({ symbol, orderId, format = 'summary', estimateProfit }: CommandProps) {
+    async run({ symbol, orderId, format = 'summary', estimateProfit, notify }: CommandProps) {
         if (!symbol) {
             err('--symbol is required')
             process.exit(1)
@@ -39,6 +42,9 @@ const Trade: TCommandRunable = {
         if (estimateProfit) {
             const rst = await tryEstimateProfit(symbol, orderId)
             info(rst)
+            if (notify) {
+                await push(stripAnsi(rst), symbol)
+            }
             process.exit(0)
         }
         // $FlowFixMe
