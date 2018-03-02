@@ -20,6 +20,7 @@ const push = async (title: string, message: string) => {
         method: 'POST',
         body: formData,
     }).then(data => data.json())
+
     if (status) {
         spinner.succeed()
     } else {

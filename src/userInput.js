@@ -4,6 +4,7 @@ const inquirer = require('inquirer')
 
 exports.getOrderId = async (symbol: string): Promise<number> => {
     const data = await exchange.trades(symbol)
+
     const { orderId } = await inquirer.prompt({
         type: 'list',
         name: 'orderId',

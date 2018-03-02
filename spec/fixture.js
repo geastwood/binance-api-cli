@@ -11,6 +11,30 @@ exports.trades = [
         isMaker: true,
         isBestMatch: true,
     },
+    {
+        id: 565813,
+        orderId: 3314346,
+        price: '0.00008155',
+        qty: '493.00000000',
+        commission: '1.02056470',
+        commissionAsset: 'BNB',
+        time: 1519632197605,
+        isBuyer: true,
+        isMaker: true,
+        isBestMatch: true,
+    },
+    {
+        id: 565814,
+        orderId: 3314346,
+        price: '1.00008155',
+        qty: '493.00000001',
+        commission: '1.02056471',
+        commissionAsset: 'BNB',
+        time: 1519632197605,
+        isBuyer: true,
+        isMaker: true,
+        isBestMatch: true,
+    },
 ]
 
 exports.balances = [
