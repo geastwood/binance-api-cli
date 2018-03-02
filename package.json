@@ -1,6 +1,6 @@
 {
   "name": "fat",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Auto trading bot wrapping bianace Api",
   "main": "index.js",
   "scripts": {
