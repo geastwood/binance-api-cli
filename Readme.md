@@ -6,28 +6,26 @@ feature
 
 # Commands
 
-* symbol -> provide exchange infos [GET]
-* account -> provide account info [GET] // TODO
-* balance -> provide your current balance [GET]
+* balance -> provide your current balance
+* trade -> get trade and order info
+* live -> use websocket to monitor selected symbols
+* price -> get price for trade symbol
 * config -> setup secret and apiKey
-
-## excamples
-* `node dist/index.js exchange|version|help`
+* symbol -> provide exchange infos [GET]
 
 ### Exchange
-* `node dist/index.js exchange --base=ADA` => find asset ADA
-* `node dist/index.js exchange` => print summary of exchange
+* `at4b symbol --base=ADA` => find asset ADA
+* `at4b symbol` => print summary of exchange
 
 ### Account
-* `node dist/index.js account` => get account meta and balances
-* `node dist/index.js account --hideSmall --smallThreshold` => filtering balances
-    --threshold[=0]
+* `at4b balance` => get account meta and balances
+* `at4b balance --hideSmall --smallThreshold` => filtering balances --threshold[=0]
+* `at4b balance --hideSmall --summary` => list your balance with attribution
 
 ### Price
-* `node dist/index.js price --symbol=ETHBTC` => get current price of a symbol
+* `at4b price --symbol=ETHBTC` => get current price of a symbol
 
 ### Trade
-
 * `node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389`
 * --symbol
 * --format => specify format summary* | short
@@ -42,17 +40,9 @@ feature
 * [x] ⌐ interactively choose order id via multiselect
 * [x]   display win/loose on order/trade
 * [ ] ⌙ handle exception not finding the order
-* [ ] ⌐ estimate balance in BTC
-* [ ] ⌙ nicely layout it's contribution
+* [x] ⌐ estimate balance in BTC
+* [x] ⌙ nicely layout it's contribution
 * [-] expose `help` in command interface, run command without args will show help section
 * [ ] handle error in api module
 * [ ] add account info ↡
 * [x] filter symbol list with one symbol
-
-## Calculation
-
-Given you bought C1/BTC with price P1 for quantity of Q1
-
-the total cost is the sum of V1 and transaction cost T1
-
-* V1 = (P1 * Q1) - T1 * PBNB
