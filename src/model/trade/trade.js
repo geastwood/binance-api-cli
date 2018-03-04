@@ -1,48 +1,25 @@
 /* @flow */
+
 const moment = require('moment')
-const Renderer = require('./renderer')
 
-class Trade {
-    data: TTradeData
-    renderer: Renderer
-    static create: (data: TTradeData) => Trade
+const getId = (trade: TTradeData) => trade.id
+const getOrderId = (trade: TTradeData) => trade.orderId
+const getTime = (trade: TTradeData) => moment(trade.time).format()
+const getReadableTime = (trade: TTradeData) => moment(trade.time).fromNow()
+const getPrice = (trade: TTradeData) => Number(trade.price || 0)
+const getQty = (trade: TTradeData) => Number(trade.qty || 0)
+const isBuyer = (trade: TTradeData) => trade.isBuyer
+const isMaker = (trade: TTradeData) => trade.isMaker
+const getSide = (trade: TTradeData) => (isBuyer(trade) ? 'Bought' : 'Sold')
 
-    constructor(data: TTradeData) {
-        this.data = data
-        this.renderer = new Renderer(this)
-    }
-    getId() {
-        return this.data.id
-    }
-    getOrderId() {
-        return this.data.orderId
-    }
-    getTime() {
-        return moment(this.data.time).format()
-    }
-    getReadableTime() {
-        return moment(this.data.time).fromNow()
-    }
-    getPrice() {
-        return Number(this.data.price || 0)
-    }
-    getQty() {
-        return Number(this.data.qty || 0)
-    }
-    isBuyer() {
-        return this.data.isBuyer
-    }
-    isMaker() {
-        return this.data.isMaker
-    }
-    getSide() {
-        return this.isBuyer() ? 'Bought' : 'Sold'
-    }
-    serialize() {
-        return this.data
-    }
+module.exports = {
+    getId,
+    getOrderId,
+    getTime,
+    getReadableTime,
+    getPrice,
+    getQty,
+    isBuyer,
+    isMaker,
+    getSide,
 }
-
-Trade.create = (data: TTradeData): Trade => new Trade(data)
-
-module.exports = Trade

@@ -1,29 +1,13 @@
 /* @flow */
-const TradeModel = require('./trade')
-const orderBy = require('lodash.orderby')
+const { getOrderId } = require('./trade')
+const orderByLo = require('lodash.orderby')
 
-class Collection {
-    data: TradeModel[]
-    static create: (data: TTradeData[]) => Collection
-    static combineOrders: (orders: TradeModel[]) => TradeModel[]
+const findByOrderId = (orderId: number, data: TTradeData[]) => data.filter(item => getOrderId(item) === orderId)
 
-    constructor(data: TTradeData[]) {
-        this.data = data.map(TradeModel.create)
-    }
+const orderBy = (pred: (m: TTradeData) => Array<string | number>, direction: string[] = ['asc'], data: TTradeData[]) =>
+    orderByLo(data, pred, direction)
 
-    findByOrderId(orderId: number) {
-        return this.data.filter(model => model.getOrderId() === orderId)
-    }
-
-    all() {
-        return this.data
-    }
-
-    orderBy(pred: (m: TradeModel) => Array<string | number>, direction: string[] = ['asc']) {
-        return orderBy(this.data, pred, direction)
-    }
+module.exports = {
+    findByOrderId,
+    orderBy,
 }
-
-Collection.create = (data: TTradeData[]) => new Collection(data)
-
-module.exports = Collection

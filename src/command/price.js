@@ -4,6 +4,7 @@ const exchange = require('../exchange')
 const { err, info } = require('../util')
 const chalk = require('chalk')
 const ui = require('cliui')()
+const { getSymbol, getPrice } = require('../model/symbolPrice')
 
 const renderHelp = () => {
     ui.div('Usage: fat price [options]')
@@ -39,9 +40,9 @@ const Price: TCommandRunable = {
         }
 
         try {
-            const model = await exchange.prices(symbol)
+            const data = await exchange.prices(symbol)
 
-            info(`${model.getId()} is currently at ${model.getPrice()}`)
+            info(`${getSymbol(data)} is currently at ${getPrice(data)}`)
         } catch (e) {
             err(`Can't get price for ${symbol}`)
             process.exit(1)

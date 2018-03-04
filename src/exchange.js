@@ -1,11 +1,8 @@
 /* @flow */
-const SimplePrice = require('./model/simplePrice')
 const ora = require('ora')
-const { path } = require('ramda')
 const binanceApi = require('node-binance-api')
 const { collection: SymbolCollection } = require('./model/symbol')
 const { collection: BalanceCollection } = require('./model/balance')
-const { collection: TradeCollection } = require('./model/trade')
 const Ticker24 = require('./model/ticker/ticker24')
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
@@ -21,26 +18,21 @@ const binance = (fnName, ...rest): Promise<any> => {
     })
 }
 
-type TSimplePriceShape = {
-    [string]: number,
-}
-
 const spinner = ora()
-exports.prices = async (symbol: string) => {
+exports.prices = async (symbol: string): Promise<TSymbolPrice> => {
     spinner.start('Fetching price...')
-    const data: TSimplePriceShape[] = await binance('prices', symbol)
+    const data = await binance('prices', symbol)
     spinner.stop()
 
-    // $FlowFixMe
-    return new SimplePrice(symbol, path([symbol], data))
+    return { symbol, price: data[symbol] }
 }
 
-exports.trades = async (symbol: string) => {
+exports.trades = async (symbol: string): Promise<Array<TTradeData>> => {
     spinner.start('Loading historical trades...')
     const data = await binance('trades', symbol)
     spinner.stop()
 
-    return TradeCollection.create(data)
+    return data
 }
 
 exports.symbols = async () => {

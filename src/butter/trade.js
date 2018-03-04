@@ -2,8 +2,8 @@
 
 const moment = require('moment')
 const exchange = require('../exchange')
-const TradeModel = require('../model/trade/trade')
-const SimplePrice = require('../model/simplePrice')
+const { findByOrderId } = require('../model/trade/collection')
+const { getPrice, getQty } = require('../model/trade/trade')
 
 type OrderMeta = {
     count: number,
@@ -11,27 +11,27 @@ type OrderMeta = {
     qty: number,
 }
 
-const getMetaForOrders = (orders): OrderMeta => ({
-    count: orders.length,
-    averagePrice: orders.reduce((carry, order) => carry + order.getPrice(), 0) / orders.length,
-    qty: orders.reduce((carry, order) => carry + order.getQty(), 0),
+const getMetaForTrades = (trades): OrderMeta => ({
+    count: trades.length,
+    averagePrice: trades.reduce((carry, order) => carry + getPrice(order), 0) / trades.length,
+    qty: trades.reduce((carry, order) => carry + getQty(order), 0),
 })
 
 type OrdersWithCurrentMarketPrice = {|
     meta: OrderMeta,
-    orders: TradeModel[],
-    price: SimplePrice,
+    trades: TTradeData[],
+    price: TSymbolPrice,
 |}
 
 const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<OrdersWithCurrentMarketPrice> => {
     const data = await exchange.trades(symbol)
-    const orders = data.findByOrderId(orderId)
+    const trades = findByOrderId(orderId, data)
     const price = await exchange.prices(symbol)
-    const meta = getMetaForOrders(orders)
+    const meta = getMetaForTrades(trades)
 
     return {
         meta,
-        orders,
+        trades,
         price,
     }
 }

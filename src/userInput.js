@@ -1,6 +1,9 @@
 /* @flow */
 const exchange = require('./exchange')
 const inquirer = require('inquirer')
+const { getId, getOrderId } = require('./model/trade/trade')
+const { short } = require('./model/trade/renderer')
+const { orderBy } = require('./model/trade/collection')
 
 exports.getOrderId = async (symbol: string): Promise<number> => {
     const data = await exchange.trades(symbol)
@@ -10,9 +13,9 @@ exports.getOrderId = async (symbol: string): Promise<number> => {
         name: 'orderId',
         message: 'Choose an order to display',
         pageSize: 5,
-        choices: data.orderBy(model => [model.getId()], ['desc']).map(order => ({
-            name: order.renderer.short(),
-            value: order.getOrderId(),
+        choices: orderBy(trade => [getId(trade)], ['desc'], data).map(trade => ({
+            name: short(trade),
+            value: getOrderId(trade),
         })),
     })
 

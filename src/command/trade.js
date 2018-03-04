@@ -8,6 +8,9 @@ const { push } = require('../notification')
 const tradeButter = require('../butter/trade')
 const { getOrderId } = require('../userInput')
 const stripAnsi = require('strip-ansi')
+const { getPrice } = require('../model/symbolPrice')
+const { findByOrderId } = require('../model/trade/collection')
+const renderer = require('../model/trade/renderer')
 
 type CommandProps = {
     symbol: string,
@@ -24,12 +27,12 @@ const renderHelp = () => {
 
 const tryEstimateProfit = async (symbol: string, orderId: number) => {
     const { price, meta } = await tradeButter.getOrdersWithPrice(symbol, orderId)
-    const percent = (price.getPrice() - meta.averagePrice) / meta.averagePrice
+    const percent = (getPrice(price) - meta.averagePrice) / meta.averagePrice
 
     return `[${chalk.blue.bold(symbol)}-${orderId}] (x${meta.count}): Qty ${chalk.cyan(
         meta.qty,
     )} with price ${chalk.cyan(meta.averagePrice)} and now at 💹 ${chalk.cyan(
-        price.getPrice(),
+        getPrice(price),
     )} ==> ${formatIndicativePercentage(percent)}`
 }
 const Trade: TCommandRunable = {
@@ -49,24 +52,23 @@ const Trade: TCommandRunable = {
             }
             process.exit(0)
         }
-        // $FlowFixMe
         const data = await exchange.trades(symbol)
         if (orderId) {
-            const orders = data.findByOrderId(orderId)
+            const orders = findByOrderId(orderId, data)
             if (orders.length > 0) {
                 if (watch) {
-                    orders.forEach(order => addTrade(Object.assign(order.serialize(), { symbol })))
+                    orders.forEach(order => addTrade({ ...order, symbol }))
                     info('Successfully saved to watcher file.')
                 }
                 orders.forEach(order => {
-                    console.log(chalk.blue.bold(symbol), order.renderer[format]())
+                    console.log(chalk.blue.bold(symbol), renderer[format](order))
                 })
             } else {
                 console.log('No trade found for', symbol, 'with orderId', orderId)
             }
         } else {
-            data.all().forEach(order => {
-                console.log(chalk.blue.bold(symbol), order.renderer[format]())
+            data.forEach(order => {
+                console.log(chalk.blue.bold(symbol), renderer[format](order))
             })
         }
     },

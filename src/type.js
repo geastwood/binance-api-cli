@@ -80,3 +80,8 @@ declare type TAggTradeData = {|
     m: boolean, // Is the buyer the market maker?
     M: boolean, // Ignore.
 |}
+
+declare type TSymbolPrice = {|
+    symbol: string,
+    price: string,
+|}
