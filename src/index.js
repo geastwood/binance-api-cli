@@ -11,6 +11,7 @@ const commandWhiteList: TCommandSupported = [
     'version',
     'config',
     'ticker',
+    'live',
 ]
 const { err, warn } = require('./util')
 const pkg = require('../package.json')
@@ -39,12 +40,6 @@ try {
 } catch (e) {
     warn('binance api fail to initiate')
 }
-
-// binance.websockets.prevDay('BNBBTC', (error, response) => {
-//     console.log(response)
-// })
-
-// log(args)
 
 // Checking top level commands
 if (!commandWhiteList.includes(command)) {

@@ -4,10 +4,10 @@ const orderBy = require('lodash.orderby')
 
 class Collection {
     data: TradeModel[]
-    static create: (data: TTradeShape[]) => Collection
+    static create: (data: TTradeData[]) => Collection
     static combineOrders: (orders: TradeModel[]) => TradeModel[]
 
-    constructor(data: TTradeShape[]) {
+    constructor(data: TTradeData[]) {
         this.data = data.map(TradeModel.create)
     }
 
@@ -24,6 +24,6 @@ class Collection {
     }
 }
 
-Collection.create = (data: TTradeShape[]) => new Collection(data)
+Collection.create = (data: TTradeData[]) => new Collection(data)
 
 module.exports = Collection

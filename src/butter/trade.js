@@ -1,5 +1,6 @@
 /* @flow */
 
+const moment = require('moment')
 const exchange = require('../exchange')
 const TradeModel = require('../model/trade/trade')
 const SimplePrice = require('../model/simplePrice')
@@ -34,5 +35,9 @@ const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<Orde
         price,
     }
 }
+
+exports.getPrice = (trade: TTradeData) => Number(trade.price)
+exports.getTime = (trade: TTradeData) => moment(trade.time).format()
+exports.getRelativeTime = (trade: TTradeData) => moment(trade.time).fromNow()
 
 exports.getOrdersWithPrice = getOrdersWithPrice

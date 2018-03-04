@@ -55,7 +55,7 @@ const Trade: TCommandRunable = {
             const orders = data.findByOrderId(orderId)
             if (orders.length > 0) {
                 if (watch) {
-                    orders.forEach(order => addTrade(order.serialize()))
+                    orders.forEach(order => addTrade(Object.assign(order.serialize(), { symbol })))
                     info('Successfully saved to watcher file.')
                 }
                 orders.forEach(order => {

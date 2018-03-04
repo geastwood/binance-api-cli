@@ -65,3 +65,29 @@ exports.ticker = async (interval: string, symbol: string) => {
     spinner.stop()
     return Ticker24.create(data)
 }
+
+type TradeSocketOptions = {
+    onConnected?: () => void,
+    filterFn?: (trade: any) => boolean,
+}
+
+exports.tradeSocket = (symbols: string[], subscribers: Function[], opts: TradeSocketOptions = {}): Promise<*> => {
+    let initiated = false
+
+    return new Promise(resolve => {
+        const handler = (trade: TAggTradeData) => {
+            let shouldRun = true
+            if (initiated === false) {
+                opts.onConnected && opts.onConnected()
+                initiated = true
+            }
+            if (opts.filterFn) {
+                shouldRun = opts.filterFn(trade)
+            }
+            for (const fn of subscribers) {
+                shouldRun && fn(trade, resolve)
+            }
+        }
+        binanceApi.websockets.trades(symbols, handler)
+    })
+}

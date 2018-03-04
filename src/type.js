@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint-disable */
 
-declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config' | 'ticker'
+declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config' | 'ticker' | 'live'
 
 declare type TCommandSupported = Array<TCommand>
 
@@ -19,20 +19,25 @@ declare type TSimplePriceShape = {
     [string]: number,
 }
 
-type TTradeShape = {|
+declare type TTradeData = {|
     id: number,
     orderId: number,
-    price: number,
-    qty: number,
+    price: string,
+    qty: string,
     commission: number,
     commissionAsset: string,
-    time: number,
+    time: Date,
     isBuyer: boolean,
     isMaker: boolean,
     isBestMatch: boolean,
 |}
 
-type TTicker24 = {|
+declare type TTradeWithSymbolData = {|
+    ...$Exact<TTradeData>,
+    symbol: string,
+|}
+
+declare type TTicker24 = {|
     symbol: string,
     priceChange: string,
     priceChangePercent: string,
@@ -54,10 +59,24 @@ type TTicker24 = {|
     count: number,
 |}
 
-type TAppConfig = {|
+declare type TAppConfig = {|
     apiKey: string,
     secret: string,
     notificationApiToken: string,
     notificationUserKey: string,
     notificationDevice: string,
+|}
+
+declare type TAggTradeData = {|
+    e: 'aggTrade', // Event type
+    E: Date, // Event time
+    s: string, // Symbol
+    a: number, // Aggregate trade ID
+    p: string, // Price
+    q: string, // Quantity
+    f: number, // First trade ID
+    l: number, // Last trade ID
+    T: Date, // Trade time
+    m: boolean, // Is the buyer the market maker?
+    M: boolean, // Ignore.
 |}

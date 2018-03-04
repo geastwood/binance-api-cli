@@ -3,11 +3,11 @@ const moment = require('moment')
 const Renderer = require('./renderer')
 
 class Trade {
-    data: TTradeShape
+    data: TTradeData
     renderer: Renderer
-    static create: (data: TTradeShape) => Trade
+    static create: (data: TTradeData) => Trade
 
-    constructor(data: TTradeShape) {
+    constructor(data: TTradeData) {
         this.data = data
         this.renderer = new Renderer(this)
     }
@@ -43,6 +43,6 @@ class Trade {
     }
 }
 
-Trade.create = (data: TTradeShape): Trade => new Trade(data)
+Trade.create = (data: TTradeData): Trade => new Trade(data)
 
 module.exports = Trade
