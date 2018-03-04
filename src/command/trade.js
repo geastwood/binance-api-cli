@@ -45,6 +45,15 @@ const Trade: TCommandRunable = {
             orderId = await getOrderId(symbol)
         }
         if (estimateProfit) {
+            if (!orderId) {
+                err(
+                    '\
+--orderId is required for estimating profit, \
+either specify as --orderId=12345 \
+or use --orderId to interactively select from list',
+                )
+                process.exit(1)
+            }
             const rst = await tryEstimateProfit(symbol, orderId)
             info(rst)
             if (notify) {

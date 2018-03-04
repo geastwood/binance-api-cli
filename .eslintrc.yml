@@ -125,7 +125,7 @@ rules:
   no-mixed-requires: error
   no-multi-assign: error
   no-multi-spaces: error
-  no-multi-str: error
+  no-multi-str: 'off'
   no-multiple-empty-lines: error
   no-native-reassign: error
   no-negated-condition: error
