@@ -1,7 +1,7 @@
 # Auto trading wrapping around Binance
 
 # Setup
-run `fat config` to specify the *apiKey* and *secret* for accessing the full
+run `at4b config` to specify the *apiKey* and *secret* for accessing the full
 feature
 
 # Commands

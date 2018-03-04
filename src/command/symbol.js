@@ -6,7 +6,7 @@ const chalk = require('chalk')
 const ui = require('cliui')()
 
 const renderHelp = () => {
-    ui.div('Usage: fat symbol [options]')
+    ui.div('Usage: at4b symbol [options]')
 
     ui.div({
         text: 'Options:',
@@ -35,7 +35,7 @@ const renderHelp = () => {
     })
 
     ui.div({
-        text: `${chalk.green('fat symbol --base=VEN')}`,
+        text: `${chalk.green('at4b symbol --base=VEN')}`,
         padding: [0, 0, 1, 2],
     })
 
