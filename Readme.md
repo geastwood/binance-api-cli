@@ -35,8 +35,8 @@ feature
 
 
 ## TODOs
-* [ ] add monitor command, let use repeatly add order Id to moniter, use
-    websocker if possible
+* [x] add monitor command, let use repeatly add order Id to moniter, use
+    websocket if possible
 * [ ] design a plugin/event system, websocket emit data, mutiple listners
     receive events
 * [x] ⌐ interactively choose order id via multiselect
