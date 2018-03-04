@@ -5,6 +5,12 @@ declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 't
 
 declare type TCommandSupported = Array<TCommand>
 
+declare type TBalanceData = {|
+    symbol: string,
+    available: string,
+    onOrder: string,
+|}
+
 declare type TCommandRunable = {|
     run: (args: any) => mixed,
     help: (args: any) => void,
@@ -14,10 +20,6 @@ declare type TConfigtore = {|
     apiKey: string,
     secret: string,
 |}
-
-declare type TSimplePriceShape = {
-    [string]: number,
-}
 
 declare type TTradeData = {|
     id: number,

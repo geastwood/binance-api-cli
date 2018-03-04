@@ -1,24 +1,11 @@
-const { Map } = require('immutable')
+/* @flow */
 
-const Balance = class {
-    constructor(id, data) {
-        this.id = id
-        this.data = new Map(data)
-    }
+const getSymbol = ({ symbol }: TBalanceData) => symbol
+const getFree = ({ available }: TBalanceData) => Number(available)
+const getLocked = ({ onOrder }: TBalanceData) => Number(onOrder)
 
-    getId() {
-        return this.id
-    }
-
-    getFree() {
-        return Number(this.data.get('available'))
-    }
-
-    getLocked() {
-        return Number(this.data.get('onOrder'))
-    }
+module.exports = {
+    getSymbol,
+    getFree,
+    getLocked,
 }
-
-Balance.create = (id, data) => new Balance(id, data)
-
-module.exports = Balance

@@ -1,6 +1,8 @@
 /* @flow */
 const { log } = require('../util')
 const exchange = require('../exchange')
+const { getAllBalancesSummary } = require('../model/balance/collection')
+const { getSymbol, getFree } = require('../model/balance/balance')
 
 type CommandOptions = {
     hideSmall?: boolean,
@@ -16,13 +18,13 @@ const Balance: TCommandRunable = {
     async run({ hideSmall, smallThreshold, symbol }: CommandOptions) {
         const accountBalance = await exchange.balance()
 
-        let data = accountBalance.getAllBalancesSummary(hideSmall, smallThreshold)
+        let data = getAllBalancesSummary(hideSmall, smallThreshold, accountBalance)
 
         if (symbol) {
-            data = data.filter((_, asset) => asset === symbol)
+            data = data.filter(balance => balance.symbol === symbol)
         }
 
-        data.map((v, asset) => log(`${asset}: ${v}`))
+        data.map(balance => log(`${getSymbol(balance)}: ${getFree(balance)}`))
     },
     help() {
         renderHelp()

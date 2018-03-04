@@ -1,4 +1,4 @@
-const symbolPrice = require('../dist/model/simplePrice')
+const symbolPrice = require('../dist/model/symbolPrice')
 
 describe('Simple price', () => {
     it('methods', () => {

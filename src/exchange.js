@@ -2,7 +2,7 @@
 const ora = require('ora')
 const binanceApi = require('node-binance-api')
 const { collection: SymbolCollection } = require('./model/symbol')
-const { collection: BalanceCollection } = require('./model/balance')
+const { createFromData } = require('./model/balance/collection')
 const Ticker24 = require('./model/ticker/ticker24')
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
@@ -43,12 +43,12 @@ exports.symbols = async () => {
     return SymbolCollection.create(data)
 }
 
-exports.balance = async () => {
+exports.balance = async (): Promise<Array<TBalanceData>> => {
     spinner.start('Loading balances...')
     const data = await binance('balance')
     spinner.stop()
 
-    return BalanceCollection.create(data)
+    return createFromData(data)
 }
 
 exports.ticker = async (interval: string, symbol: string) => {

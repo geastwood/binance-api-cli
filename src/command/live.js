@@ -20,6 +20,7 @@ type Comparison = {
     newPrice?: number,
     percentage?: number,
 }
+
 const print = (data: Comparison[]) => {
     const table = new Table({
         head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],

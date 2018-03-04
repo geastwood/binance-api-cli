@@ -1,21 +1,20 @@
-const { balances, apiBalances } = require('./fixture')
-const BalanceModel = require('../dist/model/balance/balance')
-const Collection = require('../dist/model/balance/collection')
+const { apiBalances } = require('./fixture')
+const { getSymbol, getFree, getLocked } = require('../dist/model/balance/balance')
+const { createFromData, filterBalanceBySymbol } = require('../dist/model/balance/collection')
 
 describe('model/balance', () => {
     it('model', () => {
-        const model = BalanceModel.create(balances[0].asset, balances[0])
-
-        expect(model.getId()).toBe('BTC')
-        expect(model.getFree()).toBe(0.13925451)
-        expect(typeof model.getFree()).toBe('number')
-        expect(model.getLocked()).toBe(1)
-        expect(typeof model.getLocked()).toBe('number')
+        const balances = createFromData(apiBalances)
+        expect(getSymbol(balances[0])).toBe('BTC')
+        expect(getFree(balances[0])).toBe(0.13925451)
+        expect(typeof getFree(balances[0])).toBe('number')
+        expect(getLocked(balances[0])).toBe(1)
+        expect(typeof getLocked(balances[0])).toBe('number')
     })
 
     it('collection', () => {
-        const coll = Collection.create(apiBalances)
+        const balances = createFromData(apiBalances)
 
-        expect(coll.filterBalanceBySymbol('LTC').toArray().length).toBe(1)
+        expect(filterBalanceBySymbol('LTC', balances).length).toBe(1)
     })
 })
