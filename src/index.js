@@ -18,8 +18,8 @@ const pkg = require('../package.json')
 const R = require('ramda')
 const commands = require('./command')
 const { hasConfig, getConfigstore } = require('./config')
-const args = minimist(process.argv.slice(2))
 const binance = require('node-binance-api')
+const args = minimist(process.argv.slice(2))
 // $FlowFixMe
 const command: TCommand = R.head(args._)
 

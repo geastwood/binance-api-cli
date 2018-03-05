@@ -60,6 +60,12 @@ const Price: TCommandRunable = {
                 print(data)
             },
         ]
+
+        if (!symbols.length) {
+            spinner.fail('At least one symbol must be specified, exiting.')
+            process.exit(1)
+        }
+
         return tradeSocket(symbols, fns, {
             filterFn: ({ m }) => Boolean(m),
             onConnected: () => spinner.stop(),
