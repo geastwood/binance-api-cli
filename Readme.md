@@ -37,6 +37,11 @@ feature
     websocket if possible
 * [ ] design a plugin/event system, websocket emit data, mutiple listners
     receive events
+* [ ] prepare to open source ↑
+* [ ] analyse candlestick
+* [ ] run algorithm again historical data
+* [ ] filter live by symbol ↓
+* [ ] live -> one line verson ↓
 * [x] ⌐ interactively choose order id via multiselect
 * [x]   display win/loose on order/trade
 * [ ] ⌙ handle exception not finding the order

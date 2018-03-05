@@ -1,33 +1,17 @@
-const { normalize } = require('./schema')
-const { Map } = require('immutable')
+/* @flow */
 const { info } = require('../../util')
+const { getBaseAsset, getQuoteAsset } = require('./symbol')
 
-const SymbolCollection = class {
-    constructor(data) {
-        this.data = new Map(data)
-    }
+const getSupportedBaseAssets = (data: TSymbolData[]) => data.map(getBaseAsset)
+const getSupportedBaseAssetsCount = (data: TSymbolData[]) => data.length
+const findByBaseAsset = (name: string, data: TSymbolData[]) =>
+    data.filter(d => getBaseAsset(d) === name || getQuoteAsset(d) === name)
+const printSummary = (data: TSymbolData[]) =>
+    info('Supported Assets counts:', String(getSupportedBaseAssetsCount(data)))
 
-    getSupportedBaseAssets() {
-        return this.data.map(sm => sm.getBaseAsset())
-    }
-
-    getSupportedBaseAssetsCount() {
-        return this.data.count()
-    }
-
-    findByBaseAsset(value) {
-        return this.data.filter(sm => sm.getBaseAsset() === value || sm.getQuoteAsset() === value)
-    }
-
-    printSummary() {
-        info('Supported Assets counts:', this.getSupportedBaseAssetsCount())
-    }
+module.exports = {
+    getSupportedBaseAssets,
+    getSupportedBaseAssetsCount,
+    findByBaseAsset,
+    printSummary,
 }
-
-SymbolCollection.create = ({ symbols }) => {
-    const entities = normalize(symbols)
-
-    return new SymbolCollection(entities)
-}
-
-module.exports = SymbolCollection

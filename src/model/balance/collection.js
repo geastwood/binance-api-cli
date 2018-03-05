@@ -6,7 +6,6 @@ const filterBalanceBySymbol = (symbol: string, balances: TBalanceData[]) =>
 
 const getAllBalancesSummary = (hideSmall: boolean = false, threshold: number = 0.0001, balances: TBalanceData[]) => {
     if (hideSmall) {
-        console.log(threshold)
         return balances.filter(v => getFree(v) > Number(threshold))
     }
 

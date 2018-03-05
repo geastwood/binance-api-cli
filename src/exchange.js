@@ -1,7 +1,6 @@
 /* @flow */
 const ora = require('ora')
 const binanceApi = require('node-binance-api')
-const { collection: SymbolCollection } = require('./model/symbol')
 const { createFromData } = require('./model/balance/collection')
 const Ticker24 = require('./model/ticker/ticker24')
 const binance = (fnName, ...rest): Promise<any> => {
@@ -35,12 +34,12 @@ exports.trades = async (symbol: string): Promise<Array<TTradeData>> => {
     return data
 }
 
-exports.symbols = async () => {
+exports.symbols = async (): Promise<Array<TSymbolData>> => {
     spinner.start('Loading exchange symbols...')
     const data = await binance('exchangeInfo')
     spinner.stop()
 
-    return SymbolCollection.create(data)
+    return data.symbols || []
 }
 
 exports.balance = async (): Promise<Array<TBalanceData>> => {

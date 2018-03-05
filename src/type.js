@@ -5,6 +5,18 @@ declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 't
 
 declare type TCommandSupported = Array<TCommand>
 
+declare type TSymbolData = {|
+    symbol: string,
+    status: string,
+    baseAsset: string,
+    baseAssetPrecision: number,
+    quoteAsset: string,
+    quotePrecision: number,
+    orderTypes: string[],
+    icebergAllowed: boolean,
+    filters: string[],
+|}
+
 declare type TBalanceData = {|
     symbol: string,
     available: string,

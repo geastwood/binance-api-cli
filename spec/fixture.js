@@ -816,3 +816,62 @@ exports.account = {
         },
     ],
 }
+
+exports.symbols = [
+    {
+        symbol: 'ZILBTC',
+        status: 'TRADING',
+        baseAsset: 'ZIL',
+        baseAssetPrecision: 8,
+        quoteAsset: 'BTC',
+        quotePrecision: 8,
+        orderTypes: ['LIMIT', 'LIMIT_MAKER', 'MARKET', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT_LIMIT'],
+        icebergAllowed: true,
+        filters: [
+            {
+                filterType: 'PRICE_FILTER',
+                minPrice: '0.00000001',
+                maxPrice: '100000.00000000',
+                tickSize: '0.00000001',
+            },
+            {
+                filterType: 'LOT_SIZE',
+                minQty: '1.00000000',
+                maxQty: '90000000.00000000',
+                stepSize: '1.00000000',
+            },
+            {
+                filterType: 'MIN_NOTIONAL',
+                minNotional: '0.00100000',
+            },
+        ],
+    },
+    {
+        symbol: 'ZILETH',
+        status: 'TRADING',
+        baseAsset: 'ZIL',
+        baseAssetPrecision: 8,
+        quoteAsset: 'ETH',
+        quotePrecision: 8,
+        orderTypes: ['LIMIT', 'LIMIT_MAKER', 'MARKET', 'STOP_LOSS_LIMIT', 'TAKE_PROFIT_LIMIT'],
+        icebergAllowed: true,
+        filters: [
+            {
+                filterType: 'PRICE_FILTER',
+                minPrice: '0.00000001',
+                maxPrice: '100000.00000000',
+                tickSize: '0.00000001',
+            },
+            {
+                filterType: 'LOT_SIZE',
+                minQty: '1.00000000',
+                maxQty: '90000000.00000000',
+                stepSize: '1.00000000',
+            },
+            {
+                filterType: 'MIN_NOTIONAL',
+                minNotional: '0.01000000',
+            },
+        ],
+    },
+]

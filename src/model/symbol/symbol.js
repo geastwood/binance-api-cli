@@ -1,43 +1,22 @@
+/* @flow */
 const { log } = require('../../util')
-const { Map } = require('immutable')
 
-const Symbol = class {
-    constructor(data) {
-        this.data = new Map(data)
-    }
+const getName = ({ symbol }: TSymbolData) => symbol
+const getSymbol = ({ baseAsset, quoteAsset }: TSymbolData) => `${baseAsset}${quoteAsset}`
+const getBaseAsset = ({ baseAsset }: TSymbolData) => baseAsset
+const getStatus = ({ status }: TSymbolData) => status
+const getQuoteAsset = ({ quoteAsset }: TSymbolData) => quoteAsset
+const isBaseAsset = (symbol: string, { baseAsset }: TSymbolData) => symbol === baseAsset
+const getDescritpion = (data: TSymbolData) => `${getSymbol(data)} is ${getStatus(data)}`
+const print = (data: TSymbolData) => log(data)
 
-    getId() {
-        return this.data.get('id')
-    }
-
-    getStatus() {
-        return this.data.get('status')
-    }
-
-    getDescritpion() {
-        const id = this.getId()
-        const status = this.getStatus()
-
-        return `${id} is ${status}`
-    }
-
-    isBaseAsset(symbol) {
-        return this.getBaseAsset() === symbol
-    }
-
-    getBaseAsset() {
-        return this.data.get('baseAsset')
-    }
-
-    getQuoteAsset() {
-        return this.data.get('quoteAsset')
-    }
-
-    print() {
-        log(this.data)
-    }
+module.exports = {
+    getName,
+    getSymbol,
+    getStatus,
+    getBaseAsset,
+    getQuoteAsset,
+    isBaseAsset,
+    getDescritpion,
+    print,
 }
-
-Symbol.create = data => new Symbol(data)
-
-module.exports = Symbol

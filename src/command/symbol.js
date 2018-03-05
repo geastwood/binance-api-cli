@@ -4,6 +4,8 @@ const exchange = require('../exchange')
 const { info } = require('../util')
 const chalk = require('chalk')
 const ui = require('cliui')()
+const { findByBaseAsset, printSummary } = require('../model/symbol/collection')
+const { isBaseAsset } = require('../model/symbol/symbol')
 
 const renderHelp = () => {
     ui.div('Usage: at4b symbol [options]')
@@ -44,19 +46,19 @@ const renderHelp = () => {
 
 const Symbol: TCommandRunable = {
     async run({ base }: { base: string }) {
-        const symbolCollection = await exchange.symbols()
+        const data = await exchange.symbols()
 
         if (base) {
-            const asset = symbolCollection.findByBaseAsset(base)
+            const asset = findByBaseAsset(base, data)
 
-            if (asset.isEmpty()) {
-                info(`no support for ${base}`)
-            } else {
+            if (asset.length) {
                 info(`Found "${base}"`)
-                asset.map((data, symbol) => info(`${symbol} (${data.isBaseAsset(base) ? 'base' : 'quote'})`))
+                asset.map(d => info(`${d.symbol} (${isBaseAsset(base, d) ? 'base' : 'quote'})`))
+            } else {
+                info(`no support for ${base}`)
             }
         } else {
-            symbolCollection.printSummary()
+            printSummary(data)
         }
     },
     help() {
