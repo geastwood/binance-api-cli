@@ -1,5 +1,6 @@
 /* @flow */
 const exchange = require('../exchange')
+const { summary } = require('../model/ticker/renderer')
 
 type CommandOptions = {
     interval: '24h',
@@ -13,7 +14,7 @@ const renderHelp = () => {
 const Ticker: TCommandRunable = {
     async run({ interval, symbol }: CommandOptions) {
         const ticker = await exchange.ticker(interval, symbol)
-        console.log(ticker.renderer.summary())
+        console.log(summary(ticker))
     },
     help() {
         renderHelp()

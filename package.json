@@ -42,7 +42,6 @@
     "configstore": "^3.1.1",
     "figures": "^2.0.0",
     "form-data": "^2.3.2",
-    "immutable": "^3.8.2",
     "inquirer": "^5.1.0",
     "lodash-id": "^0.14.0",
     "lodash.orderby": "^4.6.0",

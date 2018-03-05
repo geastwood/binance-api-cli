@@ -1,48 +1,26 @@
 /* @flow */
 const moment = require('moment')
-const Renderer = require('./renderer')
 
-class Ticker24 {
-    data: TTicker24
-    renderer: Renderer
-    static create: (data: TTicker24) => Ticker24
+const getSymbol = (data: TTicker24) => data.symbol
+const getPriceChangePercert = (data: TTicker24) => Number(data.priceChangePercent) / 100
+const getOpenTime = (data: TTicker24) => moment(data.openTime).format()
+const getCloseTime = (data: TTicker24) => moment(data.closeTime).format()
+const getBidPrice = (data: TTicker24) => Number(data.bidPrice)
+const getAskPrice = (data: TTicker24) => Number(data.askPrice)
+const getOpenPrice = (data: TTicker24) => Number(data.openPrice)
+const getHighPrice = (data: TTicker24) => Number(data.highPrice)
+const getLowPrice = (data: TTicker24) => Number(data.lowPrice)
+const getVolume = (data: TTicker24) => Number(data.volume)
 
-    constructor(data: TTicker24) {
-        this.data = data
-        this.renderer = new Renderer(this)
-    }
-    getSymbol() {
-        return this.data.symbol
-    }
-    getPriceChangePercert() {
-        return Number(this.data.priceChangePercent) / 100
-    }
-    getOpenTime() {
-        return moment(this.data.openTime).format()
-    }
-    getCloseTime() {
-        return moment(this.data.closeTime).format()
-    }
-    getBidPrice() {
-        return Number(this.data.bidPrice)
-    }
-    getAskPrice() {
-        return Number(this.data.askPrice)
-    }
-    getOpenPrice() {
-        return Number(this.data.openPrice)
-    }
-    getHighPrice() {
-        return Number(this.data.highPrice)
-    }
-    getLowPrice() {
-        return Number(this.data.lowPrice)
-    }
-    getVolume() {
-        return Number(this.data.volume)
-    }
+module.exports = {
+    getSymbol,
+    getPriceChangePercert,
+    getOpenTime,
+    getCloseTime,
+    getBidPrice,
+    getAskPrice,
+    getOpenPrice,
+    getHighPrice,
+    getLowPrice,
+    getVolume,
 }
-
-Ticker24.create = (data: TTicker24): Ticker24 => new Ticker24(data)
-
-module.exports = Ticker24

@@ -1,27 +1,30 @@
 /* @flow */
-const Ticker24Model = require('./ticker24')
+
+const {
+    getSymbol,
+    getPriceChangePercert,
+    getVolume,
+    getBidPrice,
+    getAskPrice,
+    getOpenPrice,
+    getHighPrice,
+    getLowPrice,
+} = require('./ticker24')
 const Table = require('cli-table2')
 const { formatIndicativePercentage, formatInt } = require('../../util')
 
-class Renderer {
-    model: Ticker24Model
-    constructor(model: Ticker24Model) {
-        this.model = model
-    }
-    summary() {
-        const table = new Table()
-        const { model } = this
+const summary = (data: TTicker24) => {
+    const table = new Table()
 
-        table.push({ Symbol: [model.getSymbol()] })
-        table.push({ Percent: [formatIndicativePercentage(model.getPriceChangePercert())] })
-        table.push({ Volume: [formatInt(model.getVolume())] })
-        table.push({ 'Bid Price': [model.getBidPrice()] })
-        table.push({ 'Ask Price': [model.getAskPrice()] })
-        table.push({ 'Open Price': [model.getOpenPrice()] })
-        table.push({ 'High Price': [model.getHighPrice()] })
-        table.push({ 'Low Price': [model.getLowPrice()] })
-        return table.toString()
-    }
+    table.push({ Symbol: [getSymbol(data)] })
+    table.push({ '24h Percent': [formatIndicativePercentage(getPriceChangePercert(data))] })
+    table.push({ Volume: [formatInt(getVolume(data))] })
+    table.push({ 'Bid Price': [getBidPrice(data)] })
+    table.push({ 'Ask Price': [getAskPrice(data)] })
+    table.push({ 'Open Price': [getOpenPrice(data)] })
+    table.push({ 'High Price': [getHighPrice(data)] })
+    table.push({ 'Low Price': [getLowPrice(data)] })
+    return table.toString()
 }
 
-module.exports = Renderer
+module.exports = { summary }
