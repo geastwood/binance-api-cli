@@ -8,7 +8,7 @@ const { findByBaseAsset, printSummary } = require('../model/symbol/collection')
 const { isBaseAsset } = require('../model/symbol/symbol')
 
 const renderHelp = () => {
-    ui.div('Usage: at4b symbol [options]')
+    ui.div('Usage: atcb symbol [options]')
 
     ui.div({
         text: 'Options:',
@@ -37,7 +37,7 @@ const renderHelp = () => {
     })
 
     ui.div({
-        text: `${chalk.green('at4b symbol --base=VEN')}`,
+        text: `${chalk.green('atcb symbol --base=VEN')}`,
         padding: [0, 0, 1, 2],
     })
 

@@ -8,7 +8,7 @@ const renderHelp = () => {
     console.log('')
     console.log(pkg.description)
     console.log(figures.arrowRight, `version: ${chalk.green(pkg.version)}`)
-    console.log(figures.arrowRight, 'Should help for individual comment by runing', chalk.green('at4b [COMMAND]'))
+    console.log(figures.arrowRight, 'Should help for individual comment by runing', chalk.green('atcb [COMMAND]'))
     console.log('')
     process.exit(0)
 }

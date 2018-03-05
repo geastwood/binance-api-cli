@@ -7,7 +7,7 @@ const ui = require('cliui')()
 const { getSymbol, getPrice } = require('../model/symbolPrice')
 
 const renderHelp = () => {
-    ui.div('Usage: at4b price [options]')
+    ui.div('Usage: atcb price [options]')
 
     ui.div({
         text: 'Options:',

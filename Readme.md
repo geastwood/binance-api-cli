@@ -1,7 +1,7 @@
 # Auto trading wrapping around Binance
 
 # Setup
-run `at4b config` to specify the *apiKey* and *secret* for accessing the full
+run `atcb config` to specify the *apiKey* and *secret* for accessing the full
 feature
 
 # Commands
@@ -14,16 +14,16 @@ feature
 * symbol -> provide exchange infos [GET]
 
 ### Exchange
-* `at4b symbol --base=ADA` => find asset ADA
-* `at4b symbol` => print summary of exchange
+* `atcb symbol --base=ADA` => find asset ADA
+* `atcb symbol` => print summary of exchange
 
 ### Account
-* `at4b balance` => get account meta and balances
-* `at4b balance --hideSmall --smallThreshold` => filtering balances --threshold[=0]
-* `at4b balance --hideSmall --summary` => list your balance with attribution
+* `atcb balance` => get account meta and balances
+* `atcb balance --hideSmall --smallThreshold` => filtering balances --threshold[=0]
+* `atcb balance --hideSmall --summary` => list your balance with attribution
 
 ### Price
-* `at4b price --symbol=ETHBTC` => get current price of a symbol
+* `atcb price --symbol=ETHBTC` => get current price of a symbol
 
 ### Trade
 * `node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389`
@@ -50,4 +50,3 @@ feature
 * [-] expose `help` in command interface, run command without args will show help section
 * [ ] handle error in api module
 * [ ] add account info ↡
-* [x] filter symbol list with one symbol
