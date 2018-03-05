@@ -1,7 +1,9 @@
 /* @flow */
 
 const ora = require('ora')
+const chalk = require('chalk')
 const clear = require('clear')
+const throttle = require('lodash.throttle')
 const { tradeSocket } = require('../exchange')
 const { getTrades } = require('../db')
 const { uniq } = require('ramda')
@@ -21,20 +23,37 @@ type Comparison = {
     percentage?: number,
 }
 
-const print = (data: Comparison[]) => {
-    const table = new Table({
+const table = (data: Comparison[]) => {
+    const t = new Table({
         head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
     })
 
     data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
-        table.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
+        t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
     )
-    console.log(table.toString())
+    console.log(t.toString())
 }
+const line = () => {
+    let count = 0
+    return throttle(
+        (data: Comparison[]) => {
+            const { symbol, originalPrice, originalQty, newPrice, percentage } = data[count % data.length]
+            clear()
+            const output = `${chalk.green.bold(symbol)} x ${originalQty} ${chalk.yellow(
+                newPrice ? newPrice : 'no data yet',
+            )}(${originalPrice}) ${formatIndicativePercentage(Number(percentage))}`
+            console.log(output)
+            count += 1
+        },
+        1000,
+        { tail: true, leading: false },
+    )
+}
+type CommandOptions = { oneline?: boolean }
 
 const spinner = ora()
 const Price: TCommandRunable = {
-    run() {
+    run({ oneline }: CommandOptions) {
         const trades = getTrades()
         const symbols = uniq(trades.map(({ symbol }) => symbol))
         let data = trades.map(t => ({
@@ -45,8 +64,8 @@ const Price: TCommandRunable = {
         }))
         clear()
         spinner.start('Socket being started...')
+        const lineFn = line()
         const fns = [
-            () => clear(),
             t => {
                 data = data.map(d => {
                     if (d.symbol === t.s) {
@@ -57,7 +76,11 @@ const Price: TCommandRunable = {
                     }
                     return d
                 })
-                print(data)
+                if (oneline) {
+                    lineFn(data)
+                } else {
+                    table(data)
+                }
             },
         ]
 
