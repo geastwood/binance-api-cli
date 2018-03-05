@@ -29,3 +29,9 @@ exports.addTrade = (trade: TTradeWithSymbolData) => {
 }
 
 exports.getTrades = (): TTradeWithSymbolData[] => db.get('trades').value()
+
+exports.removeTradeById = (orderId: number) =>
+    db
+        .get('trades')
+        .remove({ orderId })
+        .write()

@@ -7,7 +7,9 @@ const summary = (data: TTradeData): string =>
         data,
     )} at ${getTime(data)} (${getReadableTime(data)})`
 const short = (data: TTradeData): string =>
-    `[${getOrderId(data)}-${getSide(data).toUpperCase()}]: ${chalk.yellow(getPrice(data))} @ ${getReadableTime(data)}`
+    `[${getOrderId(data)}-${getSide(data).toUpperCase()}]: ${chalk.yellow(getPrice(data))} x ${getQty(
+        data,
+    )} @ ${getReadableTime(data)}`
 
 module.exports = {
     summary,

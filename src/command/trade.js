@@ -3,10 +3,10 @@
 const chalk = require('chalk')
 const { err, info, formatIndicativePercentage } = require('../util')
 const exchange = require('../exchange')
-const { addTrade } = require('../db')
+const { addTrade, removeTradeById } = require('../db')
 const { push } = require('../notification')
 const tradeButter = require('../butter/trade')
-const { getOrderId } = require('../userInput')
+const { getOrderId, getOrderFromDb } = require('../userInput')
 const stripAnsi = require('strip-ansi')
 const { getPrice } = require('../model/symbolPrice')
 const { findByOrderId } = require('../model/trade/collection')
@@ -16,9 +16,10 @@ type CommandProps = {
     symbol: string,
     orderId: number,
     format: 'summary',
-    estimateProfit: boolean,
-    notify: boolean,
-    watch: boolean,
+    estimateProfit?: boolean,
+    notify?: boolean,
+    watch?: boolean,
+    unwatch?: boolean,
 }
 
 const renderHelp = () => {
@@ -35,8 +36,17 @@ const tryEstimateProfit = async (symbol: string, orderId: number) => {
         getPrice(price),
     )} ==> ${formatIndicativePercentage(percent)}`
 }
+const handleUnwatch = async (orderId: number) => {
+    const userOrderId = orderId || (await getOrderFromDb())
+    removeTradeById(userOrderId)
+    info(`${chalk.green.bold(userOrderId)} is removed from watch list`)
+}
 const Trade: TCommandRunable = {
-    async run({ symbol, orderId, format = 'summary', estimateProfit, notify, watch }: CommandProps) {
+    async run({ symbol, orderId, format = 'summary', estimateProfit, notify, watch, unwatch }: CommandProps) {
+        if (unwatch) {
+            await handleUnwatch(orderId)
+            process.exit(0)
+        }
         if (!symbol) {
             err('--symbol is required')
             process.exit(1)
