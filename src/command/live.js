@@ -23,16 +23,23 @@ type Comparison = {
     percentage?: number,
 }
 
-const table = (data: Comparison[]) => {
-    const t = new Table({
-        head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
-    })
+const table = () =>
+    throttle(
+        (data: Comparison[]) => {
+            const t = new Table({
+                head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
+            })
 
-    data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
-        t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
+            data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
+                t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
+            )
+
+            clear()
+            console.log(t.toString())
+        },
+        1000,
+        { tail: true, leading: false },
     )
-    console.log(t.toString())
-}
 const line = () => {
     let count = 0
     return throttle(
@@ -45,7 +52,7 @@ const line = () => {
             console.log(output)
             count += 1
         },
-        1000,
+        1500,
         { tail: true, leading: false },
     )
 }
@@ -65,6 +72,7 @@ const Price: TCommandRunable = {
         clear()
         spinner.start('Socket being started...')
         const lineFn = line()
+        const tableFn = table()
         const fns = [
             t => {
                 data = data.map(d => {
@@ -79,7 +87,7 @@ const Price: TCommandRunable = {
                 if (oneline) {
                     lineFn(data)
                 } else {
-                    table(data)
+                    tableFn(data)
                 }
             },
         ]
