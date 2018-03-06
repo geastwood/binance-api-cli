@@ -23,39 +23,36 @@ type Comparison = {
     percentage?: number,
 }
 
+const throttleRender = (fn: (data: Comparison[]) => void, delay: number = 1000) =>
+    throttle(fn, delay, { tail: true, leading: false })
+
 const table = () =>
-    throttle(
-        (data: Comparison[]) => {
-            const t = new Table({
-                head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
-            })
+    throttleRender((data: Comparison[]) => {
+        const t = new Table({
+            head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
+        })
 
-            data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
-                t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
-            )
+        data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
+            t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
+        )
 
-            clear()
-            console.log(t.toString())
-        },
-        1000,
-        { tail: true, leading: false },
-    )
+        clear()
+        console.log(t.toString())
+    })
+
 const line = () => {
     let count = 0
-    return throttle(
-        (data: Comparison[]) => {
-            const { symbol, originalPrice, originalQty, newPrice, percentage } = data[count % data.length]
-            clear()
-            const output = `${chalk.green.bold(symbol)} x ${originalQty} ${chalk.yellow(
-                newPrice ? newPrice : 'no data yet',
-            )}(${originalPrice}) ${formatIndicativePercentage(Number(percentage))}`
-            console.log(output)
-            count += 1
-        },
-        1500,
-        { tail: true, leading: false },
-    )
+    return throttleRender((data: Comparison[]) => {
+        const { symbol, originalPrice, originalQty, newPrice, percentage } = data[count % data.length]
+        clear()
+        const output = `${chalk.green.bold(symbol)} x ${originalQty} ${chalk.yellow(
+            newPrice ? newPrice : 'no data yet',
+        )}(${originalPrice}) ${formatIndicativePercentage(Number(percentage))}`
+        console.log(output)
+        count += 1
+    })
 }
+
 type CommandOptions = { oneline?: boolean }
 
 const spinner = ora()
