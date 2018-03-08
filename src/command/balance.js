@@ -5,7 +5,6 @@ const chalk = require('chalk')
 const Table = require('cli-table2')
 const exchange = require('../exchange')
 const { getAllBalancesSummary } = require('../model/balance/collection')
-const { getSymbol, getFree } = require('../model/balance/balance')
 const { getPriceForSymbols } = require('../butter/price')
 
 type CommandOptions = {
@@ -20,21 +19,21 @@ const renderHelp = () => {
 }
 
 const renderSummary = async (balances: TBalanceData[], quoteAsset: string = 'BTC') => {
-    const prices = await getPriceForSymbols(balances.map(getSymbol), quoteAsset)
+    const prices = await getPriceForSymbols(balances.map(({ symbol }) => symbol), quoteAsset)
     const groupedPrices = groupBy(({ symbol }) => symbol, prices)
 
     // organize balance with current price
     const balanceWithPrice = []
     balances.forEach(b => {
-        if (getSymbol(b) === quoteAsset) {
+        if (b.symbol === quoteAsset) {
             balanceWithPrice.push({
                 ...b,
                 price: 1,
             })
-        } else if (groupedPrices[`${getSymbol(b)}${quoteAsset}`]) {
+        } else if (groupedPrices[`${b.symbol}${quoteAsset}`]) {
             balanceWithPrice.push({
                 ...b,
-                price: Number(groupedPrices[`${getSymbol(b)}${quoteAsset}`][0].price),
+                price: Number(groupedPrices[`${b.symbol}${quoteAsset}`][0].price),
             })
         }
     })
@@ -68,7 +67,7 @@ const Balance: TCommandRunable = {
             data = data.filter(balance => balance.symbol === symbol)
         }
 
-        data.map(balance => log(`${getSymbol(balance)}: ${getFree(balance)}`))
+        data.map(balance => log(`${balance.symbol}: ${balance.available}`))
     },
     help() {
         renderHelp()

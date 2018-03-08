@@ -3,6 +3,44 @@
 
 declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config' | 'ticker' | 'live'
 
+declare type TIntervalEnum =
+    | '1m'
+    | '3m'
+    | '5m'
+    | '15m'
+    | '30m'
+    | '1h'
+    | '2h'
+    | '4h'
+    | '6h'
+    | '8h'
+    | '12h'
+    | '1d'
+    | '3d'
+    | '1w'
+    | '1M'
+
+declare type TTickData = {|
+    open: number,
+    high: number,
+    low: number,
+    close: number,
+    volume: number,
+    tradeCount: number,
+    interval: TIntervalEnum,
+    isFinal: boolean,
+    quoteVolume: number,
+    buyVolume: number,
+    quoteBuyVolume: number,
+|}
+
+declare type TCandelstickData = {|
+    eventType: string,
+    eventTime: Date,
+    symbol: string,
+    tick: TTickData,
+|}
+
 declare type TCommandSupported = Array<TCommand>
 
 declare type TSymbolData = {|
@@ -19,8 +57,8 @@ declare type TSymbolData = {|
 
 declare type TBalanceData = {|
     symbol: string,
-    available: string,
-    onOrder: string,
+    available: number,
+    onOrder: number,
 |}
 
 declare type TCommandRunable = {|
