@@ -37,15 +37,22 @@ const renderSummary = async (balances: TBalanceData[], quoteAsset: string = 'BTC
             })
         }
     })
-    const sumBalanceInQuote = balanceWithPrice.reduce((total, b) => total + Number(b.available) * b.price, 0)
+    const sumBalanceInQuote = balanceWithPrice.reduce((total, b) => total + (b.available + b.onOrder) * b.price, 0)
 
     const table = new Table({
-        head: ['Symbol', 'Available', `In ${quoteAsset}`, 'Share (%)'],
+        head: ['Symbol', 'Available', 'On Order', `In ${quoteAsset}`, 'Share (%)'],
     })
 
     balanceWithPrice.forEach(b => {
-        const available = Number(b.available) * b.price
-        table.push([b.symbol, b.available, available, formatPercentage(available / sumBalanceInQuote)])
+        const available = b.available * b.price
+        const onOrder = b.onOrder * b.price
+        table.push([
+            b.symbol,
+            b.available,
+            b.onOrder,
+            available + onOrder,
+            formatPercentage((available + onOrder) / sumBalanceInQuote),
+        ])
     })
 
     console.log(table.toString())
@@ -67,7 +74,7 @@ const Balance: TCommandRunable = {
             data = data.filter(balance => balance.symbol === symbol)
         }
 
-        data.map(balance => log(`${balance.symbol}: ${balance.available}`))
+        data.map(balance => log(`${balance.symbol}: ${balance.available}/${balance.onOrder}`))
     },
     help() {
         renderHelp()
