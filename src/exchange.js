@@ -1,6 +1,6 @@
 /* @flow */
 const ora = require('ora')
-const { toCandlestickData } = require('./model/mapper')
+const { toCandlestickData, toTicker24Data } = require('./model/mapper')
 const binanceApi = require('node-binance-api')
 const { createFromData } = require('./model/balance/collection')
 const binance = (fnName, ...rest): Promise<any> => {
@@ -54,7 +54,7 @@ exports.ticker = async (interval: string, symbol: string): Promise<TTicker24> =>
     spinner.start('Loading ticker price...')
     const data = await binance('prevDay', symbol)
     spinner.stop()
-    return data
+    return toTicker24Data(data)
 }
 
 type TradeSocketOptions = {

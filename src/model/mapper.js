@@ -79,3 +79,47 @@ exports.toCandlestickData = (json: { k: {} }): TCandelstickData => {
         tick,
     }
 }
+
+exports.toTicker24Data = (json: {}): TTicker24 => {
+    const symbol = get(json, 'symbol')
+    const priceChange = Number(get(json, 'priceChange'))
+    const priceChangePercent = Number(get(json, 'priceChangePercent'))
+    const weightedAvgPrice = Number(get(json, 'weightedAvgPrice'))
+    const prevClosePrice = Number(get(json, 'prevClosePrice'))
+    const lastPrice = Number(get(json, 'lastPrice'))
+    const lastQty = Number(get(json, 'lastQty'))
+    const bidPrice = Number(get(json, 'bidPrice'))
+    const askPrice = Number(get(json, 'askPrice'))
+    const openPrice = Number(get(json, 'openPrice'))
+    const highPrice = Number(get(json, 'highPrice'))
+    const lowPrice = Number(get(json, 'lowPrice'))
+    const volume = Number(get(json, 'volume'))
+    const quoteVolume = Number(get(json, 'quoteVolume'))
+    const openTime = get(json, 'openTime')
+    const closeTime = get(json, 'closeTime')
+    const fristId = get(json, 'fristId')
+    const lastId = get(json, 'lastId')
+    const count = get(json, 'count')
+
+    return {
+        symbol,
+        priceChange,
+        priceChangePercent,
+        weightedAvgPrice,
+        prevClosePrice,
+        lastPrice,
+        lastQty,
+        bidPrice,
+        askPrice,
+        openPrice,
+        highPrice,
+        lowPrice,
+        volume,
+        quoteVolume,
+        openTime,
+        closeTime,
+        fristId,
+        lastId,
+        count,
+    }
+}

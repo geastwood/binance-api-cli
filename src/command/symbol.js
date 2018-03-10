@@ -5,7 +5,7 @@ const { info } = require('../util')
 const chalk = require('chalk')
 const ui = require('cliui')()
 const { findByBaseAsset, printSummary } = require('../model/symbol/collection')
-const { isBaseAsset } = require('../model/symbol/symbol')
+const { isBaseAsset } = require('../model/symbol')
 
 const renderHelp = () => {
     ui.div('Usage: atcb symbol [options]')

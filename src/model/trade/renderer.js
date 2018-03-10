@@ -1,6 +1,6 @@
 /* @flow */
-const { getSide, getTime, getReadableTime } = require('./trade')
 const chalk = require('chalk')
+const { getSide, getTime, getReadableTime } = require('./')
 
 const summary = (data: TTradeData): string =>
     `[${data.orderId}]: ${getSide(data).toUpperCase()} with price ${data.price} for ${data.qty} at ${getTime(

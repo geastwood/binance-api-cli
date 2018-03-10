@@ -1,29 +1,19 @@
 /* @flow */
 
-const {
-    getSymbol,
-    getPriceChangePercert,
-    getVolume,
-    getBidPrice,
-    getAskPrice,
-    getOpenPrice,
-    getHighPrice,
-    getLowPrice,
-} = require('./ticker24')
 const Table = require('cli-table2')
 const { formatIndicativePercentage, formatInt } = require('../../util')
 
 const summary = (data: TTicker24) => {
     const table = new Table()
 
-    table.push({ Symbol: [getSymbol(data)] })
-    table.push({ '24h Percent': [formatIndicativePercentage(getPriceChangePercert(data))] })
-    table.push({ Volume: [formatInt(getVolume(data))] })
-    table.push({ 'Bid Price': [getBidPrice(data)] })
-    table.push({ 'Ask Price': [getAskPrice(data)] })
-    table.push({ 'Open Price': [getOpenPrice(data)] })
-    table.push({ 'High Price': [getHighPrice(data)] })
-    table.push({ 'Low Price': [getLowPrice(data)] })
+    table.push({ Symbol: [data.symbol] })
+    table.push({ '24h Percent': [formatIndicativePercentage(data.priceChangePercent / 100)] })
+    table.push({ Volume: [formatInt(data.volume)] })
+    table.push({ 'Bid Price': [data.bidPrice] })
+    table.push({ 'Ask Price': [data.askPrice] })
+    table.push({ 'Open Price': [data.openPrice] })
+    table.push({ 'High Price': [data.highPrice] })
+    table.push({ 'Low Price': [data.lowPrice] })
     return table.toString()
 }
 
