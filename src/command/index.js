@@ -8,6 +8,7 @@ const trade = require('./trade')
 const config = require('./config')
 const ticker = require('./ticker')
 const live = require('./live')
+const candlestick = require('./candlestick')
 
 const commands = {
     symbol,
@@ -19,6 +20,7 @@ const commands = {
     config,
     ticker,
     live,
+    candlestick,
 }
 
 module.exports = commands

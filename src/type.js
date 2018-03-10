@@ -1,7 +1,17 @@
 /* @flow */
 /* eslint-disable */
 
-declare type TCommand = 'symbol' | 'help' | 'version' | 'balance' | 'price' | 'trade' | 'config' | 'ticker' | 'live'
+declare type TCommand =
+    | 'symbol'
+    | 'help'
+    | 'version'
+    | 'balance'
+    | 'price'
+    | 'trade'
+    | 'config'
+    | 'ticker'
+    | 'live'
+    | 'candlestick'
 
 declare type TIntervalEnum =
     | '1m'
@@ -74,8 +84,8 @@ declare type TConfigtore = {|
 declare type TTradeData = {|
     id: number,
     orderId: number,
-    price: string,
-    qty: string,
+    price: number,
+    qty: number,
     commission: number,
     commissionAsset: string,
     time: Date,

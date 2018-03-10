@@ -1,15 +1,14 @@
 const { apiBalances } = require('./fixture')
-const { getSymbol, getFree, getLocked } = require('../dist/model/balance/balance')
 const { createFromData, filterBalanceBySymbol } = require('../dist/model/balance/collection')
 
 describe('model/balance', () => {
     it('model', () => {
         const balances = createFromData(apiBalances)
-        expect(getSymbol(balances[0])).toBe('BTC')
-        expect(getFree(balances[0])).toBe(0.13925451)
-        expect(typeof getFree(balances[0])).toBe('number')
-        expect(getLocked(balances[0])).toBe(1)
-        expect(typeof getLocked(balances[0])).toBe('number')
+        expect(balances[0].symbol).toBe('BTC')
+        expect(balances[0].available).toBe(0.13925451)
+        expect(typeof balances[0].available).toBe('number')
+        expect(balances[0].onOrder).toBe(1)
+        expect(typeof balances[0].onOrder).toBe('number')
     })
 
     it('collection', () => {

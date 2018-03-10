@@ -2,7 +2,7 @@
 const exchange = require('./exchange')
 const { getTrades } = require('./db')
 const inquirer = require('inquirer')
-const { getOrderId, getTime } = require('./model/trade/trade')
+const { getTime } = require('./model/trade/trade')
 const { short } = require('./model/trade/renderer')
 const orderBy = require('lodash.orderby')
 const { err } = require('./util')
@@ -15,9 +15,9 @@ exports.getOrderId = async (symbol: string): Promise<number> => {
         name: 'orderId',
         message: 'Choose an order to display',
         pageSize: 5,
-        choices: orderBy(data, trade => [getTime(trade)], ['desc']).map(trade => ({
+        choices: orderBy(data, trade => [getTime(trade)], ['desc']).map((trade: TTradeData) => ({
             name: short(trade),
-            value: getOrderId(trade),
+            value: trade.id,
         })),
     })
 
@@ -37,7 +37,7 @@ exports.getOrderFromDb = async (): Promise<number> => {
         pageSize: 5,
         choices: orderBy(data, ({ time }) => [time], ['desc']).map(trade => ({
             name: `[${trade.symbol}]-${short(trade)}`,
-            value: getOrderId(trade),
+            value: trade.orderId,
         })),
     })
 

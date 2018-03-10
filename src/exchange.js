@@ -1,5 +1,6 @@
 /* @flow */
 const ora = require('ora')
+const { toCandlestickData } = require('./model/mapper')
 const binanceApi = require('node-binance-api')
 const { createFromData } = require('./model/balance/collection')
 const binance = (fnName, ...rest): Promise<any> => {
@@ -81,3 +82,14 @@ exports.tradeSocket = (symbols: string[], subscribers: Function[], opts: TradeSo
         binanceApi.websockets.trades(symbols, handler)
     })
 }
+
+exports.candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
+    new Promise(resolve => {
+        const handler = (candlestick: any) => {
+            const data = toCandlestickData(candlestick)
+            for (const fn of subscribers) {
+                fn(data, resolve)
+            }
+        }
+        binanceApi.websockets.candlesticks(symbol, interval, handler)
+    })

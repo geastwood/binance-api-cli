@@ -1,10 +1,35 @@
 /* @flow */
 const get = require('lodash.get')
 
+exports.toTradeData = (json: {}): TTradeData => {
+    const id = get(json, 'id')
+    const orderId = get(json, 'orderId')
+    const price = Number(get(json, 'price'))
+    const qty = Number(get(json, 'qty'))
+    const commission = get(json, 'commission')
+    const commissionAsset = get(json, 'commissionAsset')
+    const time = get(json, 'time')
+    const isBuyer = get(json, 'isBuyer')
+    const isMaker = get(json, 'isMaker')
+    const isBestMatch = get(json, 'isBestMatch')
+
+    return {
+        id,
+        orderId,
+        price,
+        qty,
+        commission,
+        commissionAsset,
+        time,
+        isBuyer,
+        isMaker,
+        isBestMatch,
+    }
+}
 exports.toBalanceData = (json: {}): TBalanceData => {
     const symbol = get(json, 'symbol')
-    const available = get(json, 'available')
-    const onOrder = get(json, 'onOrder')
+    const available = Number(get(json, 'available'))
+    const onOrder = Number(get(json, 'onOrder'))
 
     return {
         symbol,

@@ -3,7 +3,6 @@
 const moment = require('moment')
 const exchange = require('../exchange')
 const { findByOrderId } = require('../model/trade/collection')
-const { getPrice, getQty } = require('../model/trade/trade')
 
 type OrderMeta = {
     count: number,
@@ -13,8 +12,8 @@ type OrderMeta = {
 
 const getMetaForTrades = (trades): OrderMeta => ({
     count: trades.length,
-    averagePrice: trades.reduce((carry, order) => carry + getPrice(order), 0) / trades.length,
-    qty: trades.reduce((carry, order) => carry + getQty(order), 0),
+    averagePrice: trades.reduce((carry, order) => carry + order.price, 0) / trades.length,
+    qty: trades.reduce((carry, order) => carry + order.qty, 0),
 })
 
 type OrdersWithCurrentMarketPrice = {|
@@ -36,7 +35,6 @@ const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<Orde
     }
 }
 
-exports.getPrice = (trade: TTradeData) => Number(trade.price)
 exports.getTime = (trade: TTradeData) => moment(trade.time).format()
 exports.getRelativeTime = (trade: TTradeData) => moment(trade.time).fromNow()
 
