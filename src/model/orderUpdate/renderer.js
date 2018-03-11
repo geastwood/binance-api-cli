@@ -10,8 +10,11 @@ const renderer = {
         if (model.executionType === 'REJECTED' && model.orderStatus === 'NEW') {
             msg = `!!!Order Rejected-${msg}-${model.rejectReason}`
         }
+
+        if (model.side === 'SELL' && model.executionType === 'TRADE') {
+            msg = `🎉👏 ${msg}`
+        }
         return msg
     },
 }
-
 module.exports = renderer
