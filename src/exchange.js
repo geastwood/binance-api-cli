@@ -1,6 +1,7 @@
 /* @flow */
 const ora = require('ora')
-const { toCandlestickData, toTicker24Data } = require('./model/mapper')
+const { compose, identity } = require('ramda')
+const mappers = require('./model/mapper')
 const binanceApi = require('node-binance-api')
 const { createFromData } = require('./model/balance/collection')
 const binance = (fnName, ...rest): Promise<any> => {
@@ -54,7 +55,7 @@ exports.ticker = async (interval: string, symbol: string): Promise<TTicker24> =>
     spinner.start('Loading ticker price...')
     const data = await binance('prevDay', symbol)
     spinner.stop()
-    return toTicker24Data(data)
+    return mappers.toTicker24Data(data)
 }
 
 type TradeSocketOptions = {
@@ -86,10 +87,16 @@ exports.tradeSocket = (symbols: string[], subscribers: Function[], opts: TradeSo
 exports.candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
     new Promise(resolve => {
         const handler = (candlestick: any) => {
-            const data = toCandlestickData(candlestick)
+            const data = mappers.toCandlestickData(candlestick)
             for (const fn of subscribers) {
                 fn(data, resolve)
             }
         }
         binanceApi.websockets.candlesticks(symbol, interval, handler)
+    })
+
+exports.userData = (subscriber: Function): Promise<*> =>
+    new Promise(() => {
+        const handler = compose(subscriber, mappers.toOrderUpdateData)
+        binanceApi.websockets.userData(identity, handler)
     })

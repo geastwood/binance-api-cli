@@ -12,6 +12,58 @@ declare type TCommand =
     | 'ticker'
     | 'live'
     | 'candlestick'
+    | 'liveupdate'
+
+declare type TOrderSideEnum = 'SELL' | 'BUY'
+
+declare type TOrderStatusEnum =
+    | 'NEW'
+    | 'PARTIALLY_FILLED'
+    | 'FILLED'
+    | 'CANCELED'
+    | 'PENDING_CANCEL'
+    | 'REJECTED'
+    | 'EXPIRED'
+
+declare type TOrderTypeEnum =
+    | 'LIMIT'
+    | 'MARKET'
+    | 'STOP_LOSS'
+    | 'STOP_LOSS_LIMIT'
+    | 'TAKE_PROFIT'
+    | 'TAKE_PROFIT_LIMIT'
+    | 'LIMIT_MAKER'
+
+declare type TOrderExecutionTypeEnum = 'NEW' | 'CANCELED' | 'REJECTED' | 'TRADE' | 'EXPIRED'
+
+// check mapper for description
+declare type TOrderUpdateData = {
+    eventType: 'executionReport',
+    eventTime: number,
+    symbol: string,
+    clientOrderId: string,
+    side: TOrderSideEnum,
+    orderType: TOrderTypeEnum,
+    timeInForce: string,
+    qty: number,
+    price: number,
+    stopPrice: number,
+    icebergQty: number,
+    originalOrderId: string,
+    executionType: TOrderExecutionTypeEnum,
+    orderStatus: TOrderStatusEnum,
+    rejectReason: string,
+    orderId: number,
+    lastExecutedQty: number,
+    cumulativeFilledQty: number,
+    lastExecutedPrice: number,
+    commissionAmount: number,
+    commissionAsset: null,
+    transactionTime: Date,
+    tradeId: number,
+    w: number,
+    isMakerSide: boolean,
+}
 
 declare type TIntervalEnum =
     | '1m'

@@ -13,6 +13,7 @@ const commandWhiteList: TCommandSupported = [
     'ticker',
     'live',
     'candlestick',
+    'liveupdate',
 ]
 const { err, warn } = require('./util')
 const pkg = require('../package.json')

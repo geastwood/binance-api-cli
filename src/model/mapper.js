@@ -123,3 +123,59 @@ exports.toTicker24Data = (json: {}): TTicker24 => {
         count,
     }
 }
+
+exports.toOrderUpdateData = (json: {}): TOrderUpdateData => {
+    const e = get(json, 'e') // Event type
+    const E = get(json, 'E') // Event time
+    const s = get(json, 's') // Symbol
+    const c = get(json, 'c') // Client order ID
+    const S = get(json, 'S') // Side
+    const o = get(json, 'o') // Order type
+    const f = get(json, 'f') // Time in force
+    const q = Number(get(json, 'q')) // Order quantity
+    const p = Number(get(json, 'p')) // Order price
+    const P = Number(get(json, 'P')) // Stop price
+    const F = Number(get(json, 'F')) // Iceberg quantity
+    const C = get(json, 'C') // Original client order ID; This is the ID of the order being canceled
+    const x = get(json, 'x') // Current execution type
+    const X = get(json, 'X') // Current order status
+    const r = get(json, 'r') // Order reject reason; will be an error code.
+    const i = get(json, 'i') // Order ID
+    const l = Number(get(json, 'l')) // Last executed quantity
+    const z = Number(get(json, 'z')) // Cumulative filled quantity
+    const L = Number(get(json, 'L')) // Last executed price
+    const n = Number(get(json, 'n')) // Commission amount
+    const N = get(json, 'N', 'null') // Commission asset
+    const T = get(json, 'T') // Transaction time
+    const t = get(json, 't') // Trade ID
+    const w = get(json, 'w') // Is the order working? Stops will have
+    const m = get(json, 'm') // Is this trade the maker side?
+
+    return {
+        eventType: e,
+        eventTime: E,
+        symbol: s,
+        clientOrderId: c,
+        side: S,
+        orderType: o,
+        timeInForce: f,
+        qty: q,
+        price: p,
+        stopPrice: P,
+        icebergQty: F,
+        originalOrderId: C,
+        executionType: x,
+        orderStatus: X,
+        rejectReason: r,
+        orderId: i,
+        lastExecutedQty: l,
+        cumulativeFilledQty: z,
+        lastExecutedPrice: L,
+        commissionAmount: n,
+        commissionAsset: N,
+        transactionTime: T,
+        tradeId: t,
+        w,
+        isMakerSide: m,
+    }
+}
