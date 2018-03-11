@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postpublish": "babel src -d dist",
+    "deamon": "forever start dist/index.js liveupdate",
     "test": "jasmine",
     "lint": "eslint .",
     "flow": "flow .",
@@ -41,6 +42,7 @@
     "clui": "^0.3.6",
     "configstore": "^3.1.1",
     "figures": "^2.0.0",
+    "forever": "^0.15.3",
     "form-data": "^2.3.2",
     "inquirer": "^5.1.0",
     "lodash-id": "^0.14.0",
