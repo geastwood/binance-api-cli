@@ -32,7 +32,7 @@ exports.trades = async (symbol: string): Promise<Array<TTradeData>> => {
     const data = await binance('trades', symbol)
     spinner.stop()
 
-    return data
+    return data.map(mappers.toTradeData)
 }
 
 exports.symbols = async (): Promise<Array<TSymbolData>> => {

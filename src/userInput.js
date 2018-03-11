@@ -2,7 +2,7 @@
 const exchange = require('./exchange')
 const { getTrades } = require('./db')
 const inquirer = require('inquirer')
-const { getTime } = require('./model/trade')
+const { getTime } = require('./model/trade/util')
 const { short } = require('./model/trade/renderer')
 const orderBy = require('lodash.orderby')
 const { err } = require('./util')

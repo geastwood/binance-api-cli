@@ -3,10 +3,9 @@
 const chalk = require('chalk')
 const { err, info, formatIndicativePercentage } = require('../util')
 const exchange = require('../exchange')
-const { addTrade, removeTradeById } = require('../db')
 const { push } = require('../notification')
 const tradeButter = require('../butter/trade')
-const { getOrderId, getOrderFromDb } = require('../userInput')
+const { getOrderId } = require('../userInput')
 const stripAnsi = require('strip-ansi')
 const { getPrice } = require('../model/symbolPrice')
 const { findByOrderId } = require('../model/trade/collection')
@@ -18,8 +17,6 @@ type CommandProps = {
     format: 'summary',
     estimateProfit?: boolean,
     notify?: boolean,
-    watch?: boolean,
-    unwatch?: boolean,
 }
 
 const renderHelp = () => {
@@ -36,17 +33,8 @@ const tryEstimateProfit = async (symbol: string, orderId: number) => {
         getPrice(price),
     )} ==> ${formatIndicativePercentage(percent)}`
 }
-const handleUnwatch = async (orderId: number) => {
-    const userOrderId = orderId || (await getOrderFromDb())
-    removeTradeById(userOrderId)
-    info(`${chalk.green.bold(userOrderId)} is removed from watch list`)
-}
 const Trade: TCommandRunable = {
-    async run({ symbol, orderId, format = 'summary', estimateProfit, notify, watch, unwatch }: CommandProps) {
-        if (unwatch) {
-            await handleUnwatch(orderId)
-            process.exit(0)
-        }
+    async run({ symbol, orderId, format = 'summary', estimateProfit, notify }: CommandProps) {
         if (!symbol) {
             err('--symbol is required')
             process.exit(1)
@@ -75,10 +63,6 @@ or use --orderId to interactively select from list',
         if (orderId) {
             const orders = findByOrderId(orderId, data)
             if (orders.length > 0) {
-                if (watch) {
-                    orders.forEach(order => addTrade({ ...order, symbol }))
-                    info('Successfully saved to watcher file.')
-                }
                 orders.forEach(order => {
                     console.log(chalk.blue.bold(symbol), renderer[format](order))
                 })

@@ -32,7 +32,7 @@ describe('model/trade', () => {
         expect(reversedTradeList[0].id).toBe(trades[2].id)
     })
     it('collection/findByOrderId', () => {
-        expect(findByOrderId(trades[0].orderId, trades).length).toBe(1)
+        expect(findByOrderId(trades[0].id, trades).length).toBe(1)
         expect(findByOrderId(1, trades).length).toBe(0)
     })
 })
