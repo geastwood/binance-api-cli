@@ -14,6 +14,12 @@ const renderer = {
         if (model.side === 'SELL' && model.executionType === 'TRADE') {
             msg = `🎉👏 ${msg}`
         }
+        if (model.side === 'SELL' && model.executionType === 'TRADE') {
+            msg = `🙏 ${msg}`
+        }
+        if (model.side === 'BUY' && model.executionType === 'NEW') {
+            msg = `🛒 ${msg}`
+        }
         return msg
     },
 }
