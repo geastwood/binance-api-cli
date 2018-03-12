@@ -1,11 +1,20 @@
 /* @flow */
 const moment = require('moment')
+const { formatPercentage } = require('../../util')
 
 const renderer = {
     notification(model: TOrderUpdateData): string {
-        let msg = `[${model.symbol}-${model.side}-${model.executionType}]: ${model.price} with qty ${
-            model.qty
-        } @ ${moment(model.transactionTime).format()} [#${model.orderId}-${model.orderType}]`
+        let { qty } = model
+
+        if (model.side === 'SELL' && model.executionType === 'TRADE') {
+            qty = `${qty} (${model.lastExecutedQty}/${model.cumulativeFilledQty}/${formatPercentage(
+                model.lastExecutedQty / qty,
+            )})`
+        }
+
+        let msg = `[${model.symbol}-${model.side}-${model.executionType}]: ${model.price} with qty ${qty} @ ${moment(
+            model.transactionTime,
+        ).format()} [#${model.orderId}-${model.orderType}]`
 
         if (model.executionType === 'REJECTED' && model.orderStatus === 'NEW') {
             msg = `!!!Order Rejected-${msg}-${model.rejectReason}`
