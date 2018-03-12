@@ -96,6 +96,23 @@ declare type TTickData = {|
     quoteBuyVolume: number,
 |}
 
+declare type TOpenOrderData = {|
+    symbol: string,
+    orderId: number,
+    clientOrderId: string,
+    price: number,
+    origQty: number,
+    executedQty: number,
+    status: TOrderStatusEnum,
+    timeInForce: 'GTC',
+    type: TOrderTypeEnum,
+    side: TOrderSideEnum,
+    stopPrice: number,
+    icebergQty: number,
+    time: Date,
+    isWorking: boolean,
+|}
+
 declare type TCandelstickData = {|
     eventType: string,
     eventTime: Date,

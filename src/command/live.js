@@ -4,8 +4,7 @@ const ora = require('ora')
 const chalk = require('chalk')
 const clear = require('clear')
 const throttle = require('lodash.throttle')
-const { tradeSocket } = require('../exchange')
-const { getTrades } = require('../db')
+const { tradeSocket, openOrders } = require('../exchange')
 const { uniq } = require('ramda')
 const Table = require('cli-table2')
 const { formatIndicativePercentage } = require('../util')
@@ -17,23 +16,24 @@ const renderHelp = () => {
 type Comparison = {
     symbol: string,
     time: Date,
-    originalPrice: number,
-    originalQty: number,
+    price: number,
+    qty: number,
+    side: TOrderSideEnum,
     newPrice?: number,
     percentage?: number,
 }
 
-const throttleRender = (fn: (data: Comparison[]) => void, delay: number = 1000) =>
+const throttleRender = (fn: (data: Comparison[]) => void, delay: number = 3000) =>
     throttle(fn, delay, { tail: true, leading: false })
 
 const table = () =>
     throttleRender((data: Comparison[]) => {
         const t = new Table({
-            head: ['Symbol', 'original price', 'original qty', 'new price', 'percentage'],
+            head: ['Symbol', 'Side', 'Price', 'Qty', 'New price', 'Percentage'],
         })
 
-        data.forEach(({ symbol, originalPrice, originalQty, newPrice, percentage }) =>
-            t.push([symbol, originalPrice, originalQty, newPrice, formatIndicativePercentage(Number(percentage))]),
+        data.forEach(({ symbol, side, price, qty, newPrice, percentage }) =>
+            t.push([symbol, side, price, qty, newPrice, formatIndicativePercentage(Number(percentage))]),
         )
 
         clear()
@@ -43,11 +43,11 @@ const table = () =>
 const line = () => {
     let count = 0
     return throttleRender((data: Comparison[]) => {
-        const { symbol, originalPrice, originalQty, newPrice, percentage } = data[count % data.length]
+        const { symbol, side, price, qty, newPrice, percentage } = data[count % data.length]
         clear()
-        const output = `${chalk.green.bold(symbol)} x ${originalQty} ${chalk.yellow(
+        const output = `[${chalk.green.bold(symbol)}-${side}] x ${qty} ${chalk.yellow(
             newPrice ? newPrice : 'no data yet',
-        )}(${originalPrice}) ${formatIndicativePercentage(Number(percentage))}`
+        )}/${price} ${formatIndicativePercentage(Number(percentage))}`
         console.log(output)
         count += 1
     })
@@ -57,14 +57,15 @@ type CommandOptions = { oneline?: boolean }
 
 const spinner = ora()
 const Price: TCommandRunable = {
-    run({ oneline }: CommandOptions) {
-        const trades = getTrades()
-        const symbols = uniq(trades.map(({ symbol }) => symbol))
-        let data = trades.map(t => ({
-            symbol: t.symbol,
-            time: t.time,
-            originalPrice: Number(t.price),
-            originalQty: Number(t.qty),
+    async run({ oneline }: CommandOptions) {
+        const allOpenOrders = await openOrders()
+        const symbols = uniq(allOpenOrders.map(({ symbol }) => symbol))
+        let data = allOpenOrders.map(order => ({
+            symbol: order.symbol,
+            time: order.time,
+            side: order.side,
+            price: order.price,
+            qty: order.origQty,
         }))
         clear()
         spinner.start('Socket being started...')
@@ -76,7 +77,7 @@ const Price: TCommandRunable = {
                     if (d.symbol === t.s) {
                         return Object.assign({}, d, {
                             newPrice: Number(t.p),
-                            percentage: (Number(t.p) - d.originalPrice) / d.originalPrice,
+                            percentage: (Number(t.p) - d.price) / d.price,
                         })
                     }
                     return d

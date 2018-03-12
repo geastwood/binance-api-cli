@@ -1,6 +1,40 @@
 /* @flow */
 const get = require('lodash.get')
 
+exports.toOpenOrderData = (json: {}): TOpenOrderData => {
+    const symbol = get(json, 'symbol')
+    const orderId = Number(get(json, 'orderId'))
+    const clientOrderId = get(json, 'clientOrderId')
+    const price = Number(get(json, 'price'))
+    const origQty = Number(get(json, 'origQty'))
+    const executedQty = Number(get(json, 'executedQty'))
+    const status = get(json, 'status')
+    const timeInForce = get(json, 'timeInForce')
+    const type = get(json, 'type')
+    const side = get(json, 'side')
+    const stopPrice = Number(get(json, 'stopPrice'))
+    const icebergQty = Number(get(json, 'icebergQty'))
+    const time = get(json, 'time')
+    const isWorking = get(json, 'isWorking')
+
+    return {
+        symbol,
+        orderId,
+        clientOrderId,
+        price,
+        origQty,
+        executedQty,
+        status,
+        timeInForce,
+        type,
+        side,
+        stopPrice,
+        icebergQty,
+        time,
+        isWorking,
+    }
+}
+
 exports.toTradeData = (json: {}): TTradeData => {
     const id = get(json, 'id')
     const orderId = get(json, 'orderId')

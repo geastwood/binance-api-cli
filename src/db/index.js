@@ -19,22 +19,7 @@ const db = low(adapter)
 db._.mixin(lodashId)
 
 // Set some defaults (required if your JSON file is empty)
-db.defaults({ trades: [], triggers: [], logs: [] }).write()
-
-exports.addTrade = (trade: TTradeWithSymbolData) => {
-    db
-        .get('trades')
-        .upsert(trade)
-        .write()
-}
-
-exports.getTrades = (): TTradeWithSymbolData[] => db.get('trades').value()
-
-exports.removeTradeById = (orderId: number) =>
-    db
-        .get('trades')
-        .remove({ orderId })
-        .write()
+db.defaults({ triggers: [], logs: [] }).write()
 
 exports.log = (name: string, data: {}) =>
     db

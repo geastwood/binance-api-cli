@@ -100,3 +100,11 @@ exports.userData = (subscriber: Function): Promise<*> =>
         const handler = compose(subscriber, mappers.toOrderUpdateData)
         binanceApi.websockets.userData(identity, handler)
     })
+
+exports.openOrders = async (): Promise<Array<TOpenOrderData>> => {
+    spinner.start('Fetching all open orders...')
+    const data = await binance('openOrders', false)
+    spinner.stop()
+
+    return data.map(mappers.toOpenOrderData)
+}
