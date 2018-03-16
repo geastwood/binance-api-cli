@@ -51,6 +51,7 @@
     "lodash.throttle": "^4.1.1",
     "log-symbols": "^2.2.0",
     "lowdb": "^1.0.0",
+    "mathjs": "^4.0.0",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "node-binance-api": "^0.4.21",
