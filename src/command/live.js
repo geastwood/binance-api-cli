@@ -46,7 +46,7 @@ const line = (raw?: boolean) => {
     return throttleRender((data: Comparison[]) => {
         const { symbol, side, price, qty, newPrice, percentage } = data[count % data.length]
         clear()
-        const output = `[${chalk.green.bold(symbol)}-${side}] x ${qty} ${chalk.yellow(
+        const output = `[${chalk.green(symbol)}-${side}] x ${qty} ${chalk.yellow(
             newPrice ? newPrice : 'no data yet',
         )}/${price} ${formatIndicativePercentage(Number(percentage))}`
         if (raw) {
