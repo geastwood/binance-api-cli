@@ -8,6 +8,7 @@ const { tradeSocket, openOrders } = require('../exchange')
 const { uniq } = require('ramda')
 const Table = require('cli-table2')
 const { formatIndicativePercentage } = require('../util')
+const stripAnsi = require('strip-ansi')
 
 const renderHelp = () => {
     console.log('help of live command will come soon')
@@ -40,7 +41,7 @@ const table = () =>
         console.log(t.toString())
     })
 
-const line = () => {
+const line = (raw?: boolean) => {
     let count = 0
     return throttleRender((data: Comparison[]) => {
         const { symbol, side, price, qty, newPrice, percentage } = data[count % data.length]
@@ -48,16 +49,20 @@ const line = () => {
         const output = `[${chalk.green.bold(symbol)}-${side}] x ${qty} ${chalk.yellow(
             newPrice ? newPrice : 'no data yet',
         )}/${price} ${formatIndicativePercentage(Number(percentage))}`
-        console.log(output)
+        if (raw) {
+            console.log(stripAnsi(output))
+        } else {
+            console.log(output)
+        }
         count += 1
     })
 }
 
-type CommandOptions = { oneline?: boolean }
+type CommandOptions = { oneline?: boolean, raw?: boolean }
 
 const spinner = ora()
 const Price: TCommandRunable = {
-    async run({ oneline }: CommandOptions) {
+    async run({ oneline, raw }: CommandOptions) {
         const allOpenOrders = await openOrders()
         const symbols = uniq(allOpenOrders.map(({ symbol }) => symbol))
         let data = allOpenOrders.map(order => ({
@@ -69,7 +74,7 @@ const Price: TCommandRunable = {
         }))
         clear()
         spinner.start('Socket being started...')
-        const lineFn = line()
+        const lineFn = line(raw)
         const tableFn = table()
         const fns = [
             t => {
