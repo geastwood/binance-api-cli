@@ -1,13 +1,14 @@
 /* @flow */
-const { getConfigstore } = require('./config')
-const fetch = require('node-fetch')
-const FormData = require('form-data')
+import { getConfigstore } from './config'
+import fetch from 'node-fetch'
+import FormData from 'form-data'
+import ora from 'ora'
+
 const config = getConfigstore()
 const pushOverApi = 'https://api.pushover.net'
-const ora = require('ora')
 const spinner = ora()
 
-const push = async (title: string, message: string) => {
+export const push = async (title: string, message: string) => {
     const formData = new FormData()
     formData.append('token', config.get('notificationApiToken'))
     formData.append('user', config.get('notificationUserKey'))
@@ -27,5 +28,3 @@ const push = async (title: string, message: string) => {
         spinner.fail()
     }
 }
-
-exports.push = push

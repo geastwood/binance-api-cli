@@ -1,8 +1,8 @@
 /* @flow */
 
-const { warn, info, success } = require('../util')
-const inquirer = require('inquirer')
-const { getConfigstore } = require('../config')
+import { warn, info, success } from '../util'
+import inquirer from 'inquirer'
+import { getConfigstore } from '../config'
 
 const Config: TCommandRunable = {
     async run() {
@@ -62,5 +62,4 @@ const Config: TCommandRunable = {
     },
 }
 
-exports.getConfigstore = getConfigstore
-module.exports = Config
+export default Config

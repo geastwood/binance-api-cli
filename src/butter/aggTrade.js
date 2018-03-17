@@ -1,4 +1,4 @@
 /* @flow */
 
-exports.getPrice = (trade: TAggTradeData) => Number(trade.p)
-exports.getQty = (trade: TAggTradeData) => Number(trade.q)
+export const getPrice = (trade: TAggTradeData) => Number(trade.p)
+export const getQty = (trade: TAggTradeData) => Number(trade.q)

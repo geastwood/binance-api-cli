@@ -1,5 +1,6 @@
 /* @flow */
 const moment = require('moment')
-exports.getTime = (trade: TTradeData) => moment(trade.time).format()
-exports.getReadableTime = (trade: TTradeData) => moment(trade.time).fromNow()
-exports.getSide = (trade: TTradeData) => (trade.isBuyer ? 'Bought' : 'Sold')
+
+export const getTime = (trade: TTradeData) => moment(trade.time).format()
+export const getReadableTime = (trade: TTradeData) => moment(trade.time).fromNow()
+export const getSide = (trade: TTradeData) => (trade.isBuyer ? 'Bought' : 'Sold')

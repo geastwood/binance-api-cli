@@ -1,15 +1,15 @@
 /* @flow */
 
-const chalk = require('chalk')
-const { err, info, formatIndicativePercentage } = require('../util')
-const exchange = require('../exchange')
-const { push } = require('../notification')
-const tradeButter = require('../butter/trade')
-const { getOrderId } = require('../userInput')
-const stripAnsi = require('strip-ansi')
-const { getPrice } = require('../model/symbolPrice')
-const { findByOrderId } = require('../model/trade/collection')
-const renderer = require('../model/trade/renderer')
+import chalk from 'chalk'
+import { err, info, formatIndicativePercentage } from '../util'
+import { trades } from '../exchange'
+import { push } from '../notification'
+import { getOrdersWithPrice } from '../butter/trade'
+import { getOrderId } from '../userInput'
+import stripAnsi from 'strip-ansi'
+import { getPrice } from '../model/symbolPrice'
+import { findByOrderId } from '../model/trade/collection'
+import * as renderer from '../model/trade/renderer'
 
 type CommandProps = {
     symbol: string,
@@ -24,7 +24,7 @@ const renderHelp = () => {
 }
 
 const tryEstimateProfit = async (symbol: string, orderId: number) => {
-    const { price, meta } = await tradeButter.getOrdersWithPrice(symbol, orderId)
+    const { price, meta } = await getOrdersWithPrice(symbol, orderId)
     const percent = (getPrice(price) - meta.averagePrice) / meta.averagePrice
 
     return `[${chalk.blue.bold(symbol)}-${orderId}] (x${meta.count}): Qty ${chalk.cyan(
@@ -59,7 +59,7 @@ or use --orderId to interactively select from list',
             }
             process.exit(0)
         }
-        const data = await exchange.trades(symbol)
+        const data = await trades(symbol)
         if (orderId) {
             const orders = findByOrderId(orderId, data)
             if (orders.length > 0) {
@@ -79,4 +79,4 @@ or use --orderId to interactively select from list',
         renderHelp()
     },
 }
-module.exports = Trade
+export default Trade

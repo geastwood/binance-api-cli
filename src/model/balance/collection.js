@@ -1,10 +1,14 @@
 /* @flow */
-const { toBalanceData } = require('../mapper')
+import { toBalanceData } from '../mapper'
 
-const filterBalanceBySymbol = (symbol: string, balances: TBalanceData[]) =>
+export const filterBalanceBySymbol = (symbol: string, balances: TBalanceData[]) =>
     balances.filter(balance => balance.symbol.includes(symbol))
 
-const getAllBalancesSummary = (hideSmall: boolean = false, threshold: number = 0.0001, balances: TBalanceData[]) => {
+export const getAllBalancesSummary = (
+    hideSmall: boolean = false,
+    threshold: number = 0.0001,
+    balances: TBalanceData[],
+) => {
     if (hideSmall) {
         return balances.filter(v => v.available > Number(threshold) || v.onOrder > Number(threshold))
     }
@@ -12,11 +16,5 @@ const getAllBalancesSummary = (hideSmall: boolean = false, threshold: number = 0
     return balances
 }
 
-const createFromData = (data: {}): TBalanceData[] =>
+export const createFromData = (data: {}): TBalanceData[] =>
     Object.keys(data).map(symbol => toBalanceData({ ...data[symbol], symbol }))
-
-module.exports = {
-    createFromData,
-    filterBalanceBySymbol,
-    getAllBalancesSummary,
-}

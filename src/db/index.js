@@ -21,7 +21,7 @@ db._.mixin(lodashId)
 // Set some defaults (required if your JSON file is empty)
 db.defaults({ triggers: [], logs: [] }).write()
 
-exports.log = (name: string, data: {}) =>
+export const log = (name: string, data: {}) =>
     db
         .get('logs')
         .insert({ name, data })

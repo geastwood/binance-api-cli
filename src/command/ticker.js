@@ -1,6 +1,6 @@
 /* @flow */
-const exchange = require('../exchange')
-const { summary } = require('../model/ticker/renderer')
+import { ticker as tickerApi } from '../exchange'
+import { summary } from '../model/ticker/renderer'
 
 type CommandOptions = {
     interval: '24h',
@@ -13,7 +13,7 @@ const renderHelp = () => {
 
 const Ticker: TCommandRunable = {
     async run({ interval, symbol }: CommandOptions) {
-        const ticker = await exchange.ticker(interval, symbol)
+        const ticker = await tickerApi(interval, symbol)
         console.log(summary(ticker))
     },
     help() {
@@ -21,4 +21,4 @@ const Ticker: TCommandRunable = {
     },
 }
 
-module.exports = Ticker
+export default Ticker

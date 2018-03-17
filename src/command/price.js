@@ -1,10 +1,12 @@
 /* @flow */
 
-const exchange = require('../exchange')
-const { err, info } = require('../util')
-const chalk = require('chalk')
-const ui = require('cliui')()
-const { getSymbol, getPrice } = require('../model/symbolPrice')
+import { prices } from '../exchange'
+import { err, info } from '../util'
+import chalk from 'chalk'
+import { getSymbol, getPrice } from '../model/symbolPrice'
+import cliui from 'cliui'
+
+const ui = cliui()
 
 const renderHelp = () => {
     ui.div('Usage: atcb price [options]')
@@ -40,7 +42,7 @@ const Price: TCommandRunable = {
         }
 
         try {
-            const data = await exchange.prices(symbol)
+            const data = await prices(symbol)
 
             info(`${getSymbol(data)} is currently at ${getPrice(data)}`)
         } catch (e) {

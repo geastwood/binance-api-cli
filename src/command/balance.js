@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const Table = require('cli-table2')
 const exchange = require('../exchange')
 const { getAllBalancesSummary } = require('../model/balance/collection')
-const { getPriceForSymbols } = require('../butter/price')
+import { getPriceForSymbols } from '../butter/price'
 
 type CommandOptions = {
     hideSmall?: boolean,

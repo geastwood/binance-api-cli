@@ -1,19 +1,14 @@
 /* @flow */
 
-const chalk = require('chalk')
-const { getSide, getTime, getReadableTime } = require('./util')
+import chalk from 'chalk'
+import { getSide, getTime, getReadableTime } from './util'
 
-const summary = (data: TTradeData): string =>
+export const summary = (data: TTradeData): string =>
     `[${data.orderId}]: ${getSide(data).toUpperCase()} with price ${data.price} for ${data.qty} at ${getTime(
         data,
     )} (${getReadableTime(data)})`
 
-const short = (data: TTradeData): string =>
+export const short = (data: TTradeData): string =>
     `[${data.orderId}-${getSide(data).toUpperCase()}]: ${chalk.yellow(data.price)} x ${data.qty} @ ${getReadableTime(
         data,
     )}`
-
-module.exports = {
-    summary,
-    short,
-}

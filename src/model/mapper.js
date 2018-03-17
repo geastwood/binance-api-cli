@@ -1,7 +1,7 @@
 /* @flow */
-const get = require('lodash.get')
+import get from 'lodash.get'
 
-exports.toOpenOrderData = (json: {}): TOpenOrderData => {
+export const toOpenOrderData = (json: {}): TOpenOrderData => {
     const symbol = get(json, 'symbol')
     const orderId = Number(get(json, 'orderId'))
     const clientOrderId = get(json, 'clientOrderId')
@@ -35,7 +35,7 @@ exports.toOpenOrderData = (json: {}): TOpenOrderData => {
     }
 }
 
-exports.toTradeData = (json: {}): TTradeData => {
+export const toTradeData = (json: {}): TTradeData => {
     const id = get(json, 'id')
     const orderId = get(json, 'orderId')
     const price = Number(get(json, 'price'))
@@ -61,7 +61,7 @@ exports.toTradeData = (json: {}): TTradeData => {
     }
 }
 
-const toBalanceData = (json: {}): TBalanceData => {
+export const toBalanceData = (json: {}): TBalanceData => {
     const symbol = get(json, 'symbol')
     const available = Number(get(json, 'available'))
     const onOrder = Number(get(json, 'onOrder'))
@@ -73,9 +73,7 @@ const toBalanceData = (json: {}): TBalanceData => {
     }
 }
 
-exports.toBalanceData = toBalanceData
-
-const toTickerData = (json: {}): TTickData => {
+export const toTickerData = (json: {}): TTickData => {
     const open = Number(get(json, 'o'))
     const high = Number(get(json, 'h'))
     const low = Number(get(json, 'l'))
@@ -103,7 +101,7 @@ const toTickerData = (json: {}): TTickData => {
     }
 }
 
-exports.toCandlestickData = (json: { k: {} }): TCandelstickData => {
+export const toCandlestickData = (json: { k: {} }): TCandelstickData => {
     const eventType = get(json, 'e', '')
     const eventTime = get(json, 'E', Date.now())
     const symbol = get(json, 's', '')
@@ -117,7 +115,7 @@ exports.toCandlestickData = (json: { k: {} }): TCandelstickData => {
     }
 }
 
-exports.toTicker24Data = (json: {}): TTicker24 => {
+export const toTicker24Data = (json: {}): TTicker24 => {
     const symbol = get(json, 'symbol')
     const priceChange = Number(get(json, 'priceChange'))
     const priceChangePercent = Number(get(json, 'priceChangePercent'))
@@ -160,7 +158,7 @@ exports.toTicker24Data = (json: {}): TTicker24 => {
         count,
     }
 }
-exports.toBalanceUpdateData = (json: {}): TBalnaceUpdateData => {
+export const toBalanceUpdateData = (json: {}): TBalnaceUpdateData => {
     const e = get(json, 'e') // Event type
     const E = get(json, 'E') // Event time
     const m = get(json, 'm') // Maker commission rate (bips)
@@ -188,7 +186,7 @@ exports.toBalanceUpdateData = (json: {}): TBalnaceUpdateData => {
     }
 }
 
-exports.toOrderUpdateData = (json: {}): TOrderUpdateData => {
+export const toOrderUpdateData = (json: {}): TOrderUpdateData => {
     const e = get(json, 'e') // Event type
     const E = get(json, 'E') // Event time
     const s = get(json, 's') // Symbol

@@ -1,12 +1,13 @@
 /* @flow */
 
-const exchange = require('../exchange')
-const { info } = require('../util')
-const chalk = require('chalk')
-const ui = require('cliui')()
-const { findByBaseAsset, printSummary } = require('../model/symbol/collection')
-const { isBaseAsset } = require('../model/symbol')
+import { symbols } from '../exchange'
+import { info } from '../util'
+import chalk from 'chalk'
+import cliui from 'cliui'
+import { findByBaseAsset, printSummary } from '../model/symbol/collection'
+import { isBaseAsset } from '../model/symbol'
 
+const ui = cliui()
 const renderHelp = () => {
     ui.div('Usage: atcb symbol [options]')
 
@@ -46,7 +47,7 @@ const renderHelp = () => {
 
 const Symbol: TCommandRunable = {
     async run({ base }: { base: string }) {
-        const data = await exchange.symbols()
+        const data = await symbols()
 
         if (base) {
             const asset = findByBaseAsset(base, data)

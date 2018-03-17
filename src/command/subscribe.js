@@ -1,11 +1,11 @@
 /* @flow */
 
-const exchange = require('../exchange')
-const { err } = require('../util')
-const ora = require('ora')
-const clear = require('clear')
-const { renderer } = require('../model/accountUpdate')
-const { push } = require('../notification')
+import { userData } from '../exchange'
+import { err } from '../util'
+import ora from 'ora'
+import clear from 'clear'
+import { renderer } from '../model/accountUpdate'
+import { push } from '../notification'
 
 const orderUpdateHander = (data: TOrderUpdateData) => {
     push(renderer.notificationOrderUpdate(data), `Order update: ${data.executionType} - ${data.symbol}`)
@@ -26,7 +26,7 @@ const liveUpdate: TCommandRunable = {
             process.exit(1)
         }
         spinner.start(`Start to listen on ${channel}`)
-        await exchange.userData(channel, data => {
+        await userData(channel, data => {
             clear()
             if (channel === 'balance') {
                 balanceUpdateHandler(data)
@@ -40,4 +40,4 @@ const liveUpdate: TCommandRunable = {
     },
 }
 
-module.exports = liveUpdate
+export default liveUpdate

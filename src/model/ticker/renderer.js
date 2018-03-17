@@ -1,9 +1,9 @@
 /* @flow */
 
-const Table = require('cli-table2')
-const { formatIndicativePercentage, formatInt } = require('../../util')
+import Table from 'cli-table2'
+import { formatIndicativePercentage, formatInt } from '../../util'
 
-const summary = (data: TTicker24) => {
+export const summary = (data: TTicker24) => {
     const table = new Table()
 
     table.push({ Symbol: [data.symbol] })
@@ -16,5 +16,3 @@ const summary = (data: TTicker24) => {
     table.push({ 'Low Price': [data.lowPrice] })
     return table.toString()
 }
-
-module.exports = { summary }

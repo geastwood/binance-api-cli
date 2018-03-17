@@ -1,8 +1,8 @@
 /* @flow */
 
-const moment = require('moment')
-const exchange = require('../exchange')
-const { findByOrderId } = require('../model/trade/collection')
+import moment from 'moment'
+import { trades as tradesApi, prices } from '../exchange'
+import { findByOrderId } from '../model/trade/collection'
 
 type OrderMeta = {
     count: number,
@@ -22,10 +22,10 @@ type OrdersWithCurrentMarketPrice = {|
     price: TSymbolPrice,
 |}
 
-const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<OrdersWithCurrentMarketPrice> => {
-    const data = await exchange.trades(symbol)
+export const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<OrdersWithCurrentMarketPrice> => {
+    const data = await tradesApi(symbol)
     const trades = findByOrderId(orderId, data)
-    const price = await exchange.prices(symbol)
+    const price = await prices(symbol)
     const meta = getMetaForTrades(trades)
 
     return {
@@ -35,7 +35,5 @@ const getOrdersWithPrice = async (symbol: string, orderId: number): Promise<Orde
     }
 }
 
-exports.getTime = (trade: TTradeData) => moment(trade.time).format()
-exports.getRelativeTime = (trade: TTradeData) => moment(trade.time).fromNow()
-
-exports.getOrdersWithPrice = getOrdersWithPrice
+export const getTime = (trade: TTradeData) => moment(trade.time).format()
+export const getRelativeTime = (trade: TTradeData) => moment(trade.time).fromNow()

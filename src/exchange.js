@@ -1,9 +1,10 @@
 /* @flow */
-const ora = require('ora')
-const { compose, identity } = require('ramda')
-const mappers = require('./model/mapper')
-const binanceApi = require('node-binance-api')
-const { createFromData } = require('./model/balance/collection')
+import ora from 'ora'
+import { compose, identity } from 'ramda'
+import * as mappers from './model/mapper'
+import binanceApi from 'node-binance-api'
+import { createFromData } from './model/balance/collection'
+
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
 
@@ -19,7 +20,7 @@ const binance = (fnName, ...rest): Promise<any> => {
 }
 
 const spinner = ora()
-exports.prices = async (symbol: string): Promise<TSymbolPrice> => {
+export const prices = async (symbol: string): Promise<TSymbolPrice> => {
     spinner.start('Fetching price...')
     const data = await binance('prices', symbol)
     spinner.stop()
@@ -27,7 +28,7 @@ exports.prices = async (symbol: string): Promise<TSymbolPrice> => {
     return { symbol, price: data[symbol] }
 }
 
-exports.trades = async (symbol: string): Promise<Array<TTradeData>> => {
+export const trades = async (symbol: string): Promise<Array<TTradeData>> => {
     spinner.start('Loading historical trades...')
     const data = await binance('trades', symbol)
     spinner.stop()
@@ -35,7 +36,7 @@ exports.trades = async (symbol: string): Promise<Array<TTradeData>> => {
     return data.map(mappers.toTradeData)
 }
 
-exports.symbols = async (): Promise<Array<TSymbolData>> => {
+export const symbols = async (): Promise<Array<TSymbolData>> => {
     spinner.start('Loading exchange symbols...')
     const data = await binance('exchangeInfo')
     spinner.stop()
@@ -43,7 +44,7 @@ exports.symbols = async (): Promise<Array<TSymbolData>> => {
     return data.symbols || []
 }
 
-exports.balance = async (): Promise<Array<TBalanceData>> => {
+export const balance = async (): Promise<Array<TBalanceData>> => {
     spinner.start('Loading balances...')
     const data = await binance('balance')
     spinner.stop()
@@ -51,7 +52,7 @@ exports.balance = async (): Promise<Array<TBalanceData>> => {
     return createFromData(data)
 }
 
-exports.ticker = async (interval: string, symbol: string): Promise<TTicker24> => {
+export const ticker = async (interval: string, symbol: string): Promise<TTicker24> => {
     spinner.start('Loading ticker price...')
     const data = await binance('prevDay', symbol)
     spinner.stop()
@@ -63,7 +64,7 @@ type TradeSocketOptions = {
     filterFn?: (trade: any) => boolean,
 }
 
-exports.tradeSocket = (symbols: string[], subscribers: Function[], opts: TradeSocketOptions = {}): Promise<*> => {
+export const tradeSocket = (symbolXs: string[], subscribers: Function[], opts: TradeSocketOptions = {}): Promise<*> => {
     let initiated = false
 
     return new Promise(resolve => {
@@ -80,11 +81,11 @@ exports.tradeSocket = (symbols: string[], subscribers: Function[], opts: TradeSo
                 shouldRun && fn(trade, resolve)
             }
         }
-        binanceApi.websockets.trades(symbols, handler)
+        binanceApi.websockets.trades(symbolXs, handler)
     })
 }
 
-exports.candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
+export const candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
     new Promise(resolve => {
         const handler = (candlestick: any) => {
             const data = mappers.toCandlestickData(candlestick)
@@ -95,7 +96,7 @@ exports.candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Fu
         binanceApi.websockets.candlesticks(symbol, interval, handler)
     })
 
-exports.userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise<*> =>
+export const userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise<*> =>
     new Promise(() => {
         const handler = compose(
             subscriber,
@@ -108,7 +109,7 @@ exports.userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise
         }
     })
 
-exports.openOrders = async (): Promise<Array<TOpenOrderData>> => {
+export const openOrders = async (): Promise<Array<TOpenOrderData>> => {
     spinner.start('Fetching all open orders...')
     const data = await binance('openOrders', false)
     spinner.stop()

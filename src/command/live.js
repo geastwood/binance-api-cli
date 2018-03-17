@@ -1,14 +1,14 @@
 /* @flow */
 
-const ora = require('ora')
-const chalk = require('chalk')
-const clear = require('clear')
-const throttle = require('lodash.throttle')
-const { tradeSocket, openOrders } = require('../exchange')
-const { uniq } = require('ramda')
-const Table = require('cli-table2')
-const { formatIndicativePercentage } = require('../util')
-const stripAnsi = require('strip-ansi')
+import Table from 'cli-table2'
+import chalk from 'chalk'
+import clear from 'clear'
+import ora from 'ora'
+import stripAnsi from 'strip-ansi'
+import throttle from 'lodash.throttle'
+import { formatIndicativePercentage } from '../util'
+import { openOrders, tradeSocket } from '../exchange'
+import { uniq } from 'ramda'
 
 const renderHelp = () => {
     console.log('help of live command will come soon')
@@ -110,4 +110,4 @@ const Price: TCommandRunable = {
     },
 }
 
-module.exports = Price
+export default Price

@@ -1,12 +1,12 @@
 /* @flow */
-const exchange = require('./exchange')
-const inquirer = require('inquirer')
-const { getTime } = require('./model/trade/util')
-const { short } = require('./model/trade/renderer')
-const orderBy = require('lodash.orderby')
+import { trades } from './exchange'
+import inquirer from 'inquirer'
+import { getTime } from './model/trade/util'
+import { short } from './model/trade/renderer'
+import orderBy from 'lodash.orderby'
 
-exports.getOrderId = async (symbol: string): Promise<number> => {
-    const data = await exchange.trades(symbol)
+export const getOrderId = async (symbol: string): Promise<number> => {
+    const data = await trades(symbol)
 
     const { orderId } = await inquirer.prompt({
         type: 'list',

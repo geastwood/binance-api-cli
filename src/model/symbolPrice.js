@@ -1,9 +1,4 @@
 /* @flow */
 
-const getSymbol = (data: TSymbolPrice): string => data.symbol
-const getPrice = (data: TSymbolPrice): number => Number(data.price)
-
-module.exports = {
-    getSymbol,
-    getPrice,
-}
+export const getSymbol = (data: TSymbolPrice): string => data.symbol
+export const getPrice = (data: TSymbolPrice): number => Number(data.price)
