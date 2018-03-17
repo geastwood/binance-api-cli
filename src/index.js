@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* @flow */
 
-const minimist = require('minimist')
+import commands from './command'
+import minimist from 'minimist'
 const commandWhiteList: TCommandSupported = [
     'symbol',
     'balance',
@@ -13,12 +14,11 @@ const commandWhiteList: TCommandSupported = [
     'ticker',
     'live',
     'candlestick',
-    'liveupdate',
+    'subscribe',
 ]
 const { err, warn } = require('./util')
 const pkg = require('../package.json')
 const R = require('ramda')
-const commands = require('./command')
 const { hasConfig, getConfigstore } = require('./config')
 const binance = require('node-binance-api')
 const args = minimist(process.argv.slice(2))

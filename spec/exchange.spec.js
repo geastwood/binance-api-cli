@@ -21,7 +21,7 @@ describe('userData websocket', () => {
             fn2(newOrder)
         })
 
-        exchange.userData(subscriber)
+        exchange.userData('execution', subscriber)
 
         expect(userDataMocked).toHaveBeenCalledTimes(1)
         expect(mappers.toOrderUpdateData).toHaveBeenCalledTimes(1)

@@ -1,28 +1,28 @@
 /* @flow */
 
-const symbol = require('./symbol')
-const help = require('./help')
-const balance = require('./balance')
-const price = require('./price')
-const trade = require('./trade')
-const config = require('./config')
-const ticker = require('./ticker')
-const live = require('./live')
-const candlestick = require('./candlestick')
-const liveupdate = require('./liveupdate')
+import balance from './balance'
+import candlestick from './candlestick'
+import config from './config'
+import help from './help'
+import live from './live'
+import price from './price'
+import subscribe from './subscribe'
+import symbol from './symbol'
+import ticker from './ticker'
+import trade from './trade'
 
 const commands = {
-    symbol,
-    help,
-    version: help,
     balance,
-    price,
-    trade,
-    config,
-    ticker,
-    live,
     candlestick,
-    liveupdate,
+    config,
+    help,
+    live,
+    price,
+    subscribe,
+    symbol,
+    ticker,
+    trade,
+    version: help,
 }
 
-module.exports = commands
+export default commands

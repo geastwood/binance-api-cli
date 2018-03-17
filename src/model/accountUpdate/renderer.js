@@ -3,7 +3,7 @@ const moment = require('moment')
 const { formatPercentage } = require('../../util')
 
 const renderer = {
-    notification(model: TOrderUpdateData): string {
+    notificationOrderUpdate(model: TOrderUpdateData): string {
         let { qty } = model
 
         if (model.side === 'SELL' && model.executionType === 'TRADE') {
@@ -30,6 +30,9 @@ const renderer = {
             msg = `🛒 ${msg}`
         }
         return msg
+    },
+    notificationBalanceUpdate(model: TBalnaceUpdateData): string {
+        return `Account update receive @ ${moment(model.lastUpdatedAt).format()}`
     },
 }
 module.exports = renderer

@@ -60,7 +60,8 @@ exports.toTradeData = (json: {}): TTradeData => {
         isBestMatch,
     }
 }
-exports.toBalanceData = (json: {}): TBalanceData => {
+
+const toBalanceData = (json: {}): TBalanceData => {
     const symbol = get(json, 'symbol')
     const available = Number(get(json, 'available'))
     const onOrder = Number(get(json, 'onOrder'))
@@ -71,6 +72,8 @@ exports.toBalanceData = (json: {}): TBalanceData => {
         onOrder,
     }
 }
+
+exports.toBalanceData = toBalanceData
 
 const toTickerData = (json: {}): TTickData => {
     const open = Number(get(json, 'o'))
@@ -155,6 +158,33 @@ exports.toTicker24Data = (json: {}): TTicker24 => {
         fristId,
         lastId,
         count,
+    }
+}
+exports.toBalanceUpdateData = (json: {}): TBalnaceUpdateData => {
+    const e = get(json, 'e') // Event type
+    const E = get(json, 'E') // Event time
+    const m = get(json, 'm') // Maker commission rate (bips)
+    const t = get(json, 't') // Taker commission rate (bips)
+    const b = get(json, 'b') // Buyer commission rate (bips)
+    const s = get(json, 's') // Seller commission rate (bips)
+    const T = get(json, 'T') // Can trade?
+    const W = get(json, 'W') // Can withdraw?
+    const D = get(json, 'D') // Can deposit?
+    const u = get(json, 'u') // Time of last account update
+    const B = get(json, 'B').map(toBalanceData)
+
+    return {
+        eventType: e,
+        eventTime: E,
+        makerCommissionRate: m,
+        takerCommissionRate: t,
+        buyerCommissionRate: b,
+        sellerCommissionRate: s,
+        canTrade: T,
+        canWithdraw: W,
+        canDeposit: D,
+        lastUpdatedAt: u,
+        balances: B,
     }
 }
 

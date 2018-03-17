@@ -12,7 +12,9 @@ declare type TCommand =
     | 'ticker'
     | 'live'
     | 'candlestick'
-    | 'liveupdate'
+    | 'subscribe'
+
+declare type TLiveUpdateChannelName = 'balance' | 'execution'
 
 declare type TOrderSideEnum = 'SELL' | 'BUY'
 
@@ -35,6 +37,20 @@ declare type TOrderTypeEnum =
     | 'LIMIT_MAKER'
 
 declare type TOrderExecutionTypeEnum = 'NEW' | 'CANCELED' | 'REJECTED' | 'TRADE' | 'EXPIRED'
+
+declare type TBalnaceUpdateData = {
+    eventType: 'outboundAccountInfo',
+    eventTime: Date,
+    makerCommissionRate: number, // Maker commission rate (bips)
+    takerCommissionRate: number, // Taker commission rate (bips)
+    buyerCommissionRate: number, // Buyer commission rate (bips)
+    sellerCommissionRate: number, // Seller commission rate (bips)
+    canTrade: boolean, // Can trade?
+    canWithdraw: boolean, // Can withdraw?
+    canDeposit: boolean, // Can deposit?
+    lastUpdatedAt: Date, // Time of last account update
+    balances: TBalanceData[],
+}
 
 // check mapper for description
 declare type TOrderUpdateData = {

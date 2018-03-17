@@ -95,10 +95,17 @@ exports.candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Fu
         binanceApi.websockets.candlesticks(symbol, interval, handler)
     })
 
-exports.userData = (subscriber: Function): Promise<*> =>
+exports.userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise<*> =>
     new Promise(() => {
-        const handler = compose(subscriber, mappers.toOrderUpdateData)
-        binanceApi.websockets.userData(identity, handler)
+        const handler = compose(
+            subscriber,
+            type === 'balance' ? mappers.toBalanceUpdateData : mappers.toOrderUpdateData,
+        )
+        if (type === 'balance') {
+            binanceApi.websockets.userData(handler, identity)
+        } else {
+            binanceApi.websockets.userData(identity, handler)
+        }
     })
 
 exports.openOrders = async (): Promise<Array<TOpenOrderData>> => {
