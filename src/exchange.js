@@ -116,3 +116,15 @@ export const openOrders = async (): Promise<Array<TOpenOrderData>> => {
 
     return data.map(mappers.toOpenOrderData)
 }
+
+export const cancelOrder = async (orderId: number, symbol: string): Promise<*> => {
+    spinner.start(`Cancelling order ${symbol} (${orderId})`)
+    let data = null
+    try {
+        data = await binance('cancel', symbol, orderId)
+    } catch (e) {
+        spinner.fail(`Failed to order ${symbol} (${orderId})`)
+    }
+    spinner.stop()
+    return data
+}

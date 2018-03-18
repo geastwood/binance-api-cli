@@ -29,3 +29,8 @@ export const renderTable = (data: TOpenOrderData[]) => {
     table.sort([`${chalk.green('Time')}|asc`])
     return table
 }
+
+export const shortSummary = (data: TOpenOrderData) =>
+    `[${data.orderId}-${data.symbol}-${data.side.toUpperCase()}] ${data.price} with ${data.origQty} @ ${moment(
+        data.time,
+    ).format()}`
