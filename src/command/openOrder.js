@@ -9,11 +9,11 @@ const renderHelp = () => {
     console.log('help of openOrder command will come soon')
 }
 
-type CommandOptions = { interactive?: boolean }
+// type CommandOptions = { interactive?: boolean }
 
 const spinner = ora()
 const Price: TCommandRunable = {
-    async run({ interactively }: CommandOptions) {
+    async run() {
         clear()
         spinner.start('Fetching all open orders')
         const allOpenOrders = await openOrders()
