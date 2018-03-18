@@ -1,6 +1,6 @@
 /* @flow */
 
-import Table from 'cli-table2'
+import Table from 'easy-table'
 import chalk from 'chalk'
 import clear from 'clear'
 import ora from 'ora'
@@ -29,13 +29,17 @@ const throttleRender = (fn: (data: Comparison[]) => void, delay: number = 3000) 
 
 const table = () =>
     throttleRender((data: Comparison[]) => {
-        const t = new Table({
-            head: ['Symbol', 'Side', 'Price', 'Qty', 'New price', 'Percentage'],
-        })
+        const t = new Table()
 
-        data.forEach(({ symbol, side, price, qty, newPrice, percentage }) =>
-            t.push([symbol, side, price, qty, newPrice, formatIndicativePercentage(Number(percentage))]),
-        )
+        data.forEach(({ symbol, side, price, qty, newPrice, percentage }) => {
+            t.cell(chalk.green('Symbol'), symbol)
+            t.cell(chalk.green('Side'), side)
+            t.cell(chalk.green('Qty'), qty)
+            t.cell(chalk.green('Price'), chalk.yellow(price))
+            t.cell(chalk.green('New Price'), newPrice ? chalk.green(newPrice) : 'data yet to come')
+            t.cell(chalk.green('Percentage'), formatIndicativePercentage(Number(percentage)))
+            t.newRow()
+        })
 
         clear()
         console.log(t.toString())
@@ -46,8 +50,8 @@ const line = (raw?: boolean) => {
     return throttleRender((data: Comparison[]) => {
         const { symbol, side, price, qty, newPrice, percentage } = data[count % data.length]
         clear()
-        const output = `[${chalk.green(symbol)}-${side}] x ${qty} ${chalk.yellow(
-            newPrice ? newPrice : 'no data yet',
+        const output = `[${symbol}-${side}] x ${qty} ${chalk.green(
+            newPrice ? newPrice : 'data yet to come',
         )}/${price} ${formatIndicativePercentage(Number(percentage))}`
         if (raw) {
             console.log(stripAnsi(output))

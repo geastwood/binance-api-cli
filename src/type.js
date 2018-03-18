@@ -13,6 +13,7 @@ declare type TCommand =
     | 'live'
     | 'candlestick'
     | 'subscribe'
+    | 'openOrder'
 
 declare type TLiveUpdateChannelName = 'balance' | 'execution'
 

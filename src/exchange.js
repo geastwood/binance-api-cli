@@ -3,7 +3,7 @@ import ora from 'ora'
 import { compose, identity } from 'ramda'
 import * as mappers from './model/mapper'
 import binanceApi from 'node-binance-api'
-import { createFromData } from './model/balance/collection'
+import { createFromData } from './model/balance'
 
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]

@@ -1,5 +1,5 @@
 const { apiBalances } = require('./fixture')
-const { createFromData, filterBalanceBySymbol } = require('../dist/model/balance/collection')
+const { createFromData, filterBalanceBySymbol } = require('../dist/model/balance')
 
 describe('model/balance', () => {
     it('model', () => {

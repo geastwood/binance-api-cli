@@ -15,6 +15,7 @@ const commandWhiteList: TCommandSupported = [
     'live',
     'candlestick',
     'subscribe',
+    'openOrder',
 ]
 const { err, warn } = require('./util')
 const pkg = require('../package.json')

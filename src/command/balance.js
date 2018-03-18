@@ -1,10 +1,9 @@
 /* @flow */
-const { log, formatPercentage } = require('../util')
-const { groupBy } = require('ramda')
-const chalk = require('chalk')
-const Table = require('cli-table2')
-const exchange = require('../exchange')
-const { getAllBalancesSummary } = require('../model/balance/collection')
+import { log } from '../util'
+import { groupBy } from 'ramda'
+import chalk from 'chalk'
+import * as exchange from '../exchange'
+import { renderTable, getAllBalancesSummary } from '../model/balance'
 import { getPriceForSymbols } from '../butter/price'
 
 type CommandOptions = {
@@ -39,23 +38,8 @@ const renderSummary = async (balances: TBalanceData[], quoteAsset: string = 'BTC
     })
     const sumBalanceInQuote = balanceWithPrice.reduce((total, b) => total + (b.available + b.onOrder) * b.price, 0)
 
-    const table = new Table({
-        head: ['Symbol', 'Available', 'On Order', `In ${quoteAsset}`, 'Share (%)'],
-    })
-
-    balanceWithPrice.forEach(b => {
-        const available = b.available * b.price
-        const onOrder = b.onOrder * b.price
-        table.push([
-            b.symbol,
-            b.available,
-            b.onOrder,
-            available + onOrder,
-            formatPercentage((available + onOrder) / sumBalanceInQuote),
-        ])
-    })
-
-    console.log(table.toString())
+    const table = renderTable(balanceWithPrice, quoteAsset, sumBalanceInQuote)
+    console.log('\n', table.toString())
     console.log(`Total Balance in ${quoteAsset}: ${chalk.green.bold(sumBalanceInQuote)}`)
 }
 

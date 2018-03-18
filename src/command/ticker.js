@@ -14,7 +14,7 @@ const renderHelp = () => {
 const Ticker: TCommandRunable = {
     async run({ interval, symbol }: CommandOptions) {
         const ticker = await tickerApi(interval, symbol)
-        console.log(summary(ticker))
+        console.log('\n', summary(ticker).toString())
     },
     help() {
         renderHelp()

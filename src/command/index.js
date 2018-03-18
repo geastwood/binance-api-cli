@@ -10,6 +10,7 @@ import subscribe from './subscribe'
 import symbol from './symbol'
 import ticker from './ticker'
 import trade from './trade'
+import openOrder from './openOrder'
 
 const commands = {
     balance,
@@ -23,6 +24,7 @@ const commands = {
     ticker,
     trade,
     version: help,
+    openOrder,
 }
 
 export default commands
