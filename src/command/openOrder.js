@@ -53,6 +53,9 @@ const Price: TCommandRunable = {
         if (interactive) {
             await handleOpenOrderInteractive()
             process.exit(0)
+        } else {
+            const rst = await listAllOpenOrdersInTable()
+            console.log(rst)
         }
     },
     help() {
