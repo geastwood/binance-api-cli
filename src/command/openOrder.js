@@ -34,7 +34,6 @@ export const handleOpenOrderInteractive = async (): Promise<*> => {
             } else {
                 info('Cancelled by user, no action is made.')
             }
-            console.log(y)
         } else {
             info('No order Ids is selected, exiting')
         }
