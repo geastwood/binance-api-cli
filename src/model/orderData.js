@@ -26,6 +26,6 @@ export const renderTable = (data: TOpenOrderData[]) => {
         table.cell(chalk.green('Time'), moment(order.time).format())
         table.newRow()
     }
-    table.sort(['Time|asc'])
+    table.sort([`${chalk.green('Time')}|asc`])
     return table
 }

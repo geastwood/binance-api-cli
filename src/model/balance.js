@@ -36,6 +36,6 @@ export const renderTable = (data: any[], quoteAsset: string, sumBalanceInQuote: 
         table.cell(chalk.green('Share'), formatPercentage((available + onOrder) / sumBalanceInQuote))
         table.newRow()
     })
-    table.sort(['Share|des'])
+    table.sort([`${chalk.green(`in ${quoteAsset}`)}|des`])
     return table
 }
