@@ -12,7 +12,6 @@ const commandWhiteList: TCommandSupported = [
     'version',
     'config',
     'ticker',
-    'live',
     'candlestick',
     'subscribe',
     'openOrder',

@@ -10,7 +10,6 @@ declare type TCommand =
     | 'trade'
     | 'config'
     | 'ticker'
-    | 'live'
     | 'candlestick'
     | 'subscribe'
     | 'openOrder'
