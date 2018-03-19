@@ -6,7 +6,7 @@ import clear from 'clear'
 import ora from 'ora'
 import stripAnsi from 'strip-ansi'
 import throttle from 'lodash.throttle'
-import { formatIndicativePercentage, formatPercentage } from '../util'
+import { formatIndicativePercentage } from '../util'
 import { openOrders, tradeSocket } from '../exchange'
 import { uniq } from 'ramda'
 
@@ -65,9 +65,9 @@ const line = (raw?: boolean) => {
 const conciseRenderer = () => {
     let count = 0
     return throttleRender((data: Comparison[]) => {
-        const { symbol, side, percentage } = data[count % data.length]
-        const output = `[${symbol}-${side}] ${formatPercentage(Number(percentage))}`
-        process.stdout.write(output)
+        const { symbol, percentage } = data[count % data.length]
+        // eslint-disable-next-line
+        console.log(symbol + ' ' + (Number(percentage || 0) * 100).toFixed(2) + '%')
         count += 1
     })
 }
