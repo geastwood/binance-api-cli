@@ -62,11 +62,22 @@ const line = (raw?: boolean) => {
     })
 }
 
-type CommandOptions = { oneline?: boolean, raw?: boolean }
+const conciseRenderer = () => {
+    let count = 0
+    return throttleRender((data: Comparison[]) => {
+        const { symbol, side, percentage } = data[count % data.length]
+        clear()
+        const output = `[${symbol}-${side}] ${formatIndicativePercentage(Number(percentage))}`
+        console.log(stripAnsi(output))
+        count += 1
+    })
+}
+
+type CommandOptions = { oneline?: boolean, raw?: boolean, concise?: boolean }
 
 const spinner = ora()
 const Price: TCommandRunable = {
-    async run({ oneline, raw }: CommandOptions) {
+    async run({ oneline, raw, concise }: CommandOptions) {
         const allOpenOrders = await openOrders()
         const symbols = uniq(allOpenOrders.map(({ symbol }) => symbol))
         let data = allOpenOrders.map(order => ({
@@ -80,6 +91,7 @@ const Price: TCommandRunable = {
         spinner.start('Socket being started...')
         const lineFn = line(raw)
         const tableFn = table()
+        const conciseFn = conciseRenderer()
         const fns = [
             t => {
                 data = data.map(d => {
@@ -93,6 +105,8 @@ const Price: TCommandRunable = {
                 })
                 if (oneline) {
                     lineFn(data)
+                } else if (concise) {
+                    conciseFn(data)
                 } else {
                     tableFn(data)
                 }
