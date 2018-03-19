@@ -68,7 +68,7 @@ const conciseRenderer = () => {
         const { symbol, side, percentage } = data[count % data.length]
         clear()
         const output = `[${symbol}-${side}] ${formatIndicativePercentage(Number(percentage))}`
-        console.log(stripAnsi(output))
+        console.log(output)
         count += 1
     })
 }
