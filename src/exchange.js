@@ -4,6 +4,7 @@ import { compose, identity } from 'ramda'
 import * as mappers from './model/mapper'
 import binanceApi from 'node-binance-api'
 import { createFromData } from './model/balance'
+import { getTickerIntervalLimit } from './model/ticker'
 
 const binance = (fnName, ...rest): Promise<any> => {
     const method = binanceApi[fnName]
@@ -101,7 +102,8 @@ export const candlestick = (pair: string, interval: TIntervalEnum): Promise<TCan
         const handler = (_: any, data: any[]) => {
             resolve(data.map(mappers.toCandlestickKlineData))
         }
-        binanceApi.candlesticks(pair, interval, handler)
+
+        binanceApi.candlesticks(pair, interval, handler, { limit: getTickerIntervalLimit(interval) })
     })
 
 export const userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise<*> =>

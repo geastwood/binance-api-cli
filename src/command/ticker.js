@@ -1,6 +1,6 @@
 /* @flow */
 import { ticker as tickerApi } from '../exchange'
-import { summary } from '../model/ticker/renderer'
+import { summary } from '../model/ticker'
 
 type CommandOptions = {
     interval: '24h',
