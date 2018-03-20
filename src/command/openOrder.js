@@ -67,8 +67,7 @@ const conciseRenderer = () => {
     let count = 0
     return throttleRender((data: Comparison[]) => {
         const { symbol, percentage } = data[count % data.length]
-        // eslint-disable-next-line
-        console.log(symbol + ' ' + (Number(percentage || 0) * 100).toFixed(2) + '%')
+        console.log(`${count + 1}. ${symbol} ${(Number(percentage || 0) * 100).toFixed(2)}%`)
         count += 1
     })
 }

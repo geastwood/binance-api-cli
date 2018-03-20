@@ -112,6 +112,25 @@ declare type TTickData = {|
     quoteBuyVolume: number,
 |}
 
+declare type TCandlestickKlineData = {|
+    time: Date,
+    open: number,
+    high: number,
+    low: number,
+    close: number,
+    volume: number,
+    closeTime: Date,
+    assetVolume: number,
+    trades: number,
+    buyBaseVolume: number,
+    buyAssetVolume: number,
+    ignored: number,
+|}
+
+declare type TCandlestickKlineAggData = {|
+    close: number,
+|}
+
 declare type TOpenOrderData = {|
     symbol: string,
     orderId: number,
@@ -129,7 +148,7 @@ declare type TOpenOrderData = {|
     isWorking: boolean,
 |}
 
-declare type TCandelstickData = {|
+declare type TCandlestickData = {|
     eventType: string,
     eventTime: Date,
     symbol: string,

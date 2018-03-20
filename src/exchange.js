@@ -85,7 +85,7 @@ export const tradeSocket = (symbolXs: string[], subscribers: Function[], opts: T
     })
 }
 
-export const candlesticks = (symbol: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
+export const candlesticks = (pair: string, interval: TIntervalEnum, subscribers: Function[]): Promise<*> =>
     new Promise(resolve => {
         const handler = (candlestick: any) => {
             const data = mappers.toCandlestickData(candlestick)
@@ -93,7 +93,15 @@ export const candlesticks = (symbol: string, interval: TIntervalEnum, subscriber
                 fn(data, resolve)
             }
         }
-        binanceApi.websockets.candlesticks(symbol, interval, handler)
+        binanceApi.websockets.candlesticks(pair, interval, handler)
+    })
+
+export const candlestick = (pair: string, interval: TIntervalEnum): Promise<TCandlestickKlineData[]> =>
+    new Promise(resolve => {
+        const handler = (_: any, data: any[]) => {
+            resolve(data.map(mappers.toCandlestickKlineData))
+        }
+        binanceApi.candlesticks(pair, interval, handler)
     })
 
 export const userData = (type: TLiveUpdateChannelName, subscriber: Function): Promise<*> =>

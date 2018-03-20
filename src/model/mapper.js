@@ -101,7 +101,7 @@ export const toTickerData = (json: {}): TTickData => {
     }
 }
 
-export const toCandlestickData = (json: { k: {} }): TCandelstickData => {
+export const toCandlestickData = (json: { k: {} }): TCandlestickData => {
     const eventType = get(json, 'e', '')
     const eventTime = get(json, 'E', Date.now())
     const symbol = get(json, 's', '')
@@ -112,6 +112,38 @@ export const toCandlestickData = (json: { k: {} }): TCandelstickData => {
         eventTime,
         symbol,
         tick,
+    }
+}
+
+export const toCandlestickKlineData = (json: any[]): TCandlestickKlineData => {
+    const [
+        time,
+        open,
+        high,
+        low,
+        close,
+        volume,
+        closeTime,
+        assetVolume,
+        trades,
+        buyBaseVolume,
+        buyAssetVolume,
+        ignored,
+    ] = json.map(Number)
+
+    return {
+        time: new Date(time),
+        open,
+        high,
+        low,
+        close,
+        volume,
+        closeTime: new Date(closeTime),
+        assetVolume,
+        trades,
+        buyBaseVolume,
+        buyAssetVolume,
+        ignored,
     }
 }
 

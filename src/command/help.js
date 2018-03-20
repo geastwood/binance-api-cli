@@ -12,6 +12,7 @@ const renderHelp = () => {
     console.log('')
     process.exit(0)
 }
+
 const Help: TCommandRunable = {
     run() {
         renderHelp()

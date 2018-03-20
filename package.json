@@ -1,6 +1,6 @@
 {
   "name": "atcb",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Auto trading bot wrapping bianace Api",
   "main": "index.js",
   "scripts": {
@@ -29,9 +29,9 @@
   "dependencies": {
     "chalk": "^2.3.0",
     "clear": "^0.0.1",
-    "cliui": "^4.0.0",
     "clui": "^0.3.6",
     "configstore": "^3.1.1",
+    "d3-scale": "^2.0.0",
     "easy-table": "^1.1.1",
     "figures": "^2.0.0",
     "forever": "^0.15.3",
@@ -54,6 +54,7 @@
     "ora": "^2.0.0",
     "query-string": "^5.1.0",
     "ramda": "^0.25.0",
+    "sparkly": "^3.1.2",
     "strip-ansi": "^4.0.0"
   },
   "devDependencies": {
