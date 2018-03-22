@@ -68,7 +68,8 @@ const conciseRenderer = () => {
     return throttleRender((data: Comparison[]) => {
         const index = count % data.length
         const { symbol, percentage } = data[index]
-        console.log(`${index + 1}. ${symbol} ${(Number(percentage || 0) * 100).toFixed(2)}%`)
+        const v = percentage === undefined ? '-.--' : (Number(percentage) * 100).toFixed(2)
+        console.log(`${index + 1}. ${symbol} ${v}%`)
         count += 1
     })
 }
