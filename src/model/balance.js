@@ -7,11 +7,7 @@ import { formatPercentage } from '../util'
 export const filterBalanceBySymbol = (symbol: string, balances: TBalanceData[]) =>
     balances.filter(balance => balance.symbol.includes(symbol))
 
-export const getAllBalancesSummary = (
-    hideSmall: boolean = false,
-    threshold: number = 0.0001,
-    balances: TBalanceData[],
-) => {
+export const getAllBalancesSummary = (hideSmall: boolean, threshold: number, balances: TBalanceData[]) => {
     if (hideSmall) {
         return balances.filter(v => v.available > Number(threshold) || v.onOrder > Number(threshold))
     }
