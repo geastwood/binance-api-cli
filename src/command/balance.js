@@ -17,7 +17,7 @@ const renderHelp = () => {
 }
 
 const Balance: TCommandRunable = {
-    async run({ hideSmall = true, smallThreshold = 0.0001, quoteAsset = 'BTC', symbol, summary }: CommandOptions) {
+    async run({ hideSmall = false, smallThreshold = 0.0001, quoteAsset = 'BTC', symbol, summary }: CommandOptions) {
         let balances = await getBalances(hideSmall, smallThreshold)
         if (summary) {
             const { balanceWithPrice, sum } = await getTotalBalanceInQuoteAsset(quoteAsset, balances)
