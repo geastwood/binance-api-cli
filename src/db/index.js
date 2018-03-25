@@ -1,12 +1,12 @@
 /* @flow */
-const low = require('lowdb')
-const chalk = require('chalk')
-const lodashId = require('lodash-id')
-const FileSync = require('lowdb/adapters/FileSync')
-const { dbPath, dbName, isDBConfigured } = require('../config')
-const fs = require('fs-extra')
-const path = require('path')
-const { info } = require('../util')
+import low from 'lowdb'
+import chalk from 'chalk'
+import lodashId from 'lodash-id'
+import FileSync from 'lowdb/adapters/FileSync'
+import { dbPath, dbName, isDBConfigured } from '../config'
+import { info } from '../util'
+import fs from 'fs-extra'
+import path from 'path'
 
 if (!isDBConfigured) {
     info(`Initialized local json db at ${chalk.green.bold(path.join(dbPath, dbName))}`)

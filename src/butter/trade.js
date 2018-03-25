@@ -2,7 +2,7 @@
 
 import moment from 'moment'
 import { trades as tradesApi, prices } from '../exchange'
-import { findByOrderId } from '../model/trade/collection'
+import { findByOrderId } from '../model/trade'
 
 type OrderMeta = {
     count: number,

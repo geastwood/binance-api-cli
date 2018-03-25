@@ -8,8 +8,7 @@ import { getOrdersWithPrice } from '../butter/trade'
 import { getOrderId } from '../userInput'
 import stripAnsi from 'strip-ansi'
 import { getPrice } from '../model/symbolPrice'
-import { findByOrderId } from '../model/trade/collection'
-import * as renderer from '../model/trade/renderer'
+import { findByOrderId, renderer } from '../model/trade'
 
 type CommandProps = {
     symbol: string,

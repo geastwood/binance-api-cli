@@ -1,5 +1,5 @@
 /* @flow */
-const exchange = require('../exchange')
+import * as exchange from '../exchange'
 
 type CommandOptions = {
     interval: '1m',

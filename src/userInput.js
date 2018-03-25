@@ -3,8 +3,7 @@
 import { trades } from './exchange'
 import inquirer from 'inquirer'
 import orderBy from 'lodash.orderby'
-import { getTime } from './model/trade/util'
-import { short } from './model/trade/renderer'
+import { getTime, renderer } from './model/trade'
 import { shortSummary } from './model/orderData'
 
 export const getOrderId = async (symbol: string): Promise<number> => {
@@ -16,7 +15,7 @@ export const getOrderId = async (symbol: string): Promise<number> => {
         message: 'Choose an order to display',
         pageSize: 5,
         choices: orderBy(data, trade => [getTime(trade)], ['desc']).map((trade: TTradeData) => ({
-            name: short(trade),
+            name: renderer.short(trade),
             value: trade.id,
         })),
     })

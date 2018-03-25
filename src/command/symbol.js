@@ -2,9 +2,8 @@
 import { uniq } from 'ramda'
 import { symbols, openOrders } from '../exchange'
 import { info, err } from '../util'
-import { findByBaseAsset, printSummary } from '../model/symbol/collection'
+import { isBaseAsset, findByBaseAsset, printSummary } from '../model/symbol'
 import { tickerWithRegardIntervals } from '../model/ticker'
-import { isBaseAsset } from '../model/symbol'
 import { symbol as help } from './docs'
 import { getCandlesByIntervals } from '../butter/candlestick'
 

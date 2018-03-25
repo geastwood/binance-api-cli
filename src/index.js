@@ -3,6 +3,15 @@
 
 import commands from './command'
 import minimist from 'minimist'
+import { err, warn } from './util'
+import pkg from '../package.json'
+import R from 'ramda'
+import { hasConfig, getConfigstore } from './config'
+import binance from 'node-binance-api'
+
+const args = minimist(process.argv.slice(2))
+// $FlowFixMe
+const command: TCommand = R.head(args._)
 const commandWhiteList: TCommandSupported = [
     'symbol',
     'balance',
@@ -16,14 +25,6 @@ const commandWhiteList: TCommandSupported = [
     'subscribe',
     'openOrder',
 ]
-const { err, warn } = require('./util')
-const pkg = require('../package.json')
-const R = require('ramda')
-const { hasConfig, getConfigstore } = require('./config')
-const binance = require('node-binance-api')
-const args = minimist(process.argv.slice(2))
-// $FlowFixMe
-const command: TCommand = R.head(args._)
 
 if (!hasConfig && command !== 'config') {
     err(`config file is not found, please run \`${pkg.name} config\` first to setup`)

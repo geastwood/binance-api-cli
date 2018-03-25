@@ -4,14 +4,14 @@ import { userData } from '../exchange'
 import { err } from '../util'
 import ora from 'ora'
 import clear from 'clear'
-import { renderer } from '../model/accountUpdate'
+import { notificationOrderUpdate, notificationBalanceUpdate } from '../model/accountUpdate'
 import { push } from '../notification'
 
 const orderUpdateHander = (data: TOrderUpdateData) => {
-    push(renderer.notificationOrderUpdate(data), `Order update: ${data.executionType} - ${data.symbol}`)
+    push(notificationOrderUpdate(data), `Order update: ${data.executionType} - ${data.symbol}`)
 }
 const balanceUpdateHandler = (data: TBalnaceUpdateData) => {
-    push(renderer.notificationBalanceUpdate(data), 'Balance Update')
+    push(notificationBalanceUpdate(data), 'Balance Update')
 }
 
 const spinner = ora()

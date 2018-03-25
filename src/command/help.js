@@ -1,13 +1,13 @@
 /* @flow */
 
-const pkg = require('../../package.json')
-const chalk = require('chalk')
-const figures = require('figures')
+import pkg from '../../package.json'
+import chalk from 'chalk'
+import figures from 'figures'
 
 const renderHelp = () => {
     console.log('')
     console.log(pkg.description)
-    console.log(figures.arrowRight, `version: ${chalk.green(pkg.version)}`)
+    console.log(figures.arrowRight, `Version: ${chalk.green(pkg.version)}`)
     console.log(figures.arrowRight, 'Should help for individual comment by runing', chalk.green('atcb [COMMAND]'))
     console.log('')
     process.exit(0)
