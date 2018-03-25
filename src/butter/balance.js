@@ -3,7 +3,7 @@
 import * as exchange from '../exchange'
 import { groupBy } from 'ramda'
 import { getAllBalancesSummary } from '../model/balance'
-import { getPriceForSymbols } from './price'
+import { getPriceForPairs } from './price'
 
 export const getBalances = async (hideSmall: boolean, smallThreshold: number) => {
     const accountBalance = await exchange.balance()
@@ -11,8 +11,8 @@ export const getBalances = async (hideSmall: boolean, smallThreshold: number) =>
 }
 
 export const getTotalBalanceInQuoteAsset = async (quoteAsset: string = 'BTC', balances: TBalanceData[]) => {
-    const prices = await getPriceForSymbols(balances.map(({ symbol }) => symbol), quoteAsset)
-    const groupedPrices = groupBy(({ symbol }) => symbol, prices)
+    const prices = await getPriceForPairs(balances.map(({ symbol }) => `${symbol}${quoteAsset}`))
+    const groupedPrices = groupBy(({ pair }) => pair, prices)
 
     // organize balance with current price
     const balanceWithPrice = []

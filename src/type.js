@@ -236,6 +236,6 @@ declare type TAggTradeData = {|
 |}
 
 declare type TSymbolPrice = {|
-    symbol: string,
-    price: string,
+    pair: string,
+    price: number,
 |}

@@ -1,13 +1,21 @@
 /* @flow */
 import { prices } from '../exchange'
 
-export const getPriceForSymbols = (symbols: string[], quoteAsset: string) =>
+export const getPriceForPairs = (pairs: string[]): Promise<Array<TSymbolPrice>> =>
     Promise.all(
-        symbols.filter(symbol => symbol !== quoteAsset).map(async symbol => {
+        pairs.map(async pair => {
             try {
-                return await prices(`${symbol}${quoteAsset}`)
+                return await prices(pair)
             } catch (e) {
-                return { symbol: 'INVALID', price: 0 }
+                return { pair: 'INVALID', price: 0 }
             }
         }),
     )
+
+export const getPriceByPairName = (data: TSymbolPrice[], pair: string) => {
+    const rst = data.find(d => d.pair === pair)
+    if (rst) {
+        return rst.price
+    }
+    return 0
+}

@@ -21,12 +21,9 @@ const binance = (fnName, ...rest): Promise<any> => {
 }
 
 const spinner = ora()
-export const prices = async (symbol: string): Promise<TSymbolPrice> => {
-    spinner.start('Fetching price...')
-    const data = await binance('prices', symbol)
-    spinner.stop()
-
-    return { symbol, price: data[symbol] }
+export const prices = async (pair: string): Promise<TSymbolPrice> => {
+    const data = await binance('prices', pair)
+    return { pair, price: data[pair] }
 }
 
 export const trades = async (symbol: string): Promise<Array<TTradeData>> => {

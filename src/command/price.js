@@ -2,7 +2,7 @@
 
 import { prices } from '../exchange'
 import { err, info } from '../util'
-import { getSymbol, getPrice } from '../model/symbolPrice'
+import { getPair, getPrice } from '../model/symbolPrice'
 import { price as help } from './docs'
 
 const Price: TCommandRunable = {
@@ -15,7 +15,7 @@ const Price: TCommandRunable = {
         try {
             const data = await prices(pair)
 
-            info(`${getSymbol(data)} is currently at ${getPrice(data)}`)
+            info(`${getPair(data)} is currently at ${getPrice(data)}`)
         } catch (e) {
             err(`Can't get price for ${pair}`)
             process.exit(1)
