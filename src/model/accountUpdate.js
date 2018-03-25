@@ -1,6 +1,6 @@
 /* @flow */
 import moment from 'moment'
-import { formatPercentage } from '../../util'
+import { formatPercentage } from '../util'
 
 export const notificationOrderUpdate = (model: TOrderUpdateData): string => {
     let { qty } = model

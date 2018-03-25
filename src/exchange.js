@@ -23,7 +23,7 @@ const binance = (fnName, ...rest): Promise<any> => {
 const spinner = ora()
 export const prices = async (pair: string): Promise<TSymbolPrice> => {
     const data = await binance('prices', pair)
-    return { pair, price: data[pair] }
+    return { pair, price: Number(data[pair]) }
 }
 
 export const trades = async (symbol: string): Promise<Array<TTradeData>> => {
@@ -135,3 +135,14 @@ export const cancelOrder = async (orderId: number, symbol: string): Promise<*> =
     spinner.stop()
     return data
 }
+
+export const buy = (symbol: string, qty: number, price: number): Promise<any> =>
+    new Promise((resolve, reject) => {
+        binanceApi.buy(symbol, qty, price, { type: 'LIMIT' }, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })

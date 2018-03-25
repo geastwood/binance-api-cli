@@ -10,6 +10,15 @@ export const getBalances = async (hideSmall: boolean, smallThreshold: number) =>
     return getAllBalancesSummary(hideSmall, smallThreshold, accountBalance)
 }
 
+export const getBalanceBySymbol = async (symbol: string): Promise<TBalanceData | false> => {
+    const accountBalance = await exchange.balance()
+    const rst = accountBalance.find(d => d.symbol === symbol)
+    if (!rst) {
+        return false
+    }
+    return rst
+}
+
 export const getTotalBalanceInQuoteAsset = async (quoteAsset: string = 'BTC', balances: TBalanceData[]) => {
     const prices = await getPriceForPairs(balances.map(({ symbol }) => `${symbol}${quoteAsset}`))
     const groupedPrices = groupBy(({ pair }) => pair, prices)

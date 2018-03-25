@@ -66,3 +66,18 @@ export const confirm = async (message: string): Promise<boolean> => {
 
     return y
 }
+
+export const getPercentage = async (message: string = 'Percentage'): Promise<number> => {
+    const { percentage } = await inquirer.prompt({
+        type: 'list',
+        name: 'percentage',
+        message,
+        pageSize: 4,
+        choices: [25, 50, 75, 100].map(value => ({
+            name: `${value}%`,
+            value: value / 100,
+        })),
+    })
+
+    return percentage
+}

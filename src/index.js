@@ -24,6 +24,7 @@ const commandWhiteList: TCommandSupported = [
     'candlestick',
     'subscribe',
     'openOrder',
+    'buy',
 ]
 
 if (!hasConfig && command !== 'config') {
@@ -38,7 +39,7 @@ try {
         APIKEY: config.get('apiKey'),
         APISECRET: config.get('secret'),
         useServerTime: true, // If you get timestamp errors, synchronize to server time at startup
-        test: true, // If you want to use sandbox mode where orders are simulated
+        test: false, // If you want to use sandbox mode where orders are simulated
     })
 } catch (e) {
     warn('binance api fail to initiate')

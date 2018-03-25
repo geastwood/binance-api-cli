@@ -1,5 +1,5 @@
 /* @flow */
-import { log, info } from '../../util'
+import { log, info } from '../util'
 
 export const getName = ({ symbol }: TSymbolData) => symbol
 export const getSymbol = ({ baseAsset, quoteAsset }: TSymbolData) => `${baseAsset}${quoteAsset}`
@@ -11,5 +11,12 @@ export const getSupportedBaseAssets = (data: TSymbolData[]) => data.map(({ baseA
 export const getSupportedBaseAssetsCount = (data: TSymbolData[]) => data.length
 export const findByBaseAsset = (name: string, data: TSymbolData[]) =>
     data.filter(d => d.baseAsset === name || d.quoteAsset === name)
+export const findBySymbolName = (symbol: string, data: TSymbolData[]) => {
+    const rst = data.find(d => d.symbol === symbol)
+    if (!rst) {
+        return null
+    }
+    return rst
+}
 export const printSummary = (data: TSymbolData[]) =>
     info('Supported Assets counts:', String(getSupportedBaseAssetsCount(data)))
