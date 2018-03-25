@@ -1,6 +1,9 @@
 /* @flow */
 /* eslint-disable */
 
+// helpers
+declare type TWithPrice<T> = { ...$Shape<T>, price: number }
+
 declare type TCommand =
     | 'symbol'
     | 'help'
@@ -38,7 +41,7 @@ declare type TOrderTypeEnum =
 
 declare type TOrderExecutionTypeEnum = 'NEW' | 'CANCELED' | 'REJECTED' | 'TRADE' | 'EXPIRED'
 
-declare type TBalnaceUpdateData = {
+declare type TBalnaceUpdateData = {|
     eventType: 'outboundAccountInfo',
     eventTime: Date,
     makerCommissionRate: number, // Maker commission rate (bips)
@@ -50,10 +53,10 @@ declare type TBalnaceUpdateData = {
     canDeposit: boolean, // Can deposit?
     lastUpdatedAt: Date, // Time of last account update
     balances: TBalanceData[],
-}
+|}
 
 // check mapper for description
-declare type TOrderUpdateData = {
+declare type TOrderUpdateData = {|
     eventType: 'executionReport',
     eventTime: number,
     symbol: string,
@@ -79,7 +82,7 @@ declare type TOrderUpdateData = {
     tradeId: number,
     w: number,
     isMakerSide: boolean,
-}
+|}
 
 declare type TIntervalEnum = '1m' | '5m' | '15m' | '30m' | '1h' | '2h' | '4h' | '8h' | '12h' | '1d' | '1w'
 

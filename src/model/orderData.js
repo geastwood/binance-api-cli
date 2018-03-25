@@ -34,3 +34,6 @@ export const shortSummary = (data: TOpenOrderData) =>
     `[${data.orderId}-${data.symbol}-${data.side.toUpperCase()}] ${data.price} with ${data.origQty} @ ${moment(
         data.time,
     ).format()}`
+
+export const getExpectation = (data: TOpenOrderData[]) =>
+    data.reduce((sum, order) => sum + order.price * order.origQty, 0)

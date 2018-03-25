@@ -29,7 +29,13 @@ export const getTotalBalanceInQuoteAsset = async (quoteAsset: string = 'BTC', ba
             })
         }
     })
-    const sum = balanceWithPrice.reduce((total, b) => total + (b.available + b.onOrder) * b.price, 0)
+    const sum = balanceWithPrice.reduce(
+        (total, b) => ({
+            available: total.available + b.available * b.price,
+            onOrder: total.onOrder + b.onOrder * b.price,
+        }),
+        { available: 0, onOrder: 0 },
+    )
 
     return {
         balanceWithPrice,

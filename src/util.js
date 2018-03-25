@@ -9,6 +9,7 @@ export const formatPercentage = (v: number) => numeral(v).format('0.000%')
 export const formatPrice = (v: number) => numeral(v).format('0.0000000000')
 export const formatIndicativePercentage = (p: number) =>
     `${(p > 0 ? chalk.green : chalk.red)(formatPercentage(p))} ${p > 0 ? '↑' : '↓'}`
+export const formatBtc = (v: number) => v.toFixed(8)
 
 export const log = (msg: string | {}) => {
     const format = chalk.yellow
