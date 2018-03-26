@@ -31,7 +31,7 @@ export const warn = (msg: string) => {
 }
 
 export const success = (msg: string) => {
-    console.log(chalk.green(`[${pkg.name.toUpperCase()}/WARN]:`), msg)
+    console.log(chalk.green(`[${pkg.name.toUpperCase()}/SUCCESS]:`), msg)
 }
 
 export const info = (msg: string, ...rest: string[]) => {
