@@ -131,7 +131,7 @@ export const handleLiveOrder = async (mode?: ModeEnum): Promise<*> => {
                     return {
                         ...d,
                         newPrice: Number(t.p),
-                        percentage: (Number(t.p) - d.price) / d.price,
+                        percentage: (Number(t.p) - d.price) / Number(t.p),
                     }
                 }
                 return d
