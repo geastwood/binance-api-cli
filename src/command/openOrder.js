@@ -18,15 +18,7 @@ const renderHelp = () => {
 
 type ModeEnum = 'oneline' | 'concise' | 'table'
 type CommandOptions = { interactive?: boolean, live?: boolean, mode?: ModeEnum }
-type Comparison = {
-    symbol: string,
-    time: Date,
-    price: number,
-    qty: number,
-    side: TOrderSideEnum,
-    newPrice?: number,
-    percentage?: number,
-}
+type Comparison = { ...$Shape<TOpenOrderData>, newPrice: number, percentage: number }
 
 const spinner = ora()
 const throttleRender = (fn: (data: Comparison[]) => void, delay: number = 3000) =>
@@ -36,10 +28,10 @@ const table = () =>
     throttleRender((data: Comparison[]) => {
         const t = new Table()
 
-        data.forEach(({ symbol, side, price, qty, newPrice, percentage }) => {
+        data.forEach(({ symbol, side, price, origQty, newPrice, percentage }) => {
             t.cell(chalk.green('Symbol'), symbol)
             t.cell(chalk.green('Side'), side)
-            t.cell(chalk.green('Qty'), qty)
+            t.cell(chalk.green('Qty'), origQty)
             t.cell(chalk.green('Price'), chalk.yellow(price))
             t.cell(chalk.green('New Price'), newPrice ? chalk.green(newPrice) : 'data yet to come')
             t.cell(chalk.green('Percentage'), formatIndicativePercentage(Number(percentage)))
@@ -53,9 +45,9 @@ const table = () =>
 const line = () => {
     let count = 0
     return throttleRender((data: Comparison[]) => {
-        const { symbol, side, price, qty, newPrice, percentage } = data[count % data.length]
+        const { symbol, side, price, origQty, newPrice, percentage } = data[count % data.length]
         clear()
-        const output = `[${symbol}-${side}] x ${qty} ${chalk.green(
+        const output = `[${symbol}-${side}] x ${origQty} ${chalk.green(
             newPrice ? newPrice : 'data yet to come',
         )}/${price} ${formatIndicativePercentage(Number(percentage))}`
         console.log(output)
@@ -112,13 +104,7 @@ export const handleOpenOrderInteractive = async (): Promise<*> => {
 export const handleLiveOrder = async (mode?: ModeEnum): Promise<*> => {
     const allOpenOrders = await openOrders()
     const symbols = uniq(allOpenOrders.map(({ symbol }) => symbol))
-    let data = allOpenOrders.map(order => ({
-        symbol: order.symbol,
-        time: order.time,
-        side: order.side,
-        price: order.price,
-        qty: order.origQty,
-    }))
+    let data = allOpenOrders
     clear()
     spinner.start('Socket being started...')
     const lineFn = line()
