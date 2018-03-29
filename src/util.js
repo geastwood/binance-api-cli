@@ -39,3 +39,17 @@ export const info = (msg: string, ...rest: string[]) => {
 }
 
 export const formatInt = (v: number) => numeral(v).format('0,0')
+
+export const assertString = (v: any, msg: string = 'valid string required') => {
+    if (!v || typeof v !== 'string') {
+        err(msg)
+        process.exit(1)
+    }
+}
+
+export const assertNotNull = (v: any, msg: string = 'Not null or undefined') => {
+    if (!v) {
+        err(msg)
+        process.exit(1)
+    }
+}

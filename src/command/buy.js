@@ -1,5 +1,5 @@
 /* @flow */
-import { err, success } from '../util'
+import { err, success, assertString } from '../util'
 import { buy, prices } from '../exchange'
 import { validateSymbol } from '../butter/symbol'
 import { getBalanceBySymbol } from '../butter/balance'
@@ -15,10 +15,8 @@ type CommandOptions = {
 
 const Buy: TCommandRunable = {
     async run({ symbol }: CommandOptions) {
-        if (!symbol) {
-            err('--symbol is required for this command')
-            process.exit(1)
-        }
+        assertString(symbol, '--symbol is required for this command')
+
         const symbolData = await validateSymbol(symbol)
         if (!symbolData) {
             err(`${symbol} is not supported.`)

@@ -17,6 +17,7 @@ declare type TCommand =
     | 'subscribe'
     | 'openOrder'
     | 'buy'
+    | 'sell'
 
 declare type TLiveUpdateChannelName = 'balance' | 'execution'
 

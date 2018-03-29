@@ -25,6 +25,7 @@ const commandWhiteList: TCommandSupported = [
     'subscribe',
     'openOrder',
     'buy',
+    'sell',
 ]
 
 if (!hasConfig && command !== 'config') {

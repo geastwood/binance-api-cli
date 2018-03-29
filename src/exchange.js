@@ -146,3 +146,14 @@ export const buy = (symbol: string, qty: number, price: number): Promise<any> =>
             }
         })
     })
+
+export const sell = (symbol: string, qty: number, price: number): Promise<any> =>
+    new Promise((resolve, reject) => {
+        binanceApi.sell(symbol, qty, price, { type: 'LIMIT' }, (err, data) => {
+            if (err) {
+                reject(err.toJSON())
+            } else {
+                resolve(data)
+            }
+        })
+    })
