@@ -8,13 +8,10 @@ import { validateSymbol } from '../butter/symbol'
 import { getBalanceBySymbol } from '../butter/balance'
 import { confirm } from '../userInput'
 import chalk from 'chalk'
-
-const renderHelp = () => {
-    console.log('help for sell is coming soon')
-}
+import { sell as help } from './docs'
 
 type CommandOptions = {
-    symbol: string,
+    pair: string,
     price: string,
     qty: string,
 }
@@ -23,7 +20,7 @@ const getQty = (qty: string | number, balance: TBalanceData): number | false => 
     let qtyInNumber = 0
     // clean up qty
     if (typeof qty === 'string' && qty.includes('%')) {
-        const percentage = parseFloat(qty) / 100
+        const percentage = Math.min(parseFloat(qty) / 100, 1)
         if (Number.isNaN(percentage)) {
             err(`--qty=${qty} can't be converted to a valid percentage`)
             return false
@@ -62,14 +59,14 @@ const getPrice = (price: string | number, priceData: TSymbolPrice): number | fal
 }
 
 const Sell: TCommandRunable = {
-    async run({ symbol, price, qty }: CommandOptions) {
-        assertString(symbol, '--symbol is required')
+    async run({ pair, price, qty }: CommandOptions) {
+        assertString(pair, '--pair is required')
         assertNotNull(price, '--price is required')
         assertNotNull(qty, '--qty is required')
 
-        const symbolData = await validateSymbol(symbol)
+        const symbolData = await validateSymbol(pair)
         if (!symbolData) {
-            err(`Can't find symbol ${symbol}`)
+            err(`Can't find pair ${pair}`)
             process.exit(1)
             return
         }
@@ -91,9 +88,9 @@ const Sell: TCommandRunable = {
         // clean up price
         let priceData // eslint-disable-line
         try {
-            priceData = await prices(symbol)
+            priceData = await prices(pair)
         } catch (e) {
-            err(`Error fetch price for ${symbol}`)
+            err(`Error fetch price for ${pair}`)
             process.exit(1)
             return
         }
@@ -114,7 +111,7 @@ const Sell: TCommandRunable = {
         }
 
         try {
-            const rst = await sell(symbol, qtyInNumber, round(priceInNumberRounded, 8))
+            const rst = await sell(pair, qtyInNumber, round(priceInNumberRounded, 8))
             success(`SELL order (${rst.orderId}) successfully submitted at ${moment(rst.transactTime).format()}.`)
         } catch (e) {
             err(JSON.stringify(e, null, 4))
@@ -122,7 +119,7 @@ const Sell: TCommandRunable = {
         }
     },
     help() {
-        renderHelp()
+        console.log(help)
     },
 }
 

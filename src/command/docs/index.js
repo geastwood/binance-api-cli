@@ -33,3 +33,31 @@ export const price = `
     ${renderHeader('Examples')}: 
         * atcb price --pair=ETHBTC
 `
+
+export const buy = `
+    ${renderHeader('Description')}:
+        This command place a limit buy order interactively
+
+    ${renderHeader('Usage')}:
+        atcb buy
+
+`
+export const sell = `
+    ${renderHeader('Description')}:
+        This command place a limit sell order
+
+    ${renderHeader('Usage')}:
+        atcb sell [options]
+
+
+    ${renderHeader('Options')}:
+        --pair  [required]      specify trading pair
+        --price [required]      specify the price to sell, can be a real price value
+                                or relative percentage e.g. 120%
+        --qty   [required]      specify the qty to sell, can be a real number
+                                relative percentage e.g. 90%, if percentage is specified
+                                max value is 100%
+
+    ${renderHeader('Examples')}: 
+        * atcb sell --pair=ETHBTC --price=120% --qty=10 // selling 10 ETH with 120% of current market price
+`

@@ -4,10 +4,7 @@ import { buy, prices } from '../exchange'
 import { validateSymbol } from '../butter/symbol'
 import { getBalanceBySymbol } from '../butter/balance'
 import { getPercentage } from '../userInput'
-
-const renderHelp = () => {
-    console.log('help for buy is coming soon')
-}
+import { buy as help } from './docs'
 
 type CommandOptions = {
     symbol: string,
@@ -42,7 +39,7 @@ const Buy: TCommandRunable = {
         }
     },
     help() {
-        renderHelp()
+        console.log(help)
     },
 }
 
