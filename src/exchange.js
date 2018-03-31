@@ -39,7 +39,7 @@ export const symbols = async (): Promise<Array<TSymbolData>> => {
     const data = await binance('exchangeInfo')
     spinner.stop()
 
-    return data.symbols || []
+    return data.symbols.map(mappers.toSymbolData) || []
 }
 
 export const balance = async (): Promise<Array<TBalanceData>> => {

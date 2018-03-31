@@ -1,6 +1,68 @@
 /* @flow */
 import get from 'lodash.get'
 
+const toPriceFilter = (json: {}): TFilterTypePrice => {
+    const filterType = get(json, 'filterType')
+    const minPrice = Number(get(json, 'minPrice'))
+    const maxPrice = Number(get(json, 'maxPrice'))
+    const tickSize = Number(get(json, 'tickSize'))
+    return {
+        filterType,
+        minPrice,
+        maxPrice,
+        tickSize,
+    }
+}
+
+const toLotFilter = (json: {}): TFilterTypeLot => {
+    const filterType = get(json, 'filterType')
+    const minQty = Number(get(json, 'minQty'))
+    const maxQty = Number(get(json, 'maxQty'))
+    const stepSize = Number(get(json, 'stepSize'))
+
+    return {
+        filterType,
+        minQty,
+        maxQty,
+        stepSize,
+    }
+}
+
+const toMinNotional = (json: {}): TFilterTypeMinNotional => {
+    const filterType = get(json, 'filterType')
+    const minNotional = Number(get(json, 'minNotional'))
+    return {
+        filterType,
+        minNotional,
+    }
+}
+
+export const toSymbolData = (json: {}): TSymbolData => {
+    const symbol = get(json, 'symbol')
+    const status = get(json, 'status')
+    const baseAsset = get(json, 'baseAsset')
+    const baseAssetPrecision = get(json, 'baseAssetPrecision')
+    const quoteAsset = get(json, 'quoteAsset')
+    const quotePrecision = get(json, 'quotePrecision')
+    const orderTypes = get(json, 'orderTypes', [])
+    const icebergAllowed = get(json, 'icebergAllowed')
+    const [priceFilter, lotFilter, minNotional] = get(json, 'filters')
+
+    return {
+        symbol,
+        status,
+        baseAsset,
+        baseAssetPrecision,
+        quoteAsset,
+        quotePrecision,
+        orderTypes,
+        icebergAllowed,
+        priceFilter: toPriceFilter(priceFilter),
+        lotFilter: toLotFilter(lotFilter),
+        minNotional: toMinNotional(minNotional),
+    }
+}
+
 export const toOpenOrderData = (json: {}): TOpenOrderData => {
     const symbol = get(json, 'symbol')
     const orderId = Number(get(json, 'orderId'))

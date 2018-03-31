@@ -147,6 +147,23 @@ declare type TCandlestickData = {|
 
 declare type TCommandSupported = Array<TCommand>
 
+declare type TFilterTypePrice = {|
+    filterType: 'PRICE_FILTER',
+    minPrice: number,
+    maxPrice: number,
+    tickSize: number,
+|}
+declare type TFilterTypeLot = {|
+    filterType: 'LOT_SIZE',
+    minQty: number,
+    maxQty: number,
+    stepSize: number,
+|}
+declare type TFilterTypeMinNotional = {|
+    filterType: 'MIN_NOTIONAL',
+    minNotional: number,
+|}
+declare type TFilterType = TFilterTypePrice | TFilterTypeLot
 declare type TSymbolData = {|
     symbol: string,
     status: string,
@@ -154,9 +171,11 @@ declare type TSymbolData = {|
     baseAssetPrecision: number,
     quoteAsset: string,
     quotePrecision: number,
-    orderTypes: string[],
+    orderTypes: TOrderTypeEnum[],
     icebergAllowed: boolean,
-    filters: string[],
+    priceFilter: TFilterTypePrice,
+    lotFilter: TFilterTypeLot,
+    minNotional: TFilterTypeMinNotional,
 |}
 
 declare type TBalanceData = {|

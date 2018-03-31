@@ -1,9 +1,13 @@
 /* @flow */
-import { info, err, assertString, assertNotNull } from '../util'
+import { info, err, assertString, assertNotNull, success } from '../util'
+import moment from 'moment'
 import { sell, prices } from '../exchange'
 import { round } from 'mathjs'
+import { getFilteredPrice } from '../butter/price'
 import { validateSymbol } from '../butter/symbol'
 import { getBalanceBySymbol } from '../butter/balance'
+import { confirm } from '../userInput'
+import chalk from 'chalk'
 
 const renderHelp = () => {
     console.log('help for sell is coming soon')
@@ -98,10 +102,20 @@ const Sell: TCommandRunable = {
             process.exit(1)
             return
         }
+        const priceInNumberRounded = getFilteredPrice(round(priceInNumber, 8), symbolData.priceFilter)
+
+        const confirmMsg = `Do you want to place a LIMIT ${chalk.yellow('SELL')} order price ${chalk.green.bold(
+            priceInNumberRounded,
+        )} with qty ${chalk.green.bold(qtyInNumber)}`
+        const y = await confirm(confirmMsg)
+        if (!y) {
+            info('Operation interrupted by user, no damage is done.')
+            process.exit(1)
+        }
 
         try {
-            console.log(symbol, qtyInNumber, priceInNumber)
-            await sell(symbol, qtyInNumber, round(priceInNumber, 8))
+            const rst = await sell(symbol, qtyInNumber, round(priceInNumberRounded, 8))
+            success(`SELL order (${rst.orderId}) successfully submitted at ${moment(rst.transactTime).format()}.`)
         } catch (e) {
             err(JSON.stringify(e, null, 4))
             process.exit(1)

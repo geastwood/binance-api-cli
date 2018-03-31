@@ -19,3 +19,8 @@ export const getPriceByPairName = (data: TSymbolPrice[], pair: string) => {
     }
     return 0
 }
+
+export const getFilteredPrice = (price: number, priceFilter: TFilterTypePrice): number => {
+    const afterMinPrice = Math.floor(price / priceFilter.minPrice) * priceFilter.minPrice
+    return Math.min(priceFilter.maxPrice, afterMinPrice)
+}
