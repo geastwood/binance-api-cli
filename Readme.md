@@ -1,35 +1,63 @@
-# Auto trading wrapping around Binance
+# Command line version of Binance
 
 # Setup
-run `atcb config` to specify the *apiKey* and *secret* for accessing the full
-feature
+run `atcb config`
+* specify the *apiKey* and *secret* for accessing the full feature. 
+* optionally setup push notification
 
 # Commands
 
-* balance -> provide your current balance
-* trade -> get trade and order info
-* live -> use websocket to monitor selected symbols
-* price -> get price for trade symbol
-* config -> setup secret and apiKey
-* symbol -> provide exchange infos [GET]
+* balance   => provides balance data
+* trade     => gets trade and order info
+* subscribe => uses websocket to monitor selected symbols
+* config    => setups api access to Binance and configure Push notification
+* symbol    => provides supported symbols
+* help      => provides help
+* version   => prints version
+* openOrder => interacts with open orders
+* buy       => buys cryptos 👍
+* sell      => sell cryptos
 
-### Exchange
-* `atcb symbol --base=ADA` => find asset ADA
-* `atcb symbol` => print summary of exchange
+### Symbol 
+* `atcb symbol --stat --openOrder` => print stats for all the open orders
+![](images/symbol-stat.png)
+* `atcb symbol --stat --pair=ENJBTC` => print stats for a specific symbol pair
 
-### Account
-* `atcb balance` => get account meta and balances
-* `atcb balance --hideSmall --smallThreshold` => filtering balances --threshold[=0]
-* `atcb balance --hideSmall --summary` => list your balance with attribution
+### Balance
 
-### Price
-* `atcb price --symbol=ETHBTC` => get current price of a symbol
+* `atcb balance --symbol=ADA` => print the current owning of ADA in form of
+    available/onOrder
+* `atcb balance --summary --hideSmall` => print out overview of your balance
+![](images/balance-summary.png)
+* `atcb balance --summary --hideSmall --quoteAsset=ETH` => convert your balance
+    to ETH
 
 ### Trade
-* `node dist/index.js trade --symbol=NANOBTC --format=short --orderId=35083389`
-* --symbol
-* --format => specify format summary* | short
-* --orderId => filter by orderId
+* `atcb trade --symbol=ENJBTC --estimateProfit --orderId` => interactively see
+    an order's status.
+![](images/trade_interactive.gif)
+
+### Open Orders
+* `atcb openOrder` => will print all your open orders with their performances
+![](images/openOrder_summary.png)
+
+* `atcb openOrder --live` will open a websocket to update the table in real time
+![](images/openOrder_update_table.gif)
+
+* `atcb openOrder --live --mode=oneline` => offers oneline mode
+![](images/openOrder_update_oneline.gif)
+
+* `atcb openOrder --live --mode=concise` => there is also a concise mode, can
+    be for example integrated into your tmux status line
+![](images/openOrder_update_tmux.gif)
+
+
+### Sell
+* `atcb sell --pair=MDABTC --price="130%" --qty="100%"` Place a limit order
+    with all your MDA, with 130% of current market price
+
+### Buy
+* `atcb buy` => will start an interactive buy session
 
 
 ## TODOs
