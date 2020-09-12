@@ -48,7 +48,7 @@
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "node-binance-api": "^0.4.21",
-    "node-fetch": "^2.0.0",
+    "node-fetch": "^2.6.1",
     "node-fs-extra": "^0.8.2",
     "numeral": "^2.0.6",
     "ora": "^2.0.0",
